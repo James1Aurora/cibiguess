@@ -1,0 +1,293 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "poppins", sans-serif;
+}
+body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #002230;
+}
+
+.gradient-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* Adjust as needed */
+}
+
+.gradient-wrapper::before,
+.gradient-wrapper::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        150deg,
+        #002230,
+        rgb(12, 17, 66),
+        rgba(107, 33, 168, 0.45)
+    );
+    /* Adjust gradient colors and angle as desired */
+}
+
+.gradient-wrapper-two {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* Adjust as needed */
+}
+
+.gradient-wrapper-two::before,
+.gradient-wrapper-two::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        150deg,
+        #002230,
+        rgb(12, 17, 66),
+        rgba(107, 33, 168, 0.45)
+    );
+    /* Adjust gradient colors and angle as desired */
+}
+.box {
+    position: relative;
+    width: 380px;
+    height: 570px;
+    background: #41c9e2;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.box::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 380px;
+    height: 400px;
+    background: linear-gradient(
+        0deg,
+        transparent,
+        transparent,
+        #019da8,
+        #019da8,
+        #019da8
+    );
+    z-index: 1;
+    transform-origin: bottom right;
+    animation: animate 6s linear infinite;
+}
+.box::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 380px;
+    height: 400px;
+    background: linear-gradient(
+        0deg,
+        transparent,
+        transparent,
+        #019da8,
+        #019da8,
+        #019da8
+    );
+    z-index: 1;
+    transform-origin: bottom right;
+    animation: animate 6s linear infinite;
+    animation-delay: -3s;
+}
+.border-line {
+    position: absolute;
+    top: 0;
+    inset: 0;
+}
+.border-line::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 380px;
+    height: 400px;
+    background: linear-gradient(
+        0deg,
+        transparent,
+        transparent,
+        #b7023e,
+        #b7023e,
+        #b7023e
+    );
+    z-index: 1;
+    transform-origin: bottom right;
+    animation: animate 6s linear infinite;
+    animation-delay: -1.5s;
+}
+.border-line::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 380px;
+    height: 400px;
+    background: linear-gradient(
+        0deg,
+        transparent,
+        transparent,
+        #b7023e,
+        #b7023e,
+        #b7023e
+    );
+    z-index: 1;
+    transform-origin: bottom right;
+    animation: animate 6s linear infinite;
+    animation-delay: -4.5s;
+}
+@keyframes animate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.box form {
+    position: absolute;
+    inset: 4px;
+    background: rgb(255, 255, 255);
+    padding: 50px 40px;
+    border-radius: 10px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+}
+.box form h2 {
+    color: #0c3040;
+    font-size: 26px;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 1px;
+}
+.input-box {
+    position: relative;
+    width: 300px;
+    margin-top: 35px;
+}
+.input-box input {
+    position: relative;
+    width: 100%;
+    padding: 20px 10px 10px;
+    background: transparent;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    color: #fff;
+    font-size: 16px;
+    letter-spacing: 1px;
+    transition: 0.5s;
+    z-index: 10;
+}
+.input-box span {
+    position: absolute;
+    left: 0;
+    padding: 20px 0px 10px;
+    pointer-events: none;
+    color: #0c3040;
+    font-size: 16px;
+    letter-spacing: 1px;
+    transition: 0.5s;
+    z-index: 10;
+}
+.input-box input:valid ~ span,
+.input-box input:focus ~ span {
+    color: #0c3040;
+    font-size: 12px;
+    transform: translateY(-34px);
+}
+.input-box i {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: #0c3040;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: 0.5s;
+    pointer-events: none;
+}
+.input-box input:valid ~ i,
+.input-box input:focus ~ i {
+    height: 44px;
+}
+.imp-links {
+    display: flex;
+    justify-content: space-between;
+}
+.imp-links a,
+label {
+    color: #0c3040;
+    font-size: 14px;
+    text-decoration: none;
+    margin: 15px 0;
+}
+
+.imp-links label input {
+    accent-color: #0c3040;
+    margin-right: 3px;
+}
+
+.imp-links a:hover {
+    text-decoration: underline;
+}
+.btn {
+    margin-top: 150px;
+    width: 100%;
+    height: 45px;
+    border: none;
+    outline: none;
+    padding: 10px;
+    border-radius: 45px;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-top: 10px;
+    cursor: pointer;
+    background-color: #0c3040;
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+}
+.btn:active {
+    opacity: 0.8;
+}
+
+.login-register {
+    font-size: 0.8em;
+    color: #0c3040;
+    text-align: center;
+    font-weight: 500;
+    margin: 25px 0 10px;
+}
+
+.login-register p a {
+    color: #0c3040;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.login-register p a:hover {
+    text-decoration: underline;
+}

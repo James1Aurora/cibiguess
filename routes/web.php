@@ -3,11 +3,31 @@
 use App\Http\Middleware\AuthMiddleware;
 use Illuminate\Support\Facades\Route;
 // CONTROLLER
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BadgeController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\UserController;
 
-Route::get('/', [MainController::class, 'index']);
+// MAIN ROUTE
+Route::get('/', [MainController::class, 'index'])->name('home');
+
+// AUTH
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/login', [AuthController::class, 'loginPost'])->name('login.post');
+Route::get('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/register', [AuthController::class, 'registerPost'])->name('register.post');
+
+// PLAY GAME
+Route::get('/main-menu', [GameController::class, 'index'])->name('game.menu');
+Route::get('/play-game', [GameController::class, 'gameStart'])->name('game.play');
+
+Route::get('/profile', [UserController::class, 'showProfile'])->name('profile');
+Route::get('/leaderboard', [MainController::class, 'leaderboard'])->name('leaderboard');
+Route::get('/donate', [MainController::class, 'donate'])->name('donate');
+Route::get('/reviews', [ReviewController::class, 'index'])->name('review');
+Route::get('/review/create', [ReviewController::class, 'create'])->name('review.create');
 
 Route::middleware([AuthMiddleware::class])->prefix('/ds')->group(function () {
     Route::get('/game', [GameController::class, 'index']);

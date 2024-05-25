@@ -9,6 +9,11 @@ use Illuminate\View\view;
 
 class UserController extends Controller
 {
+    public function showProfile()
+    {
+        return view('profile.index');
+    }
+
     /**
      * Display a listing of the resource.
      */

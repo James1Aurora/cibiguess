@@ -15,4 +15,14 @@ class MainController extends Controller
     {
         return view('index');
     }
+
+    public function leaderboard()
+    {
+        return view('leaderboard.index');
+    }
+
+    public function donate()
+    {
+        return view('donate.index');
+    }
 }
