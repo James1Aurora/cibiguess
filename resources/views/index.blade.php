@@ -241,7 +241,7 @@
             <div class="bg-cyan-400 h-[600px] rounded-lg hidden md:block"></div>
             <div class="bg-cyan-400 h-[600px] rounded-lg hidden md:block"></div>
             <div class="bg-white rounded-lg relative overflow-hidden h-[300px] md:h-[600px] md:col-span-2">
-                <img src="{{ asset('images/user-default.jpg') }}" alt="Photo Profile"
+                <img src="{{ asset('images/team-akbar.jpg') }}" alt="Photo Profile"
                     class="w-full h-full object-cover object-center bg-center" />
                 <div
                     class="bg-gradient-to-b from-transparent to-cyan-700 w-full flex items-center p-2 absolute bottom-0 h-1/3">
