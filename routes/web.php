@@ -9,6 +9,7 @@ use App\Http\Controllers\GameController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DashUsersController;
 
 // MAIN ROUTE
 Route::get('/', [MainController::class, 'index'])->name('home');
@@ -37,6 +38,18 @@ Route::middleware([AuthMiddleware::class])->prefix('/ds')->group(function () {
     Route::post('/badge/{id}', [BadgeController::class, 'update'])->name('badge.update');
     Route::delete('/badge/{id}', [BadgeController::class, 'destroy'])->name('badge.delete');
 });
+
+// DASHBOARD USER
+Route::get('/users',[DashUsersController::class,'loadAllUsers']);
+Route::get('/add-user',[DashUsersController::class,'loadAddUserForm']);
+
+Route::post('/add-user',[DashUsersController::class,'AddUser'])->name('AddUser');
+
+Route::get('/edit-user{id}',[DashUsersController::class,'loadEditForm']);
+Route::get('/delete/{id}',[DashUsersController::class,'deleteUser']);
+
+Route::post('/edit-user',[DashUsersController::class,'EditUser'])->name('EditUser');
+
 
 
 // RESTful API
