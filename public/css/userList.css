@@ -16,12 +16,12 @@
   }
 
   .t-header p{
-    position: fixed;
-    top: 27px;
-    left: 114px;
+    position: absolute;
+    top: 25px;
+    left: 32px;
     color: #000;
     font-weight: bold;
-  }
+}
 
   .t-header a{
     position: fixed;
