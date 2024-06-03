@@ -1,0 +1,150 @@
+
+
+/* DAFTAR USER */
+.header{
+    width: 100%;
+  }
+
+  .t-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 60px;
+    border: 100px;
+    background-color: #D9D9D9;
+    border-radius: 18px;
+  }
+
+  .t-header p{
+    position: absolute;
+    top: 25px;
+    left: 32px;
+    color: #000;
+    font-weight: bold;
+}
+
+  .t-header a{
+    position: fixed;
+    top: 30px;
+    left: 1145px;
+    padding: 10px 15px;
+    color: #fff;
+    background-color: #06b6d4;
+    border-radius: 8px;
+
+  }
+
+  .table-section{
+    position:fixed;
+    width: 91.4%;
+    height: 75%;
+    /* padding: 0 0 200px 0; */
+    background-color: #D9D9D9;
+    border-radius: 18px;
+  }
+
+  button {
+    outline: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  td button:nth-child(1){
+    padding: 5px;
+    background-color: #FFF8B5;
+    border-color: #C2AF00;
+    color: #C2AF00;
+    border-radius: 8px;
+  }
+
+  td button:nth-child(2){
+    padding: 5px;
+    background-color: #FFD6D6;
+    border-color: #FF7474;
+    color: #FF7474;
+    border-radius: 8px;
+  }
+
+  .search-btn{
+    position: relative;
+    top: 15px;
+    left: 850px;
+    padding: 10px 15px;
+    color: #fff;
+    background-color: #06b6d4;
+    border-radius: 0 8px 8px 0;
+  }
+
+  .input{
+    position: relative;
+    top: 10px;
+    left: 865px;
+    padding: 10px 20px;
+    margin: 0 10px 10px;
+    border-radius: 8px 0 0 8px;
+  }
+
+  ::placeholder{
+    color: #D9D9D9;
+  }
+
+  table th, table td{
+    padding: 10px 5px;
+  }
+
+  table tr {
+    position: sticky;
+    line-height: 0.5;
+  }
+
+
+  th, td{
+    word-break: break-all;
+    text-align: center;
+    color: #000;
+    font-size: 14px;
+  }
+
+  .bg-transparant th, .bg-transparant td{
+    padding: 2px 6px;
+  }
+
+  .bg-transparant th, .bg-transparant td{
+    line-height: 0;
+  }
+
+  .join{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    font-weight: bold;
+    top: 310px;
+    right: 5px;
+  }
+
+  .join-item{
+    padding: 10px 13px;
+    background-color: #fff;
+    text-align: center;
+  }
+
+  .join-item:nth-child(1){
+    border-radius: 8px 0 0 8px;
+  }
+
+  .join-item:nth-child(2){
+    border-radius: 0;
+  }
+
+  .join-item:nth-child(3){
+    border-radius: 0 8px 8px 0;
+  }
+
+  .btn-active{
+    color: #fff;
+    background-color: #06b6d4;
+  }
+
+
+
