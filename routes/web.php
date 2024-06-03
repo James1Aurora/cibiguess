@@ -11,6 +11,7 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashUsersController;
+use App\Http\Controllers\MapController;
 
 // MAIN ROUTE
 Route::get('/', [MainController::class, 'index'])->name('home');
@@ -56,6 +57,27 @@ Route::get('/edit-user{id}',[DashUsersController::class,'loadEditForm']);
 Route::get('/delete/{id}',[DashUsersController::class,'deleteUser']);
 
 Route::post('/edit-user',[DashUsersController::class,'EditUser'])->name('EditUser');
+
+
+//DASHBOARD MAPS
+
+// Route untuk menampilkan semua peta
+Route::get('/daftar-maps', [MapController::class, 'loadAllMaps'])->name('daftar-maps');
+
+// Route untuk menampilkan formulir tambah peta
+Route::get('/add-maps', [MapController::class, 'loadAddMaps'])->name('add-maps');
+
+// Route untuk menyimpan data peta yang baru
+Route::post('/add-maps', [MapController::class, 'store'])->name('maps.store');
+
+// Route untuk menampilkan formulir edit peta
+Route::get('/maps/{id}/edit', [MapController::class, 'edit'])->name('edit-maps');
+
+// Route untuk menyimpan perubahan pada peta yang sudah diedit
+Route::put('/maps/{id}', [MapController::class, 'update'])->name('maps.update');
+
+// Route untuk menghapus peta
+Route::delete('/maps/{id}', [MapController::class, 'destroy'])->name('maps.destroy');
 
 
 
