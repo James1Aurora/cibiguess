@@ -15,21 +15,25 @@
 </head>
 
 <body>
-    <!-- Navbar -->
-    {{-- @include('layouts.partials.navbar') --}}
+    @include('layouts.partials.sidebar')
+    @include('layouts.partials.bottombar')
 
     <!-- Main content -->
-    <div class="container max-w-6xl px-6 mx-auto">
-        @yield('content')
-    </div>
+    <section class="group" id="sideContent">
+        <div
+            class="relative min-h-screen left-0 w-full transition-all duration-500 ease-in-out z-0 top-0 p-4 sm:group-[.open]:w-[calc(100%_-_250px)] sm:group-[.open]:left-[250px] sm:left-[78px] sm:w-[calc(100%_-_78px)]">
+            @yield('content')
 
-    <!-- Footer -->
-    {{-- @include('layouts.partials.footer') --}}
+            <!-- MARGIN FOR BOTTOM NAVIGATION -->
+            <div class="h-10 w-full sm:hidden"></div>
+        </div>
+    </section>
 
     <!-- Include JS files -->
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/sidebar.js') }}"></script>
     <!-- Include additional JS if needed -->
     @yield('scripts')
-    {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
 </body>
 
 </html>

@@ -116,7 +116,7 @@
                     Learn More
                 </a>
                 <a class="inline-flex items-center gap-2 text-white border border-cyan-200 bg-cyan-400 hover:bg-cyan-600 focus:ring-4 focus:ring-cyan-600 font-medium rounded-md text-sm px-5 py-2.5 focus:outline-none transition ease-in-out duration-75"
-                    href="main-menu.html">
+                    href="{{ route('game.menu') }}">
                     Play Now
                 </a>
             </div>

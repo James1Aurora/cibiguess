@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
@@ -17,9 +17,9 @@
 <body @yield('body-class')>
     @yield('content')
 
-    <script src="{{ asset('js/app.js') }}"></script>
     <!-- Include additional JS if needed -->
     @yield('scripts')
+    {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
 </body>
 
 </html>

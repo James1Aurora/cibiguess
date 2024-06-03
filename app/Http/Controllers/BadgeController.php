@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\View\view;
 use App\Models\Badge;
+use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 
 class BadgeController extends Controller

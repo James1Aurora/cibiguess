@@ -1,10 +1,11 @@
 @extends('layouts.clear')
 
-@section('title', 'Home')
+@section('title', 'Play Game | CibiGuess')
 
 @section('content')
     <section class="w-screen h-screen overflow-hidden flex justify-center items-center">
-        <div class="bg-cover bg-center w-full h-full p-4" style="background-image: url('images/spot.jpg')">
+        <div class="bg-cover bg-center w-full h-full p-4"
+            style="background-image: url('{{ asset('images/maps/' . $question['spotImage']) }}')">
             <div class="flex flex-col justify-between h-full">
                 <div class="flex justify-between items-center gap-2">
                     <a href="{{ route('game.menu') }}"
@@ -33,13 +34,13 @@
                         </span>
                     </button>
 
-                    <a href="result.html"
+                    {{-- <a href="{{ route('game.result') }}"
                         class="inline-flex items-center gap-2 text-white border border-gray-500 bg-gray-800/50 hover:bg-gray-950/60 focus:ring-4 focus:ring-gray-600 font-medium rounded-md text-sm px-5 py-2.5 focus:outline-none transition ease-in-out duration-75">
                         Skip
                         <span class="material-symbols-outlined m-0 !text-lg">
                             navigate_next
                         </span>
-                    </a>
+                    </a> --}}
                 </div>
             </div>
         </div>
@@ -64,9 +65,7 @@
                 </h3>
                 <div class="mt-2 text-sm text-gray-500">
                     <p>
-                        Are you sure you want to deactivate your account?
-                        All of your data will be permanently removed. This
-                        action cannot be undone.
+                        Guess the location based on the provided image.
                     </p>
                 </div>
             </div>
@@ -91,7 +90,8 @@
         <!-- Modal panel -->
         <div class="relative bg-transparent rounded-lg max-w-md w-fit p-4 sm:p-6">
             <div class="rounded-lg max-w-[350px] max-h-[250px] relative" id="map-wrapper">
-                <img id="map-spot" src="images/Maps.png" alt="spot map" draggable="false" />
+                <img id="map-spot" src="{{ asset('images/maps/' . $question['mapImage']) }}" alt="spot map"
+                    draggable="false" />
             </div>
 
             <!-- Button -->
@@ -103,48 +103,16 @@
                 </button>
                 <button type="button"
                     class="inline-block text-white w-full bg-cyan-400 hover:bg-cyan-500 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 transition ease-in-out duration-100"
-                    onclick="submitMap()">
+                    onclick="submitMap({{ $question['id'] }})">
                     Submit
                 </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL RESULT -->
-    <div id="modal-result" class="fixed inset-0 z-10 hidden opacity-0 items-center justify-center overflow-y-auto"
-        aria-labelledby="modal-title" role="dialog" aria-modal="false">
-        <!-- Background backdrop -->
-        <div id="backdrop-modal-result" class="fixed inset-0 bg-gray-900 bg-opacity-75 transition-opacity"></div>
-
-        <!-- Modal panel -->
-        <div class="relative bg-white rounded-lg shadow-xl max-w-md w-full p-4 sm:p-6">
-            <div>
-                <!-- Content -->
-                <div class="flex h-12 w-12 mb-2 flex-shrink-0 items-center justify-center rounded-full bg-cyan-100">
-                    <span class="material-symbols-outlined text-cyan-700">done_all</span>
-                </div>
-
-                <h3 class="font-semibold tracking-tight text-lg" id="modal-title">
-                    Almost corrects
-                </h3>
-                <p class="tracking-tight">4999/5000 points</p>
-                <div class="mt-2 text-sm text-gray-500">
-                    <p>If you ready for next, press "Next" button</p>
-                </div>
-            </div>
-
-            <!-- Button -->
-            <div class="mt-4 flex justify-end">
-                <a href="result.html" id="close-modal-help"
-                    class="inline-flex justify-center items-center px-3 py-2 text-sm font-semibold text-white bg-cyan-500 border border-cyan-300 rounded-md shadow-sm transition ease-in-out duration-100 hover:bg-cyan-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-400">
-                    Next
-                </a>
             </div>
         </div>
     </div>
 @endsection
 
 @section('scripts')
+    <script src="{{ asset('js/jquery-3.7.1.min.js') }}"></script>
     <script>
         const modal = document.getElementById("modal-help");
         const backdrop = document.getElementById("backdrop-modal-help");
@@ -183,13 +151,13 @@
         const mapWrapper = document.getElementById("map-wrapper");
         const mapImage = document.getElementById("map-spot");
         let marker = null;
-        let x, y;
+        let userAnswerX, userAnswerY;
 
         mapImage.addEventListener("click", function(event) {
             // Mengambil koordinat klik
-            x = event.offsetX;
-            y = event.offsetY;
-            console.log(x, y);
+            userAnswerX = event.offsetX;
+            userAnswerY = event.offsetY;
+            console.log(userAnswerX, userAnswerY);
 
             // Hapus mark titik yang sudah ada jika ada
             if (marker !== null) {
@@ -210,8 +178,8 @@
             );
 
             // Atur posisi mark titik sesuai dengan koordinat klik
-            marker.style.left = `${x}px`;
-            marker.style.top = `${y}px`;
+            marker.style.left = `${userAnswerX}px`;
+            marker.style.top = `${userAnswerY}px`;
 
             // Tambahkan mark titik ke dalam gambar peta
             mapImage.parentNode.appendChild(marker);
@@ -245,7 +213,7 @@
             modalmap.setAttribute("aria-modal", "false");
         }
 
-        function submitMap() {
+        async function submitMap(questionId) {
             // hideModalMap();
             // showModalResult();
 
@@ -274,7 +242,7 @@
 
             // Hitung jarak antara mark user dan mark jawaban
             const distance = Math.sqrt(
-                Math.pow(answerX - x, 2) + Math.pow(answerY - y, 2)
+                Math.pow(answerX - userAnswerX, 2) + Math.pow(answerY - userAnswerY, 2)
             );
             console.log("Distance:", distance);
 
@@ -292,6 +260,38 @@
 
             // Output skor
             console.log("Score:", score);
+
+            const data = {
+                questionId: questionId,
+                userAnswerX: userAnswerX,
+                userAnswerY: userAnswerY,
+                scaleX: scaleX,
+                scaleY: scaleY,
+                score: score
+            }
+
+            // Mengirim data menggunakan AJAX
+            $.ajax({
+                url: '{{ route('game.saveAnswer') }}',
+                method: 'POST',
+                data: {
+                    questionId: {{ $question['id'] }},
+                    userAnswerX: userAnswerX,
+                    userAnswerY: userAnswerY,
+                    scaleX: scaleX,
+                    scaleY: scaleY,
+                    score: score,
+                    _token: '{{ csrf_token() }}' // CSRF Token
+                },
+                success: function(response) {
+                    console.log('Success:', response);
+                    // Redirect ke pertanyaan berikutnya atau tampilkan hasil
+                    window.location.href = '/nextQuestion';
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
         }
 
         document.addEventListener("keydown", function(event) {
@@ -307,47 +307,5 @@
         });
 
         backdropmap.addEventListener("click", hideModalMap);
-    </script>
-    <script>
-        const modalResult = document.getElementById("modal-result");
-        const backdropResult = document.getElementById(
-            "backdrop-modal-result"
-        );
-
-        // Fungsi untuk menampilkan modal dan backdrop
-        function showModalResult() {
-            modalResult.classList.add("flex");
-            modalResult.classList.add("opacity-100");
-            modalResult.classList.remove(
-                "opacity-0",
-                "pointer-events-none"
-            );
-            modalResult.classList.remove("hidden");
-            backdropResult.classList.remove(
-                "opacity-0",
-                "pointer-events-none"
-            );
-            backdropResult.classList.add("opacity-75");
-            backdropResult.style.pointerEvents = "auto";
-            modalResult.setAttribute("aria-hidden", "false");
-            modalResult.setAttribute("aria-modal", "true");
-        }
-
-        // Fungsi untuk menyembunyikan modal dan backdrop
-        function hideModalResult() {
-            modalResult.classList.add("opacity-0", "pointer-events-none");
-            modalResult.classList.add("hidden");
-            modalResult.classList.remove("opacity-100");
-            backdropResult.classList.remove("opacity-75");
-            backdropResult.classList.add(
-                "opacity-0",
-                "pointer-events-none"
-            );
-            backdropResult.style.pointerEvents = "none";
-            modalResult.setAttribute("aria-hidden", "true");
-            modalResult.setAttribute("aria-modal", "false");
-        }
-
-        backdropResult.addEventListener("click", hideModalResult);
     </script>
 @endsection

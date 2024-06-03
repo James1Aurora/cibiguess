@@ -9,6 +9,7 @@ use App\Http\Controllers\GameController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DashboardController;
 
 // MAIN ROUTE
 Route::get('/', [MainController::class, 'index'])->name('home');
@@ -21,7 +22,11 @@ Route::post('/register', [AuthController::class, 'registerPost'])->name('registe
 
 // PLAY GAME
 Route::get('/main-menu', [GameController::class, 'index'])->name('game.menu');
-Route::get('/play-game', [GameController::class, 'gameStart'])->name('game.play');
+Route::get('/game/start', [GameController::class, 'gameStart'])->name('game.start');
+Route::post('/game/saveAnswer', [GameController::class, 'saveAnswer'])->name('game.saveAnswer');
+Route::get('/game/nextQuestion', [GameController::class, 'nextQuestion'])->name('game.nextQuestion');
+Route::get('/game/result', [GameController::class, 'result'])->name('game.result');
+
 
 Route::get('/profile', [UserController::class, 'showProfile'])->name('profile');
 Route::get('/leaderboard', [MainController::class, 'leaderboard'])->name('leaderboard');
@@ -30,6 +35,8 @@ Route::get('/reviews', [ReviewController::class, 'index'])->name('review');
 Route::get('/review/create', [ReviewController::class, 'create'])->name('review.create');
 
 Route::middleware([AuthMiddleware::class])->prefix('/ds')->group(function () {
+    Route::get('/', [DashboardController::class, 'index']);
+
     Route::get('/game', [GameController::class, 'index']);
 
     Route::get('/badge', [BadgeController::class, 'index'])->name('badge');

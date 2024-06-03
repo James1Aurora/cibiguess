@@ -108,139 +108,145 @@
 
             <!-- Modal panel -->
             <div class="relative bg-gray-700/80 border border-gray-500 rounded-lg shadow-xl max-w-2xl w-full p-4 sm:p-6">
-                <div>
-                    <p class="font-semibold tracking-tight text-lg">
-                        Difficulty
-                    </p>
-                    <p class="mb-2 text-sm text-gray-400">
-                        Are you sure you want to deactivate your account? All of
-                        your data will be permanently removed. This action
-                        cannot be undone.
-                    </p>
-                    <ul class="grid w-full gap-4 grid-cols-3">
-                        <li>
-                            <input id="easy" type="radio" name="difficulty" value="easy" class="hidden peer"
-                                required />
-                            <label for="easy"
-                                class="inline-flex items-center w-full p-5 bg-gray-600 border border-gray-400 rounded-lg cursor-pointer peer-checked:border-cyan-500 peer-checked:text-cyan-500 hover:bg-gray-600 hover:border-cyan-500">
-                                <div class="block">
-                                    <div class="w-full text-lg font-semibold">
-                                        Easy
+                <form action="{{ route('game.start') }}" method="GET">
+                    {{-- @csrf --}}
+                    {{-- @method('POST') --}}
+                    <div>
+                        <p class="font-semibold tracking-tight text-lg">
+                            Difficulty
+                        </p>
+                        <p class="mb-2 text-sm text-gray-400">
+                            Are you sure you want to deactivate your account? All of
+                            your data will be permanently removed. This action
+                            cannot be undone.
+                        </p>
+                        <ul class="grid w-full gap-4 grid-cols-3">
+                            <li>
+                                <input id="easy" type="radio" name="difficulty" value="easy" class="hidden peer"
+                                    required />
+                                <label for="easy"
+                                    class="inline-flex items-center w-full p-5 bg-gray-600 border border-gray-400 rounded-lg cursor-pointer peer-checked:border-cyan-500 peer-checked:text-cyan-500 hover:bg-gray-600 hover:border-cyan-500">
+                                    <div class="block">
+                                        <div class="w-full text-lg font-semibold">
+                                            Easy
+                                        </div>
+                                        <div class="w-full text-sm md:text-base">
+                                            Good for small websites
+                                        </div>
                                     </div>
-                                    <div class="w-full text-sm md:text-base">
-                                        Good for small websites
+                                </label>
+                            </li>
+                            <li>
+                                <input id="medium" type="radio" name="difficulty" value="medium" class="hidden peer" />
+                                <label for="medium"
+                                    class="inline-flex items-center w-full p-5 bg-gray-600 border border-gray-400 rounded-lg cursor-pointer peer-checked:border-yellow-500 peer-checked:text-yellow-500 hover:bg-gray-600 hover:border-yellow-500">
+                                    <div class="block">
+                                        <div class="w-full text-lg font-semibold">
+                                            Medium
+                                        </div>
+                                        <div class="w-full text-sm md:text-base">
+                                            Good for large websites
+                                        </div>
                                     </div>
-                                </div>
-                            </label>
-                        </li>
-                        <li>
-                            <input id="medium" type="radio" name="difficulty" value="medium" class="hidden peer" />
-                            <label for="medium"
-                                class="inline-flex items-center w-full p-5 bg-gray-600 border border-gray-400 rounded-lg cursor-pointer peer-checked:border-yellow-500 peer-checked:text-yellow-500 hover:bg-gray-600 hover:border-yellow-500">
-                                <div class="block">
-                                    <div class="w-full text-lg font-semibold">
-                                        Medium
+                                </label>
+                            </li>
+                            <li>
+                                <input id="hard" type="radio" name="difficulty" value="hard" class="hidden peer" />
+                                <label for="hard"
+                                    class="inline-flex items-center w-full p-5 bg-gray-600 border border-gray-400 rounded-lg cursor-pointer peer-checked:border-red-400 peer-checked:text-red-400 hover:bg-gray-600 hover:border-red-500">
+                                    <div class="block">
+                                        <div class="w-full text-lg font-semibold">
+                                            Hard
+                                        </div>
+                                        <div class="w-full text-sm md:text-base">
+                                            Good for large websites
+                                        </div>
                                     </div>
-                                    <div class="w-full text-sm md:text-base">
-                                        Good for large websites
-                                    </div>
-                                </div>
-                            </label>
-                        </li>
-                        <li>
-                            <input id="hard" type="radio" name="difficulty" value="hard" class="hidden peer" />
-                            <label for="hard"
-                                class="inline-flex items-center w-full p-5 bg-gray-600 border border-gray-400 rounded-lg cursor-pointer peer-checked:border-red-400 peer-checked:text-red-400 hover:bg-gray-600 hover:border-red-500">
-                                <div class="block">
-                                    <div class="w-full text-lg font-semibold">
-                                        Hard
-                                    </div>
-                                    <div class="w-full text-sm md:text-base">
-                                        Good for large websites
-                                    </div>
-                                </div>
-                            </label>
-                        </li>
-                    </ul>
+                                </label>
+                            </li>
+                        </ul>
 
-                    <p class="font-semibold tracking-tight text-lg mt-3">
-                        Building Mode
-                    </p>
-                    <p class="mb-2 text-sm text-gray-400">
-                        Are you sure you want to deactivate your account? All of
-                        your data will be permanently removed. This action
-                        cannot be undone.
-                    </p>
-                    <ul class="grid w-full gap-4 grid-cols-2 md:grid-cols-4">
-                        <li>
-                            <input id="masjid" type="radio" name="building" value="masjid" class="hidden peer"
-                                required />
-                            <label for="masjid"
-                                class="block h-full w-full p-2 bg-gray-600 border border-gray-400 rounded-lg cursor-pointer peer-checked:border-cyan-500 peer-checked:text-cyan-500 hover:bg-gray-600 hover:border-cyan-500">
-                                <img src="images/masjid.png" alt="Image of As Sakinah Mosque"
-                                    class="rounded-lg h-24 w-full object-cover bg-center object-center" />
-                                <div class="block">
-                                    <div class="w-full text-lg font-semibold">
-                                        Masjid As Sakinah
+                        <p class="font-semibold tracking-tight text-lg mt-3">
+                            Building Mode
+                        </p>
+                        <p class="mb-2 text-sm text-gray-400">
+                            Are you sure you want to deactivate your account? All of
+                            your data will be permanently removed. This action
+                            cannot be undone.
+                        </p>
+                        <ul class="grid w-full gap-4 grid-cols-2 md:grid-cols-4">
+                            <li>
+                                <input id="masjid" type="radio" name="building" value="masjid" class="hidden peer"
+                                    required />
+                                <label for="masjid"
+                                    class="block h-full w-full p-2 bg-gray-600 border border-gray-400 rounded-lg cursor-pointer peer-checked:border-cyan-500 peer-checked:text-cyan-500 hover:bg-gray-600 hover:border-cyan-500">
+                                    <img src="images/masjid.png" alt="Image of As Sakinah Mosque"
+                                        class="rounded-lg h-24 w-full object-cover bg-center object-center" />
+                                    <div class="block">
+                                        <div class="w-full text-lg font-semibold">
+                                            Masjid As Sakinah
+                                        </div>
                                     </div>
-                                </div>
-                            </label>
-                        </li>
-                        <li>
-                            <input id="lapangan" type="radio" name="building" value="lapangan"
-                                class="hidden peer" />
-                            <label for="lapangan"
-                                class="block h-full w-full p-2 bg-gray-600 border border-gray-400 rounded-lg cursor-pointer peer-checked:border-cyan-500 peer-checked:text-cyan-500 hover:bg-gray-600 hover:border-cyan-500">
-                                <img src="images/lapangan.jpg" alt="Image of Basketball Court"
-                                    class="rounded-lg h-24 w-full object-cover bg-center object-center" />
-                                <div class="block">
-                                    <div class="w-full text-lg font-semibold">
-                                        Lapangan Belakang
+                                </label>
+                            </li>
+                            <li>
+                                <input id="lapangan" type="radio" name="building" value="lapangan"
+                                    class="hidden peer" />
+                                <label for="lapangan"
+                                    class="block h-full w-full p-2 bg-gray-600 border border-gray-400 rounded-lg cursor-pointer peer-checked:border-cyan-500 peer-checked:text-cyan-500 hover:bg-gray-600 hover:border-cyan-500">
+                                    <img src="images/lapangan.jpg" alt="Image of Basketball Court"
+                                        class="rounded-lg h-24 w-full object-cover bg-center object-center" />
+                                    <div class="block">
+                                        <div class="w-full text-lg font-semibold">
+                                            Lapangan Belakang
+                                        </div>
                                     </div>
-                                </div>
-                            </label>
-                        </li>
-                        <li>
-                            <input id="asrama" type="radio" name="building" value="asrama" class="hidden peer" />
-                            <label for="asrama"
-                                class="block h-full w-full p-2 bg-gray-600 border border-gray-400 rounded-lg cursor-pointer peer-checked:border-cyan-500 peer-checked:text-cyan-500 hover:bg-gray-600 hover:border-cyan-500">
-                                <img src="images/asrama-perempuan.png" alt="Image of Girls Dorm"
-                                    class="rounded-lg h-24 w-full object-cover bg-center object-center" />
-                                <div class="block">
-                                    <div class="w-full text-lg font-semibold">
-                                        Asrama Perempuan
+                                </label>
+                            </li>
+                            <li>
+                                <input id="asrama" type="radio" name="building" value="asrama"
+                                    class="hidden peer" />
+                                <label for="asrama"
+                                    class="block h-full w-full p-2 bg-gray-600 border border-gray-400 rounded-lg cursor-pointer peer-checked:border-cyan-500 peer-checked:text-cyan-500 hover:bg-gray-600 hover:border-cyan-500">
+                                    <img src="images/asrama-perempuan.png" alt="Image of Girls Dorm"
+                                        class="rounded-lg h-24 w-full object-cover bg-center object-center" />
+                                    <div class="block">
+                                        <div class="w-full text-lg font-semibold">
+                                            Asrama Perempuan
+                                        </div>
                                     </div>
-                                </div>
-                            </label>
-                        </li>
-                        <li>
-                            <input id="random" type="radio" name="building" value="random" class="hidden peer" />
-                            <label for="random"
-                                class="block h-full w-full p-2 bg-gray-600 border border-gray-400 rounded-lg cursor-pointer peer-checked:border-cyan-500 peer-checked:text-cyan-500 hover:bg-gray-600 hover:border-cyan-500">
-                                <img src="images/random.png" alt="Randomize"
-                                    class="rounded-lg h-24 w-full object-cover bg-center object-center" />
-                                <div class="block">
-                                    <div class="w-full text-lg font-semibold">
-                                        Random
+                                </label>
+                            </li>
+                            <li>
+                                <input id="random" type="radio" name="building" value="random"
+                                    class="hidden peer" />
+                                <label for="random"
+                                    class="block h-full w-full p-2 bg-gray-600 border border-gray-400 rounded-lg cursor-pointer peer-checked:border-cyan-500 peer-checked:text-cyan-500 hover:bg-gray-600 hover:border-cyan-500">
+                                    <img src="images/random.png" alt="Randomize"
+                                        class="rounded-lg h-24 w-full object-cover bg-center object-center" />
+                                    <div class="block">
+                                        <div class="w-full text-lg font-semibold">
+                                            Random
+                                        </div>
                                     </div>
-                                </div>
-                            </label>
-                        </li>
-                    </ul>
-                </div>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
 
-                <!-- Button -->
-                <div class="mt-4 flex gap-2 justify-end">
-                    <button id="close-modal-help" type="button"
-                        class="inline-flex justify-center items-center px-3 py-2 text-sm font-semibold transition-all ease-in-out duration-100 text-gray-900 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
-                        onclick="hideModal()">
-                        Close
-                    </button>
-                    <a href="{{ route('game.play') }}"
-                        class="inline-flex justify-center items-center px-3 py-2 text-sm font-semibold transition-all ease-in-out duration-100 bg-cyan-500 border border-cyan-300 rounded-md shadow-sm hover:bg-cyan-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
-                        Play Now
-                    </a>
-                </div>
+                    <!-- Button -->
+                    <div class="mt-4 flex gap-2 justify-end">
+                        <button id="close-modal-help" type="button"
+                            class="inline-flex justify-center items-center px-3 py-2 text-sm font-semibold transition-all ease-in-out duration-100 text-gray-900 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+                            onclick="hideModal()">
+                            Close
+                        </button>
+                        <button type="submit"
+                            class="inline-flex justify-center items-center px-3 py-2 text-sm font-semibold transition-all ease-in-out duration-100 bg-cyan-500 border border-cyan-300 rounded-md shadow-sm hover:bg-cyan-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                            Play Now
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
