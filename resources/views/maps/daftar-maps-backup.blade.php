@@ -164,7 +164,7 @@
                     <table class="w-full border border-slate-600">
                         <thead>
                             <tr>
-                                <td class="p-4 font-bold">Mini Map</td>
+                                <td class="p-4 font-bold">Image Asli</td>
                                 <td class="p-4 font-bold">Spot Map</td>
                                 <td class="p-4 font-bold">Difficulty</td>
                                 <td class="p-4 font-bold">Building</td>
@@ -177,13 +177,12 @@
                         <tbody>
                             @foreach ($maps as $map)
                                 <tr>
-                                    <td class="p-4 align-top"><img
-                                            src="{{ asset('images/maps/' . $map->miniMap->image) }}"
+                                    <td class="p-4 align-top"><img src="{{ asset('images/' . $map->mapImage) }}"
                                             alt="{{ $map->mapImage }}" style="max-width: 100px;"></td>
-                                    <td class="p-4 align-top"><img src="{{ asset('images/maps/' . $map->spotImage) }}"
+                                    <td class="p-4 align-top"><img src="{{ asset('images/' . $map->spotImage) }}"
                                             alt="{{ $map->spotImage }}" style="max-width: 100px;"></td>
                                     <td class="p-4 align-top">{{ $map->difficulty }}</td>
-                                    <td class="p-4 align-top">{{ $map->miniMap->building }}</td>
+                                    <td class="p-4 align-top">{{ $map->building }}</td>
                                     <td class="p-4 align-top">{{ $map->answerX }}</td>
                                     <td class="p-4 align-top">{{ $map->answerY }}</td>
                                     <td class="p-4 align-top">

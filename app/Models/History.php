@@ -15,7 +15,7 @@ class History extends Model
 
     protected $fillable = [
         'userId',
-        'building',
+        'buildingId',
         'difficulty',
         'datePlayed',
         'score',
@@ -39,5 +39,15 @@ class History extends Model
     public function questionMapHistories()
     {
         return $this->hasMany(QuestionMapHistory::class, 'historyId');
+    }
+
+    /**
+     * Get the user that owns the history.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function miniMap()
+    {
+        return $this->belongsTo(MiniMap::class, 'buildingId');
     }
 }

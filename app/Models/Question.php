@@ -14,10 +14,10 @@ class Question extends Model
     ];
 
     protected $fillable = [
+        'buildingId',
         'difficulty',
-        'building',
         'spotImage',
-        'mapImage',
+        // 'mapImage',
         'answerX',
         'answerY',
     ];
@@ -30,5 +30,9 @@ class Question extends Model
     public function questionMapHistories()
     {
         return $this->hasMany(QuestionMapHistory::class, 'questionId');
+    }
+
+    public function miniMap() {
+        return $this->belongsTo(MiniMap::class, 'buildingId');
     }
 }

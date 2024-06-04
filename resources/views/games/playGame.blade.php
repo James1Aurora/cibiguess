@@ -157,7 +157,6 @@
     <script>
         const modalmap = document.getElementById("modal-map");
         const backdropmap = document.getElementById("backdrop-modal-map");
-        const mapWrapper = document.getElementById("map-wrapper");
         const mapImage = document.getElementById("map-spot");
         let marker = null;
         let userAnswerX, userAnswerY;

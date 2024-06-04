@@ -29,30 +29,30 @@ export default {
     plugins: [require("daisyui")],
     daisyui: {
         themes: [
-            // {
-            //     light: {
-            // primary: "#06b6d4",
-            // "base-100": "#ffffff",
-            // "secondary": "#3b82f6",
-            // "accent": "#adfff5",
-            // "info": "#a6cfe3",
-            // "success": "#0d593b",
-            // "warning": "#fcbf45",
-            // "error": "#f31643",
-            // },
-            // },
-            //   {
-            //     dark: {
-            //       "primary": "#B696FE",
-            //       "base-100": "#1d232a",
-            //       // "secondary": "#3b82f6",
-            //       // "accent": "#adfff5",
-            //       // "info": "#a6cfe3",
-            //       // "success": "#0d593b",
-            //       // "warning": "#fcbf45",
-            //       // "error": "#f31643",
-            //     },
-            //   },
+            {
+                light: {
+                    primary: "#22d3ee",
+                    // "base-100": "#ffffff",
+                    // secondary: "#3b82f6",
+                    // accent: "#adfff5",
+                    // info: "#a6cfe3",
+                    // success: "#0d593b",
+                    // warning: "#fcbf45",
+                    // error: "#f31643",
+                },
+            },
+            {
+                dark: {
+                    primary: "#67e8f9",
+                    // "base-100": "#1d232a",
+                    // secondary: "#3b82f6",
+                    // accent: "#adfff5",
+                    // info: "#a6cfe3",
+                    // success: "#0d593b",
+                    // warning: "#fcbf45",
+                    // error: "#f31643",
+                },
+            },
             "light",
             "dark",
             "cmyk",

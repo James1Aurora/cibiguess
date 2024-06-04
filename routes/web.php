@@ -50,17 +50,13 @@ Route::middleware([AuthMiddleware::class])->prefix('/ds')->group(function () {
 // DASHBOARD USER
 Route::get('/users',[DashUsersController::class,'loadAllUsers']);
 Route::get('/add-user',[DashUsersController::class,'loadAddUserForm']);
-
 Route::post('/add-user',[DashUsersController::class,'AddUser'])->name('AddUser');
-
 Route::get('/edit-user{id}',[DashUsersController::class,'loadEditForm']);
-Route::get('/delete/{id}',[DashUsersController::class,'deleteUser']);
-
 Route::post('/edit-user',[DashUsersController::class,'EditUser'])->name('EditUser');
+Route::get('/delete/{id}',[DashUsersController::class,'deleteUser']);
 
 
 //DASHBOARD MAPS
-
 // Route untuk menampilkan semua peta
 Route::get('/daftar-maps', [MapController::class, 'loadAllMaps'])->name('daftar-maps');
 

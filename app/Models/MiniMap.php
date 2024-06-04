@@ -5,20 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Maps extends Model
+class MiniMap extends Model
 {
     use HasFactory;
 
-    protected $table = 'questions';
+    protected $guarded = [
+        'id',
+    ];
 
     protected $fillable = [
-        'id', 
-        'difficulty',
+        'name',
+        'image',
         'building',
-        'spotImage',
-        'mapImage',
-        'answerX',
-        'answerY',
     ];
 
     /**
@@ -26,8 +24,12 @@ class Maps extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany The question map histories.
      */
-    public function questionMapHistories()
+    public function questions()
     {
-        return $this->hasMany(QuestionMapHistory::class, 'questionId');
+        return $this->hasMany(Question::class, 'questionId');
+    }
+
+    public function user() {
+        return $this->hasMany(User::class, 'buildingId');
     }
 }

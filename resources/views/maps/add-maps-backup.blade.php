@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Daftar Maps</title>
+    <title>Tambah Maps</title>
     <link rel="stylesheet" href="{{ asset('css/output.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/daftar-maps.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/add-maps.css') }}">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -44,7 +44,7 @@
                     class="bg-white absolute z-10 shadow-lg rounded text-sm opacity-0 whitespace-nowrap pointer-events-none transition-all duration-500 ease-in-out px-3 py-1.5 left-[calc(100%_+_15px)] -top-5 group-[.open]:hidden group-hover/nav-link:opacity-100 group-hover/nav-link:pointer-events-auto group-hover/nav-link:-translate-y-2/4 group-hover/nav-link:top-2/4">Dashboard</span>
             </li>
             <li class="group/nav-link relative mx-0 my-2">
-                <a href="#"
+                <a href="{{ url('/daftar-maps') }}"
                     class="flex h-full w-full items-center no-underline transition-all duration-500 ease-in-out rounded-lg group-hover/nav-link:bg-cyan-500 group-hover/nav-link:text-white">
                     <i
                         class="material-symbols-outlined h-[50px] min-w-[47px] !text-xl text-center !leading-[50px]">location_on</i>
@@ -55,7 +55,7 @@
                     class="bg-white absolute z-10 shadow-lg rounded text-sm opacity-0 whitespace-nowrap pointer-events-none transition-all duration-500 ease-in-out px-3 py-1.5 left-[calc(100%_+_15px)] -top-5 group-[.open]:hidden group-hover/nav-link:opacity-100 group-hover/nav-link:pointer-events-auto group-hover/nav-link:-translate-y-2/4 group-hover/nav-link:top-2/4">Map</span>
             </li>
             <li class="group/nav-link relative mx-0 my-2">
-                <a href="#"
+                <a href="{{ url('/users') }}"
                     class="flex h-full w-full items-center no-underline transition-all duration-500 ease-in-out rounded-lg group-hover/nav-link:bg-cyan-500 group-hover/nav-link:text-white">
                     <i
                         class="material-symbols-outlined h-[50px] min-w-[47px] !text-xl text-center !leading-[50px]">account_box</i>
@@ -103,7 +103,7 @@
             <span class="material-symbols-outlined filled"> home </span>
             <p class="text-xs">Home</p>
         </a>
-        <a href="#"
+        <a href="{{ url('/daftar-maps') }}"
             class="flex flex-col justify-center items-center transition-colors duration-200 ease-in-out hover:text-cyan-500">
             <span class="material-symbols-outlined"> location_on </span>
             <p class="text-xs">Map</p>
@@ -120,20 +120,20 @@
         </a>
     </div>
 
-    <!-- DAFTAR MAPS -->
+    <!-- FORM TAMBAH MAPS -->
     <section class="group" id="sideContent">
         <div
             class="relative min-h-screen left-0 w-full transition-all duration-500 ease-in-out z-0 top-0 p-4 sm:group-[.open]:w-[calc(100%_-_250px)] sm:group-[.open]:left-[250px] sm:left-[78px] sm:w-[calc(100%_-_78px)]">
-            <div class="container mx-auto px-4 py-4 rounded-lg" style="background-color: #b6b4b4; height: 100px;">
-                <p class="text-white" style="margin-left: 10px;">DAFTAR MAPS</p>
+            <div class="container mx-auto px-4 py-4 h-64 rounded-lg" style="background-color: #b6b4b4; height: 100px;">
+                <p class="text-white" style="margin-left: 10px;">MENAMBAHKAN MAPS</p>
                 <button class="px-2 bg-blue-500 text-white rounded-r-lg border"
                     style="background-color: rgb(6 182 212); margin-left: 10px;">
-                    <a href="{{ route('add-maps') }}">TAMBAH MAPS</a>
+                    <a href="{{ route('daftar-maps') }}">LIHAT DAFTAR MAPS YANG SUDAH DIMASUKKAN</a>
                 </button>
             </div>
 
             @if (session('success'))
-                <div class="container mx-auto px-4 py-8 bg-green-100 border border-green-400 text-green-700 px-4 rounded relative"
+                <div class="container mx-auto px-4 py-8 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative"
                     role="alert">
                     <strong class="font-bold">Success!</strong>
                     <span class="block sm:inline">{{ session('success') }}</span>
@@ -141,119 +141,104 @@
             @endif
 
             @if (session('fail'))
-                <div class="container mx-auto px-4 py-8  bg-red-100 border border-red-400 text-red-700 px-4 rounded relative"
+                <div class="container mx-auto px-4 py-8  bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
                     role="alert">
                     <strong class="font-bold">Error!</strong>
                     <span class="block sm:inline">{{ session('fail') }}</span>
                 </div>
             @endif
 
-            <div class="container mx-auto px-4 rounded-lg mt-4"
-                style="background-color: #ffffff; height: 700px; border: 1px solid #acacac;">
-                <!-- Search Bar -->
-                <div class="flex justify-end px-5 py-4 mt-4">
-                    <input type="text" placeholder="Search..."
-                        class="p-2 rounded-l-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <button class="p-2 bg-blue-500 text-white rounded-r-lg border"
-                        style="background-color: rgb(6 182 212)">
-                        <i class="fas fa-magnifying-glass text-blue-500"></i>
-                    </button>
-                </div>
+            <br>
 
-                <div class="table-container" style="max-width: 100%; overflow-x: auto;">
-                    <table class="w-full border border-slate-600">
-                        <thead>
-                            <tr>
-                                <td class="p-4 font-bold">Mini Map</td>
-                                <td class="p-4 font-bold">Spot Map</td>
-                                <td class="p-4 font-bold">Difficulty</td>
-                                <td class="p-4 font-bold">Building</td>
-                                <td class="p-4 font-bold">AnswerX</td>
-                                <td class="p-4 font-bold">AnswerY</td>
-                                <td class="p-4 font-bold">Actions</td>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            @foreach ($maps as $map)
-                                <tr>
-                                    <td class="p-4 align-top"><img
-                                            src="{{ asset('images/maps/' . $map->miniMap->image) }}"
-                                            alt="{{ $map->mapImage }}" style="max-width: 100px;"></td>
-                                    <td class="p-4 align-top"><img src="{{ asset('images/maps/' . $map->spotImage) }}"
-                                            alt="{{ $map->spotImage }}" style="max-width: 100px;"></td>
-                                    <td class="p-4 align-top">{{ $map->difficulty }}</td>
-                                    <td class="p-4 align-top">{{ $map->miniMap->building }}</td>
-                                    <td class="p-4 align-top">{{ $map->answerX }}</td>
-                                    <td class="p-4 align-top">{{ $map->answerY }}</td>
-                                    <td class="p-4 align-top">
-                                        @csrf
-                                        @method('PUT')
-                                        <button class="p-2 bg-blue-500 text-white rounded-r-lg border"
-                                            style="background-color: rgb(6 182 212)">
-                                            <a href="{{ route('edit-maps', $map->id) }}">
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                            </a>
-                                        </button>
-                                        <form action="{{ route('maps.destroy', $map->id) }}" method="POST"
-                                            style="display:inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit"
-                                                class="p-2 bg-red-500 text-white rounded-r-lg border"
-                                                style="background-color: rgb(220 38 38)"
-                                                onclick="return confirm('Are you sure you want to delete this map?')">
-                                                <i class="fa-solid fa-trash"></i>
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-                <!-- Pagination -->
-                <div class="flex justify-center mt-4 mb-4">
-                    <div class="join">
-                        <a href="javascript:void(0)" class="join-item btn btn-active" onclick="goToSlide(1)">1</a>
-                        <a href="javascript:void(0)" class="join-item btn" onclick="goToSlide(2)">2</a>
-                        <a href="javascript:void(0)" class="join-item btn" onclick="goToSlide(3)">3</a>
+            <div class="container mx-auto px-4 py-8 rounded-lg mt-4 border border-gray-400"
+                style="background-color: #ffffff; max-width: 1000px; padding: 20px;">
+                <h2 class="text-gray-800 text-center mb-4">Menambahkan Maps/Questions</h2>
+                <form class="flex flex-col space-y-4" action="{{ route('maps.store') }}" method="POST"
+                    enctype="multipart/form-data">
+                    @csrf
+                    <div class="flex flex-col" style="margin-bottom:30px;">
+                        <label for="difficulty" class="text-gray-600">Difficulty</label>
+                        <select id="difficulty" name="difficulty"
+                            class="rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-500">
+                            <option value="easy">Easy</option>
+                            <option value="normal">Normal</option>
+                            <option value="hard">Hard</option>
+                        </select>
                     </div>
-                </div>
+                    <div class="flex flex-col " style="margin-bottom:30px;">
+                        <label for="buildings" class="text-gray-600">buildings</label>
+                        <input type="text" id="buildings" name="building"
+                            class="rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-500"
+                            autocomplete="off">
+                    </div>
+                    <div class="flex flex-col" style="margin-bottom:30px;">
+                        <label for="spotImage" class="text-gray-600">Titik Spot pada Map</label>
+                        <input type="file" id="spotImage" name="spotImage"
+                            class="rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-500"
+                            onchange="previewImage(this)">
+                        <img id="preview" src="#" alt="Preview spotImage"
+                            style="display: none; max-width: 70%; margin-top: 10px;">
+                    </div>
+                    <div class="flex flex-col" style="margin-bottom:30px;">
+                        <label for="mapImage" class="text-gray-600">Gambar Asli</label>
+                        <input type="file" id="mapImage" name="mapImage"
+                            class="rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-500"
+                            onchange="previewImage(this)">
+                        <img id="preview" src="#" alt="Preview mapImage"
+                            style="display: none; max-width: 70%; margin-top: 10px;">
+                    </div>
+                    <div class="flex flex-col" style="margin-bottom:30px;">
+                        <label for="answerX" class="text-gray-600">Mark Jawaban (X Coordinate)</label>
+                        <input type="text" id="answerX" name="answerX"
+                            class="rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-500"
+                            autocomplete="off">
+                    </div>
+                    <div class="flex flex-col" style="margin-bottom:30px;">
+                        <label for="answerY" class="text-gray-600">Mark Jawaban (Y Coordinate)</label>
+                        <input type="text" id="answerY" name="answerY"
+                            class="rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-500"
+                            autocomplete="off">
+                    </div>
+                    <div class="flex justify-end" style="margin-bottom:30px;">
+                        <button type="button" onclick="resetForm()"
+                            class="text-black py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                            style="min-width: 100px;">Cancel</button>
+                        <button type="submit" name="submit"
+                            class="text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2"
+                            style="background-color: rgb(6 182 212); min-width: 100px;">Submit</button>
+                    </div>
+                </form>
             </div>
         </div>
     </section>
 
 
-    <!-- MARGIN FOR BOTTOM NAVIGATION -->
-    <div class="h-10 w-full sm:hidden"></div>
 
 
+    <script src="{{ 'js/sidebar.js' }}"></script>
     <script>
-        let originalTableContent = null;
-
-        function goToSlide(slideNumber) {
-            // Mengambil referensi ke tabel
-            var table = document.querySelector('.w-full.border.border-slate-600');
-
-            // Jika slideNumber adalah 2 atau 3, kosongkan konten tabel
-            if (slideNumber === 2 || slideNumber === 3) {
-                // Menyimpan konten tabel asli jika belum disimpan sebelumnya
-                if (!originalTableContent) {
-                    originalTableContent = table.innerHTML;
+        function previewImage(input) {
+            var preview = document.getElementById('preview');
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.style.display = 'block';
+                    preview.src = e.target.result;
                 }
-                table.innerHTML = ''; // Mengosongkan konten tabel
-            } else {
-                // Mengembalikan konten tabel asli jika ada
-                if (originalTableContent) {
-                    table.innerHTML = originalTableContent;
-                }
-                // Implementasi navigasi ke slide 1
-                console.log('Navigating to slide:', slideNumber);
+                reader.readAsDataURL(input.files[0]);
             }
         }
+
+        function resetForm() {
+            document.getElementById("difficulty").selectedIndex = 0;
+            document.getElementById("buildings").value = "";
+            document.getElementById("spotImage").value = "";
+            document.getElementById("mapImage").value = "";
+            document.getElementById("preview").src = "#";
+            document.getElementById("answerX").value = "";
+            document.getElementById("answerY").value = "";
+        }
     </script>
-    <script src="{{ 'js/sidebar.js' }}"></script>
 </body>
 
 </html>
