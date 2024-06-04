@@ -173,7 +173,7 @@
 
 
 
-        @section('content')
+<!-- FORM EDIT MAPS -->
     <section class="group" id="sideContent">
         <div class="relative min-h-screen left-0 w-full transition-all duration-500 ease-in-out z-0 top-0 p-4 sm:group-[.open]:w-[calc(100%-_-
     250px)] sm:group-[.open]:left-[250px] sm:left-[78px] sm:w-[calc(100%-_-
@@ -181,17 +181,23 @@
             <section class="mx-auto max-w-7xl mb-4">
                 <div class="header">
                     <div class="t-header">
-                        <p>EDIT MAPS</p>
+                        <p>EDIT MAPS YANG SUDAH ADA</p>
                     </div>
                 </div>
 
-                @if (Session::has('success'))
-                    <span class="alert alert-success p-2">{{ Session::get('success') }}</span>
-                @endif
+        @if (session('success'))
+            <div class="container mx-auto px-4 py-8 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                <strong class="font-bold">Success!</strong>
+                <span class="block sm:inline">{{ session('success') }}</span>
+            </div>
+        @endif
 
-                @if (Session::has('fail'))
-                    <span class="alert alert-danger p-2">{{ Session::get('fail') }}</span>
-                @endif
+        @if (session('fail'))
+            <div class="container mx-auto px-4 py-8  bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                <strong class="font-bold">Error!</strong>
+                <span class="block sm:inline">{{ session('fail') }}</span>
+            </div>
+        @endif
 
                 <br>
 
@@ -203,7 +209,7 @@
 
                         <div class="flex flex-col" style="margin-bottom:30px;">
                             <label for="difficulty" class="text-gray-600">Difficulty</label>
-                            <select id="difficulty" name="difficulty" class="rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-500">
+                            <select id="difficulty" name="difficulty" value="{{$map->difficulty}}" class="rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-500">
                                 <option value="easy" {{ $map->difficulty == 'easy' ? 'selected' : '' }}>Easy</option>
                                 <option value="normal" {{ $map->difficulty == 'normal' ? 'selected' : '' }}>Normal</option>
                                 <option value="hard" {{ $map->difficulty == 'hard' ? 'selected' : '' }}>Hard</option>
@@ -213,35 +219,38 @@
                             <label for="building" class="text-gray-600">Building</label>
                             <input type="text" id="building" name="building" value="{{ $map->building }}" class="rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-500" autocomplete="off">
                         </div>
+                        <div class="flex flex-col" style="margin-bottom:30px;">
+                            <label for="spotImage" class="text-gray-600">Titik Spot pada Map</label>
+                            <input type="file" id="spotImage" name="spotImage" value="{{ $map->spotImage }}" class="rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-500" onchange="previewImage(this)">
+                            <img id="preview" src="#" alt="Preview spotImage"  style="display: none; max-width: 70%; margin-top: 10px;">
+                        </div>
+                        <div class="flex flex-col" style="margin-bottom:30px;">
+                            <label for="mapImage" class="text-gray-600">Gambar Asli</label>
+                            <input type="file" id="mapImage" name="mapImage" value="{{ $map->mapImage }}" class="rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-500" onchange="previewImage(this)">
+                            <img id="preview" src="#" alt="Preview mapImage" style="display: none; max-width: 70%; margin-top: 10px;">
+                        </div>
+                        <div class="flex flex-col" style="margin-bottom:30px;">
+                            <label for="answerX" class="text-gray-600">Mark Jawaban (X Coordinate)</label>
+                            <input type="text" id="answerX" name="answerX" value="{{ $map->answerX }}" class="rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-500" autocomplete="off">
+                        </div>
+                        <div class="flex flex-col" style="margin-bottom:30px;">
+                            <label for="answerY" class="text-gray-600">Mark Jawaban (Y Coordinate)</label>
+                            <input type="text" id="answerY" name="answerY" value="{{ $map->answerY }}" class="rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-500" autocomplete="off">
+                        </div>
 
                         <div class="flex justify-end" style="margin-bottom:30px;">
-                            <button type="button" onclick="resetForm()" class="text-black py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50" style="min-width: 100px;">Cancel</button>
+                            <button type="button" onclick="resetForm()" class="text-black py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50" style="min-width: 100px;"><a href = "/daftar-maps">Cancel</button>
                             <button type="submit" name="submit" class="text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2" style="background-color: rgb(6 182 212); min-width: 100px;">Submit</button>
+                            @error('submit')
+                                    <span class="text-danger">{{$message}}</span>
+                             @enderror
                         </div>
                     </form>
                 </div>
             </section>
         </div>
     </section>
-    @endsection
 
-<script>
-    function previewImage(input) {
-        var preview = document.getElementById('preview');
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                preview.src = e.target.result;
-                preview.style.display = 'block';
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-</script>
-
-
-        
-        
 
         <script src="/public/js/sidebar.js"></script>
         <script>
