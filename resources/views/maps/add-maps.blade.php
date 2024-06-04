@@ -170,6 +170,8 @@
                 <p class="text-xs">Badge</p>
             </a>
         </div>
+
+<!-- FORM TAMBAH MAPS -->
         <section class="group" id="sideContent">
     <div class="relative min-h-screen left-0 w-full transition-all duration-500 ease-in-out z-0 top-0 p-4 sm:group-[.open]:w-[calc(100%_-_250px)] sm:group-[.open]:left-[250px] sm:left-[78px] sm:w-[calc(100%_-_78px)]">
         <div class="container mx-auto px-4 py-4 h-64 rounded-lg" style="background-color: #b6b4b4; height: 100px;">
@@ -179,12 +181,18 @@
             </button>
         </div>
 
-        @if (Session::has('success'))
-            <span class="alert alert-success p-2">{{ Session::get('success') }}</span>
+        @if (session('success'))
+            <div class="container mx-auto px-4 py-8 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                <strong class="font-bold">Success!</strong>
+                <span class="block sm:inline">{{ session('success') }}</span>
+            </div>
         @endif
 
-        @if (Session::has('fail'))
-            <span class="alert alert-danger p-2">{{ Session::get('fail') }}</span>
+        @if (session('fail'))
+            <div class="container mx-auto px-4 py-8  bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                <strong class="font-bold">Error!</strong>
+                <span class="block sm:inline">{{ session('fail') }}</span>
+            </div>
         @endif
 
         <br>

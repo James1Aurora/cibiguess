@@ -181,8 +181,18 @@
             </button>
         </div>
 
-        @if (Session::has('success'))
-            <span class="alert alert-success p-2">{{ Session::get('success') }}</span>
+        @if (session('success'))
+            <div class="container mx-auto px-4 py-8 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                <strong class="font-bold">Success!</strong>
+                <span class="block sm:inline">{{ session('success') }}</span>
+            </div>
+        @endif
+
+        @if (session('fail'))
+            <div class="container mx-auto px-4 py-8  bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                <strong class="font-bold">Error!</strong>
+                <span class="block sm:inline">{{ session('fail') }}</span>
+            </div>
         @endif
 
         <div class="container mx-auto px-4 rounded-lg mt-4" style="background-color: #ffffff; height: 700px; border: 1px solid #acacac;">
