@@ -21,7 +21,8 @@
             <div class="border border-gray-500 bg-gray-700/50 backdrop-blur-md rounded-lg p-4">
                 <div class="flex items-center p-4 rounded-lg border border-gray-500 bg-gray-800 w-fit gap-4">
                     <div class="rounded-full w-24 h-24 bg-gray-400 overflow-hidden">
-                        <img src="images/cat.jpg" alt="Image of Profile" class="object-cover object-center" />
+                        <img src="{{ asset('images/user-default.jpg') }}" alt="Image of Profile"
+                            class="object-cover object-center" />
                     </div>
                     <div>
                         <p class="font-semibold tracking-tighter text-lg">
