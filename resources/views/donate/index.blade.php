@@ -12,7 +12,7 @@
             </div>
 
             <div class="flex justify-between items-center">
-                <a href="main-menu.html"
+                <a href="{{ route('game.menu') }}"
                     class="flex items-center gap-1 text-sm p-1 mb-2 transition-all ease-in-out duration-150 rounded-md hover:bg-gray-900/80"><span
                         class="material-symbols-outlined !text-lg">
                         reply </span>Main Menu</a>

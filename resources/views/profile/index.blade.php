@@ -10,7 +10,7 @@
             </div>
         </div>
 
-        <a href="main-menu.html"
+        <a href="{{ route('game.menu') }}"
             class="md:absolute inline-flex justify-center items-center m-4 text-white border border-gray-500 bg-gray-800/50 hover:bg-gray-950/60 focus:ring-4 focus:ring-gray-600 font-medium rounded-md text-sm h-12 w-12 focus:outline-none transition ease-in-out duration-75">
             <span class="material-symbols-outlined m-0 !text-xl">
                 home

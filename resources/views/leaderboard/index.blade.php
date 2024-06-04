@@ -1,10 +1,9 @@
 @extends('layouts.clearDark')
 
-@section('title', 'Home')
+@section('title', 'Leaderboard | CibiGuess')
 
 @section('styles')
     <link href="{{ asset('css/leaderboard.css') }}" rel="stylesheet" />
-
 @endsection
 
 @section('content')
@@ -15,7 +14,7 @@
 
         <div class="wrapper">
             <div class="btn-group-top">
-                <a href="main-menu.html" class="btn btn-transparent btn-square">
+                <a href="{{ route('game.menu') }}" class="btn btn-transparent btn-square">
                     <span class="material-symbols-outlined m-0 !text-xl">
                         home
                     </span>

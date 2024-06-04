@@ -4,7 +4,8 @@
 
 @section('content')
     <section class="w-svw min-h-svh relative flex justify-center items-center overflow-x-hidden">
-        <div class="bg-cover bg-center relative w-full min-h-svh bg-[url('/public/images/spot.jpg')]">
+        <div class="bg-cover bg-center relative w-full min-h-svh"
+            style="background-image: url('{{ asset('images/maps/' . $lastQuestion['spotImage']) }}')">
             <div class="flex justify-center items-center w-full min-h-svh bg-black/35 backdrop-blur-[5px] p-2 pb-14 sm:pb-2">
                 <div
                     class="relative container bg-gray-800/40 border border-gray-500 backdrop-blur-md text-center max-w-3xl p-4 rounded-lg mx-auto mt-16 sm:mt-0">
@@ -36,7 +37,7 @@
                             <div
                                 class="flex flex-col items-center p-4 rounded-lg border border-cyan-500 bg-gray-800 gap-4 transition-all ease-in-out w-full sm:max-w-48 hover:border-cyan-400">
                                 <div class="mb-3 rounded-full w-24 h-24 bg-gray-400 overflow-hidden">
-                                    <img src="images/masjid.png" alt="Image of Profile"
+                                    <img src="{{ asset('images/masjid.png') }}" alt="Image of Profile"
                                         class="object-cover object-center" />
                                 </div>
                                 <div class="text-center">

@@ -25,8 +25,8 @@ Route::post('/register', [AuthController::class, 'registerPost'])->name('registe
 // PLAY GAME
 Route::get('/main-menu', [GameController::class, 'index'])->name('game.menu');
 Route::get('/game/start', [GameController::class, 'gameStart'])->name('game.start');
-Route::post('/game/saveAnswer', [GameController::class, 'saveAnswer'])->name('game.saveAnswer');
-Route::get('/game/nextQuestion', [GameController::class, 'nextQuestion'])->name('game.nextQuestion');
+Route::post('/game/save-answer', [GameController::class, 'saveAnswer'])->name('game.saveAnswer');
+Route::get('/game/next-question', [GameController::class, 'nextQuestion'])->name('game.nextQuestion');
 Route::get('/game/result', [GameController::class, 'result'])->name('game.result');
 
 

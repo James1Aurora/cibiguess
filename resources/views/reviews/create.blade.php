@@ -6,7 +6,7 @@
     <main class="w-svw min-h-svh relative flex flex-col justify-center items-center overflow-hidden p-2 lg:p-1">
         <div class="absolute top-0 w-full">
             <div class="flex justify-between m-2">
-                <a href="main-menu.html"
+                <a href="{{ route('review') }}"
                     class="inline-flex justify-center items-center gap-2 text-white border border-gray-500 bg-gray-800/50 hover:bg-gray-950/60 focus:ring-4 focus:ring-gray-600 font-medium rounded-md text-sm px-2 py-2.5 focus:outline-none transition ease-in-out duration-75">
                     <span class="material-symbols-outlined m-0 !text-xl">
                         home

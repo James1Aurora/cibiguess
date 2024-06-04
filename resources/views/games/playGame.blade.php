@@ -2,7 +2,12 @@
 
 @section('title', 'Play Game | CibiGuess')
 
+@section('styles')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+@endsection
+
 @section('content')
+    {{-- @dd($question) --}}
     <section class="w-screen h-screen overflow-hidden flex justify-center items-center">
         <div class="bg-cover bg-center w-full h-full p-4"
             style="background-image: url('{{ asset('images/maps/' . $question['spotImage']) }}')">
@@ -109,6 +114,10 @@
             </div>
         </div>
     </div>
+
+    @if ($errors->any())
+        <x-toast message="Internal Server Error" type="error"> An error occurred on the server. </x-toast>
+    @endif
 @endsection
 
 @section('scripts')
@@ -270,28 +279,35 @@
                 score: score
             }
 
-            // Mengirim data menggunakan AJAX
-            $.ajax({
-                url: '{{ route('game.saveAnswer') }}',
-                method: 'POST',
-                data: {
-                    questionId: {{ $question['id'] }},
-                    userAnswerX: userAnswerX,
-                    userAnswerY: userAnswerY,
-                    scaleX: scaleX,
-                    scaleY: scaleY,
-                    score: score,
-                    _token: '{{ csrf_token() }}' // CSRF Token
-                },
-                success: function(response) {
-                    console.log('Success:', response);
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            fetch('{{ route('game.saveAnswer') }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json, text-plain, */*',
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                    credentials: "same-origin",
+                    body: JSON.stringify({
+                        questionId: {{ $question['id'] }},
+                        userAnswerX: userAnswerX,
+                        userAnswerY: userAnswerY,
+                        scaleX: scaleX,
+                        scaleY: scaleY,
+                        score: score
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // console.log('Success:', data);
                     // Redirect ke pertanyaan berikutnya atau tampilkan hasil
-                    window.location.href = '/nextQuestion';
-                },
-                error: function(xhr, status, error) {
+                    window.location.href = '{{ route('game.nextQuestion') }}';
+                })
+                .catch((error) => {
                     console.error('Error:', error);
-                }
-            });
+                });
         }
 
         document.addEventListener("keydown", function(event) {

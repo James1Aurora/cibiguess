@@ -16,8 +16,12 @@ class GameController extends Controller
         return view('games.index');
     }
 
+
     public function gameStart(Request $request)
     {
+        session()->forget('answers');
+        session()->forget('current_question_index');
+
         $questions = collect([
             [
                 'id' => 1,
@@ -68,7 +72,7 @@ class GameController extends Controller
                 'id' => 6,
                 'difficulty' => 'medium',
                 'building' => 'masjid',
-                'spotImage' => 'masjid/(1).jpg',
+                'spotImage' => 'masjid/(2).jpg',
                 'mapImage' => 'masjid_map.png',
                 'answerX' => 160,
                 'answerY' => 260,
@@ -95,7 +99,7 @@ class GameController extends Controller
                 'id' => 9,
                 'difficulty' => 'hard',
                 'building' => 'masjid',
-                'spotImage' => 'masjid/(1).jpg',
+                'spotImage' => 'masjid/(3).jpg',
                 'mapImage' => 'masjid_map.png',
                 'answerX' => 220,
                 'answerY' => 320,
@@ -122,7 +126,7 @@ class GameController extends Controller
                 'id' => 12,
                 'difficulty' => 'hard',
                 'building' => 'masjid',
-                'spotImage' => 'path/to/spotImage10.jpg',
+                'spotImage' => 'masjid/(4).jpg',
                 'mapImage' => 'masjid_map.png',
                 'answerX' => 280,
                 'answerY' => 380,
@@ -144,34 +148,74 @@ class GameController extends Controller
         return view('games.playGame', ['question' => $data->first()]);
     }
 
-    public function saveAnswer(Request $request)
-    {
-        // Lakukan validasi jika diperlukan
-        $request->validate([
-            'questionId' => 'required|integer',
-            'userAnswerX' => 'required|numeric',
-            'userAnswerY' => 'required|numeric',
-            'scaleX' => 'required|numeric',
-            'scaleY' => 'required|numeric',
-            'score' => 'required|integer',
-        ]);
+    public function saveAnswer(Request $request) {
+        try {
+            // Lakukan validasi jika diperlukan
+            $validated = $request->validate([
+                'questionId' => 'required|integer',
+                'userAnswerX' => 'required|numeric',
+                'userAnswerY' => 'required|numeric',
+                'scaleX' => 'required|numeric',
+                'scaleY' => 'required|numeric',
+                'score' => 'required|integer|max:1000|min:0',
+            ]);
 
-        dd($request->all());
+            // Simpan jawaban ke session atau database
+            $answers = session('answers', []);
+            $currentQuestionIndex = session('current_question_index', 0);
 
-        // $answers = session('answers', []);
-        // $currentQuestionIndex = session('current_question_index', 0);
+            // Save the current answer to the session
+            $answers[$currentQuestionIndex] = [
+                'question_id' => $validated['questionId'],
+                'user_answer_x' => $validated['userAnswerX'],
+                'user_answer_y' => $validated['userAnswerY'],
+                'scale_x' => $validated['scaleX'],
+                'scale_y' => $validated['scaleY'],
+                'score' => $validated['score'],
+            ];
 
-        // // Save the current answer to the session
-        // $answers[$currentQuestionIndex] = [
-        //     'question_id' => $request->input('question_id'),
-        //     'user_answer' => $request->input('user_answer'),
-        // ];
+            session(['answers' => $answers]);
+            session(['current_question_index' => $currentQuestionIndex + 1]);
 
-        // session(['answers' => $answers]);
-        // session(['current_question_index' => $currentQuestionIndex + 1]);
-
-        return redirect()->route('game.nextQuestion');
+            // change route to nextQuestion
+            return response()->json(['status' => 'success', 'message' => 'Answer saved successfully'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'error', 'message' => 'Internal Server Error'], 500);
+        }
     }
+
+    // public function saveAnswer(Request $request)
+    // {
+    //     try {
+    //         // Lakukan validasi jika diperlukan
+    //         $request->validate([
+    //             'questionId' => 'required|integer',
+    //             'userAnswerX' => 'required|numeric',
+    //             'userAnswerY' => 'required|numeric',
+    //             'scaleX' => 'required|numeric',
+    //             'scaleY' => 'required|numeric',
+    //             'score' => 'required|integer',
+    //         ]);
+
+    //         dd($request->all());
+
+    //         // $answers = session('answers', []);
+    //         // $currentQuestionIndex = session('current_question_index', 0);
+
+    //         // // Save the current answer to the session
+    //         // $answers[$currentQuestionIndex] = [
+    //         //     'question_id' => $request->input('question_id'),
+    //         //     'user_answer' => $request->input('user_answer'),
+    //         // ];
+
+    //         // session(['answers' => $answers]);
+    //         // session(['current_question_index' => $currentQuestionIndex + 1]);
+
+    //         return redirect()->route('game.nextQuestion');
+    //     } catch (\Throwable $th) {
+    //         throw $th;
+    //     }
+    // }
 
     public function nextQuestion()
     {
@@ -185,12 +229,13 @@ class GameController extends Controller
         return view('games.playGame', ['question' => $questions[$currentQuestionIndex]]);
     }
 
-
     public function result()
     {
         $answers = session('answers', []);
+        $questions = session('questions', []);
+        $lastQuestion = $questions[count($questions) - 1];
 
-        return view('games.result');
+        return view('games.result', ['answers' => $answers, 'questions' => $questions, 'lastQuestion' => $lastQuestion]);
     }
 
     /**

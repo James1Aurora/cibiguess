@@ -30,7 +30,7 @@
     </section>
 
     <!-- Include JS files -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
     <script src="{{ asset('js/sidebar.js') }}"></script>
     <!-- Include additional JS if needed -->
     @yield('scripts')
