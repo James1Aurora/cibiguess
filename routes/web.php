@@ -29,7 +29,6 @@ Route::post('/game/save-answer', [GameController::class, 'saveAnswer'])->name('g
 Route::get('/game/next-question', [GameController::class, 'nextQuestion'])->name('game.nextQuestion');
 Route::get('/game/result', [GameController::class, 'result'])->name('game.result');
 
-
 Route::get('/profile', [UserController::class, 'showProfile'])->name('profile');
 Route::get('/leaderboard', [MainController::class, 'leaderboard'])->name('leaderboard');
 Route::get('/donate', [MainController::class, 'donate'])->name('donate');

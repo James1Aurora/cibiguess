@@ -10,7 +10,7 @@
                 <div
                     class="relative container bg-gray-800/40 border border-gray-500 backdrop-blur-md text-center max-w-3xl p-4 rounded-lg mx-auto mt-16 sm:mt-0">
                     <p class="tracking-tight font-semibold text-2xl">
-                        Wow that's great
+                        {{ $finalResult['message'] }}
                     </p>
 
                     <div class="my-8">
@@ -18,19 +18,20 @@
                             Your score
                         </p>
                         <p class="tracking-tight font-semibold text-2xl">
-                            4850/5000 points
+                            {{ $finalResult['totalScore'] }}/{{ $finalResult['maxScore'] }} points
                         </p>
                         <p>
-                            of 5 maps on
-                            <a class="text-cyan-300 hover:underline" href="#">As Sakinah Buildings</a>
+                            of {{ $finalResult['totalMap'] }} maps on
+                            <span class="text-cyan-300">{{ $gameDetails['miniMap']->building ?? 'Random' }}</span>
                         </p>
 
                         <p>
                             Difficulty:
-                            <a class="text-red-400 hover:underline" href="#">Hard</a>
+                            <span
+                                class="@if ($gameDetails['difficulty'] == 'easy') text-cyan-300 @elseif ($gameDetails['difficulty'] == 'normal') text-yellow-500 @elseif ($gameDetails['difficulty'] == 'hard') text-red-500 @endif">{{ ucwords($gameDetails['difficulty']) }}</span>
                         </p>
 
-                        <div class="mt-3 flex flex-col items-center gap-3">
+                        {{-- <div class="mt-3 flex flex-col items-center gap-3">
                             <p class="font-semibold tracking-tighter text-lg">
                                 You got new achievements
                             </p>
@@ -47,7 +48,7 @@
                                     <p class="text-gray-400">Religious</p>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
 
                     <div class="flex flex-col justify-center gap-2 sm:flex-row">
@@ -59,7 +60,7 @@
                             </span>
                         </a>
                         <a class="inline-flex justify-center items-center gap-2 text-white border border-gray-500 bg-gray-600/50 hover:bg-gray-700/40 focus:ring-4 focus:ring-gray-800 font-medium rounded-md text-sm px-5 py-2.5 focus:outline-none transition ease-in-out duration-75"
-                            href="{{ route('game.menu') }}">
+                            href="{{ url('/game/start?building=' . (isset($gameDetails['miniMap']) ? $gameDetails['miniMap']->name : 'random') . '&difficulty=' . $gameDetails['difficulty']) }}">
                             Play Again
                             <span class="material-symbols-outlined m-0 !text-[18px]">
                                 replay

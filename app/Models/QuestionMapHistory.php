@@ -14,7 +14,7 @@ class QuestionMapHistory extends Model
     protected $fillable = [
         'questionId',
         'historyId',
-        'spotImage',
+        // 'spotImage',
         'answerX',
         'answerY',
         'score',

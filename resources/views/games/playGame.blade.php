@@ -10,7 +10,7 @@
     {{-- @dd($question) --}}
     <section class="w-screen h-screen overflow-hidden flex justify-center items-center">
         <div class="bg-cover bg-center w-full h-full p-4"
-            style="background-image: url('{{ asset('images/maps/' . $question['spotImage']) }}')">
+            style="background-image: url('{{ asset('images/maps/' . $question->spotImage) }}')">
             <div class="flex flex-col justify-between h-full">
                 <div class="flex justify-between items-center gap-2">
                     <a href="{{ route('game.menu') }}"
@@ -95,7 +95,7 @@
         <!-- Modal panel -->
         <div class="relative bg-transparent rounded-lg max-w-md w-fit p-4 sm:p-6">
             <div class="rounded-lg max-w-[350px] max-h-[250px] relative" id="map-wrapper">
-                <img id="map-spot" src="{{ asset('images/maps/' . $question['mapImage']) }}" alt="spot map"
+                <img id="map-spot" src="{{ asset('images/maps/' . $question->miniMap->image) }}" alt="spot map"
                     draggable="false" />
             </div>
 
@@ -108,7 +108,7 @@
                 </button>
                 <button type="button"
                     class="inline-block text-white w-full bg-cyan-400 hover:bg-cyan-500 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 transition ease-in-out duration-100"
-                    onclick="submitMap({{ $question['id'] }})">
+                    onclick="submitMap({{ $question->id }})">
                     Submit
                 </button>
             </div>
@@ -165,7 +165,7 @@
             // Mengambil koordinat klik
             userAnswerX = event.offsetX;
             userAnswerY = event.offsetY;
-            console.log(userAnswerX, userAnswerY);
+            // console.log(userAnswerX, userAnswerY);
 
             // Hapus mark titik yang sudah ada jika ada
             if (marker !== null) {
@@ -226,8 +226,8 @@
             // showModalResult();
 
             // Koordinat jawaban awal (dalam piksel)
-            const originalAnswerX = 212;
-            const originalAnswerY = 70;
+            const originalAnswerX = {{ $question->answerX }};
+            const originalAnswerY = {{ $question->answerY }};
 
             // Ukuran gambar map sebelum resize
             const originalMapWidth = 350; // Masukkan lebar asli gambar map di sini
@@ -236,23 +236,23 @@
             // Ukuran gambar map setelah resize
             const mapWidth = mapImage.clientWidth;
             const mapHeight = mapImage.clientHeight;
-            console.log("mapWidth:", mapWidth, "mapHeight:", mapHeight);
+            // console.log("mapWidth:", mapWidth, "mapHeight:", mapHeight);
 
             // Skala untuk normalisasi koordinat
             const scaleX = mapWidth / originalMapWidth;
             const scaleY = mapHeight / originalMapHeight;
-            console.log("scaleX:", scaleX, "scaleY:", scaleY);
+            // console.log("scaleX:", scaleX, "scaleY:", scaleY);
 
             // Koordinat jawaban setelah normalisasi ke gambar map yang baru
             const answerX = originalAnswerX * scaleX;
             const answerY = originalAnswerY * scaleY;
-            console.log("answerX:", answerX, "answerY:", answerY);
+            // console.log("answerX:", answerX, "answerY:", answerY);
 
             // Hitung jarak antara mark user dan mark jawaban
             const distance = Math.sqrt(
                 Math.pow(answerX - userAnswerX, 2) + Math.pow(answerY - userAnswerY, 2)
             );
-            console.log("Distance:", distance);
+            // console.log("Distance:", distance);
 
             // Tentukan rentang jarak yang sesuai dengan skor yang diinginkan
             const maxDistance = 100; // Jarak diagonal
@@ -267,7 +267,7 @@
             score = Math.max(Math.min(score, maxScore), minScore);
 
             // Output skor
-            console.log("Score:", score);
+            // console.log("Score:", score);
 
             const data = {
                 questionId: questionId,
@@ -290,7 +290,7 @@
                     },
                     credentials: "same-origin",
                     body: JSON.stringify({
-                        questionId: {{ $question['id'] }},
+                        questionId: questionId,
                         userAnswerX: userAnswerX,
                         userAnswerY: userAnswerY,
                         scaleX: scaleX,

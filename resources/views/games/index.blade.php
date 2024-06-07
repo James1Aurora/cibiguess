@@ -77,7 +77,7 @@
                                     Your best score was
                                 </p>
                                 <p class="tracking-tight font-semibold text-2xl">
-                                    4999 points
+                                    {{ $highScores ? $highScores->score : 0 }} points
                                 </p>
                             </div>
 
@@ -125,42 +125,42 @@
                                 <input id="easy" type="radio" name="difficulty" value="easy" class="hidden peer"
                                     required />
                                 <label for="easy"
-                                    class="inline-flex items-center w-full p-5 bg-gray-600 border border-gray-400 rounded-lg cursor-pointer peer-checked:border-cyan-500 peer-checked:text-cyan-500 hover:bg-gray-600 hover:border-cyan-500">
+                                    class="inline-flex items-center w-full p-3 bg-gray-600 border border-gray-400 rounded-lg cursor-pointer peer-checked:border-cyan-500 peer-checked:text-cyan-500 hover:bg-gray-600 hover:border-cyan-500">
                                     <div class="block">
                                         <div class="w-full text-lg font-semibold">
                                             Easy
                                         </div>
-                                        <div class="w-full text-sm md:text-base">
+                                        {{-- <div class="w-full text-sm md:text-base">
                                             Good for small websites
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </label>
                             </li>
                             <li>
                                 <input id="medium" type="radio" name="difficulty" value="medium" class="hidden peer" />
                                 <label for="medium"
-                                    class="inline-flex items-center w-full p-5 bg-gray-600 border border-gray-400 rounded-lg cursor-pointer peer-checked:border-yellow-500 peer-checked:text-yellow-500 hover:bg-gray-600 hover:border-yellow-500">
+                                    class="inline-flex items-center w-full p-3 bg-gray-600 border border-gray-400 rounded-lg cursor-pointer peer-checked:border-yellow-500 peer-checked:text-yellow-500 hover:bg-gray-600 hover:border-yellow-500">
                                     <div class="block">
                                         <div class="w-full text-lg font-semibold">
                                             Medium
                                         </div>
-                                        <div class="w-full text-sm md:text-base">
+                                        {{-- <div class="w-full text-sm md:text-base">
                                             Good for large websites
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </label>
                             </li>
                             <li>
                                 <input id="hard" type="radio" name="difficulty" value="hard" class="hidden peer" />
                                 <label for="hard"
-                                    class="inline-flex items-center w-full p-5 bg-gray-600 border border-gray-400 rounded-lg cursor-pointer peer-checked:border-red-400 peer-checked:text-red-400 hover:bg-gray-600 hover:border-red-500">
+                                    class="inline-flex items-center w-full p-3 bg-gray-600 border border-gray-400 rounded-lg cursor-pointer peer-checked:border-red-400 peer-checked:text-red-400 hover:bg-gray-600 hover:border-red-500">
                                     <div class="block">
                                         <div class="w-full text-lg font-semibold">
                                             Hard
                                         </div>
-                                        <div class="w-full text-sm md:text-base">
+                                        {{-- <div class="w-full text-sm md:text-base">
                                             Good for large websites
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </label>
                             </li>

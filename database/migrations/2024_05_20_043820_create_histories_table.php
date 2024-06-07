@@ -16,7 +16,7 @@ class CreateHistoriesTable extends Migration
         Schema::create('histories', function (Blueprint $table) {
             $table->id();
             $table->foreignId('userId')->constrained('users')->onDelete('cascade');
-            $table->foreignId('buildingId')->constrained('mini_maps')->onDelete('cascade');
+            $table->foreignId('buildingId')->constrained('mini_maps')->onDelete('cascade')->nullable();
             // $table->string('building');
             $table->string('difficulty');
             $table->date('datePlayed');
