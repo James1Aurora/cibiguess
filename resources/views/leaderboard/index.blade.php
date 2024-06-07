@@ -24,28 +24,25 @@
 
         <div class="content-wrapper">
             <div class="leaderboard">
-                <h1>Best Score</h1>
+                <h1>Monthly Leaderboards</h1>
                 <ol>
-                    <li>
-                        <mark>Akmal Wijaro</mark>
-                        <small>31500</small>
-                    </li>
-                    <li>
-                        <mark>Budi Santoso</mark>
-                        <small>30100</small>
-                    </li>
-                    <li>
-                        <mark>Maya Dewi</mark>
-                        <small>29200</small>
-                    </li>
-                    <li>
-                        <mark>Rudi Pratama</mark>
-                        <small>24500</small>
-                    </li>
-                    <li>
-                        <mark>Siti Rahayu</mark>
-                        <small>20300</small>
-                    </li>
+                    @if ($histories->isEmpty())
+                        <p>No scores found</p>
+                    @else
+                        @foreach ($histories as $history)
+                            <li>
+                                <mark>{{ $history->user->name }}</mark>
+                                <small>{{ $history->score }} pts</small>
+                            </li>
+                        @endforeach
+                        @for ($i = count($histories); $i < 10; $i++)
+                            <li>
+                                <mark>Empty</mark>
+                                <small>0 pts</small>
+                            </li>
+                        @endfor
+                    @endif
+                </ol>
                 </ol>
             </div>
         </div>

@@ -34,6 +34,7 @@ Route::get('/leaderboard', [MainController::class, 'leaderboard'])->name('leader
 Route::get('/donate', [MainController::class, 'donate'])->name('donate');
 Route::get('/reviews', [ReviewController::class, 'index'])->name('review');
 Route::get('/review/create', [ReviewController::class, 'create'])->name('review.create');
+Route::post('/review/create', [ReviewController::class, 'store'])->name('review.store');
 
 Route::middleware([AuthMiddleware::class])->prefix('/ds')->group(function () {
     Route::get('/', [DashboardController::class, 'index']);

@@ -44,147 +44,36 @@
                         </p>
                     </div>
 
-                    <div class="mt-5 grid grid-cols-2 gap-1 sm:gap-3 md:grid-cols-3 lg:grid-cols-4">
-                        <div class="flex flex-col justify-between border border-gray-600 rounded-md p-2">
-                            <p class="mb-2">
-                                "Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Neque, cum quasi
-                                aspernatur eius quas perspiciatis."
-                            </p>
-                            <div>
-                                <p class="flex items-center gap-1 text-yellow-500">
-                                    <span class="material-symbols-outlined !text-lg">
-                                        star
-                                    </span>
-                                    4.7
-                                </p>
-                                <p class="text-gray-300 italic text-sm">
-                                    Ilham God ~ 24 Sep 2024
-                                </p>
-                            </div>
+                    @if ($reviews->isEmpty())
+                        <p class="text-gray-300 text-center my-5">No reviews found</p>
+                    @else
+                        <div class="mt-5 grid grid-cols-2 gap-1 sm:gap-3 md:grid-cols-3 lg:grid-cols-4">
+                            @foreach ($reviews as $review)
+                                @php
+                                    $formattedDate = $review->created_at->translatedFormat('j F Y');
+                                @endphp
+
+                                <div class="flex flex-col justify-between border border-gray-600 rounded-md p-2">
+                                    <p class="mb-2">
+                                        {{ $review->comment }}
+                                    </p>
+                                    <div>
+                                        <p class="flex items-center gap-1 text-yellow-500">
+                                            <span class="material-symbols-outlined !text-lg">
+                                                star
+                                            </span>
+                                            {{ $review->rating }}
+                                        </p>
+                                        <p class="text-gray-300 italic text-sm">
+                                            {{ $review->user->name }} ~ {{ $formattedDate }}
+                                        </p>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
-                        <div class="flex flex-col justify-between border border-gray-600 rounded-md p-2">
-                            <p class="mb-2">
-                                "Lorem ipsum dolor sit amet consectetur
-                                adipisicing."
-                            </p>
-                            <div>
-                                <p class="flex items-center gap-1 text-yellow-500">
-                                    <span class="material-symbols-outlined !text-lg">
-                                        star
-                                    </span>
-                                    5.0
-                                </p>
-                                <p class="text-gray-300 italic text-sm">
-                                    Sigit Rendang ~ 24 Sep 2024
-                                </p>
-                            </div>
-                        </div>
-                        <div class="flex flex-col justify-between border border-gray-600 rounded-md p-2">
-                            <p class="mb-2">
-                                "Lorem, ipsum dolor sit amet consectetur
-                                adipisicing elit. Quo, nulla."
-                            </p>
-                            <div>
-                                <p class="flex items-center gap-1 text-yellow-500">
-                                    <span class="material-symbols-outlined !text-lg">
-                                        star
-                                    </span>
-                                    5.0
-                                </p>
-                                <p class="text-gray-300 italic text-sm">
-                                    Tuker ~ 23 Sep 2024
-                                </p>
-                            </div>
-                        </div>
-                        <div class="flex flex-col justify-between border border-gray-600 rounded-md p-2">
-                            <p class="mb-2">
-                                "Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Quam suscipit qui non."
-                            </p>
-                            <div>
-                                <p class="flex items-center gap-1 text-yellow-500">
-                                    <span class="material-symbols-outlined !text-lg">
-                                        star
-                                    </span>
-                                    4.9
-                                </p>
-                                <p class="text-gray-300 italic text-sm">
-                                    Komar Sutis ~ 21 Sep 2024
-                                </p>
-                            </div>
-                        </div>
-                        <div class="flex flex-col justify-between border border-gray-600 rounded-md p-2">
-                            <p class="mb-2">
-                                "Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Neque, cum quasi
-                                aspernatur eius quas perspiciatis."
-                            </p>
-                            <div>
-                                <p class="flex items-center gap-1 text-yellow-500">
-                                    <span class="material-symbols-outlined !text-lg">
-                                        star
-                                    </span>
-                                    4.7
-                                </p>
-                                <p class="text-gray-300 italic text-sm">
-                                    Ilham God ~ 24 Sep 2024
-                                </p>
-                            </div>
-                        </div>
-                        <div class="flex flex-col justify-between border border-gray-600 rounded-md p-2">
-                            <p class="mb-2">
-                                "Lorem ipsum dolor sit amet consectetur
-                                adipisicing."
-                            </p>
-                            <div>
-                                <p class="flex items-center gap-1 text-yellow-500">
-                                    <span class="material-symbols-outlined !text-lg">
-                                        star
-                                    </span>
-                                    5.0
-                                </p>
-                                <p class="text-gray-300 italic text-sm">
-                                    Sigit Rendang ~ 24 Sep 2024
-                                </p>
-                            </div>
-                        </div>
-                        <div class="flex flex-col justify-between border border-gray-600 rounded-md p-2">
-                            <p class="mb-2">
-                                "Lorem, ipsum dolor sit amet consectetur
-                                adipisicing elit. Quo, nulla."
-                            </p>
-                            <div>
-                                <p class="flex items-center gap-1 text-yellow-500">
-                                    <span class="material-symbols-outlined !text-lg">
-                                        star
-                                    </span>
-                                    5.0
-                                </p>
-                                <p class="text-gray-300 italic text-sm">
-                                    Tuker ~ 23 Sep 2024
-                                </p>
-                            </div>
-                        </div>
-                        <div class="flex flex-col justify-between border border-gray-600 rounded-md p-2">
-                            <p class="mb-2">
-                                "Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Quam suscipit qui non."
-                            </p>
-                            <div>
-                                <p class="flex items-center gap-1 text-yellow-500">
-                                    <span class="material-symbols-outlined !text-lg">
-                                        star
-                                    </span>
-                                    4.9
-                                </p>
-                                <p class="text-gray-300 italic text-sm">
-                                    Komar Sutis ~ 21 Sep 2024
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                    @endif
                 </div>
+            </div>
             </div>
 
             <div class="absolute right-20 -bottom-96 p-64 rotate-180 -z-10">
@@ -194,4 +83,12 @@
             </div>
         </section>
     </main>
+
+    @if (session('success'))
+        <x-toast message="{{ session('success') }}" type="info">{{ session('success') }}</x-toast>
+    @endif
+
+    @if (session('error'))
+        <x-toast message="{{ session('error') }}" type="error">{{ session('error') }}</x-toast>
+    @endif
 @endsection

@@ -13,7 +13,9 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        return view('reviews.index');
+        $reviews = Review::latest()->take(8)->get();
+
+        return view('reviews.index', compact('reviews'));
     }
 
     /**
@@ -29,38 +31,23 @@ class ReviewController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'rating' => 'required|integer|between:1,5',
+            'comment' => 'required|string|min:3',
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Review $review)
-    {
-        //
-    }
+        $review = Review::where('userId', 2)->first(); // auth()->user()->id
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Review $review)
-    {
-        //
-    }
+        if ($review) {
+            return redirect()->route('review')->with('error', 'You already submitted a review');
+        }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Review $review)
-    {
-        //
-    }
+        Review::create([
+            'userId' => 2, // auth()->user()->id,
+            'comment' => $request->comment,
+            'rating' => $request->rating,
+        ]);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Review $review)
-    {
-        //
+        return redirect()->route('review')->with('success', 'Review created successfully');
     }
 }
