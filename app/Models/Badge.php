@@ -17,6 +17,8 @@ class Badge extends Model
         'title',
         'description',
         'image',
+        'threshold',
+        'criteria',
     ];
 
     /**

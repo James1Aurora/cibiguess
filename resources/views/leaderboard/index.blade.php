@@ -37,7 +37,7 @@
                         @endforeach
                         @for ($i = count($histories); $i < 10; $i++)
                             <li>
-                                <mark>Empty</mark>
+                                <mark>N/A</mark>
                                 <small>0 pts</small>
                             </li>
                         @endfor

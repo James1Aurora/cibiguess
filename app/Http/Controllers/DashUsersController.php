@@ -36,12 +36,10 @@ class DashUsersController extends Controller
                 'password' => bcrypt($request->password),
             ]);
 
-            return redirect('/users')->with('success','User Added Successfully');
+            return redirect()->route('users')->with('success','User Added Successfully');
         } catch (\Exception $e) {
-            return redirect('/add-user')->with('fail',$e->getMessage());
+            return redirect()->back()->with('fail',$e->getMessage());
         }
-
-
     }
 
     public function EditUser(Request $request){
@@ -58,9 +56,9 @@ class DashUsersController extends Controller
                 'email' => $request->email,
             ]);
 
-            return redirect('/users')->with('success','User Updated Successfully');
+            return redirect()->route('users')->with('success','User Updated Successfully');
         } catch (\Exception $e) {
-            return redirect('/edit-user')->with('fail',$e->getMessage());
+            return redirect()->back()->with('fail',$e->getMessage());
         }
     }
 
@@ -73,9 +71,9 @@ class DashUsersController extends Controller
     public function deleteUser($id){
         try {
             User::where('id',$id)->delete();
-            return redirect('/users')->with('success','User Deleted successfully!');
+            return redirect()->route('users')->with('success','User Deleted successfully!');
         } catch (\Exception $e) {
-            return redirect('/users')->with('fail',$e->getMessage());
+            return redirect()->route('users')->with('fail',$e->getMessage());
 
         }
     }

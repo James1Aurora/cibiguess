@@ -10,7 +10,7 @@
     <div class="bg-cyan-500 p-3 rounded-lg mb-5">
         <p class="text-white mb-3 font-semibold tracking-tight text-xl">Tambah Map</p>
         <a class="btn bg-white px-3 py-2 w-fit flex justify-center items-center transition-colors duration-200 ease-in-out cursor-pointer pointer-events-auto text-sm h-fit min-h-fit hover:bg-cyan-600"
-            href="{{ url('/daftar-maps') }}">
+            href="{{ route('daftar-maps') }}">
             <span class="material-symbols-outlined !text-xl !leading-none">
                 arrow_back
             </span>

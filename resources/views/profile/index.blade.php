@@ -3,21 +3,21 @@
 @section('title', 'Profile | Cibiguess')
 
 @section('content')
-    <section class="w-screen h-screen overflow-hidden relative">
-        <div class="absolute -top-28 p-64 -z-10 -right-10">
-            <div
-                class="relative flex place-items-center before:absolute before:h-[240px] before:w-[300px] before:rounded-full before:bg-gradient-to-br before:from-white/25 before:to-transparent before:blur-3xl before:content-[''] before:-z-20 after:absolute after:-z-20 after:h-[340px] after:w-[600px] after:rounded-full after:-translate-x-1/3 after:blur-3xl after:bg-gradient-to-br after:from-cyan-400/45 after:via-cyan-200/35 after:content-[''] before:lg:h-[540px]">
-            </div>
-        </div>
-
+    <section class="min-h-svh overflow-x-hidden">
         <a href="{{ route('game.menu') }}"
-            class="md:absolute inline-flex justify-center items-center m-4 text-white border border-gray-500 bg-gray-800/50 hover:bg-gray-950/60 focus:ring-4 focus:ring-gray-600 font-medium rounded-md text-sm h-12 w-12 focus:outline-none transition ease-in-out duration-75">
+            class="inline-flex justify-center items-center m-4 mb-2 text-white border border-gray-500 bg-gray-800/50 hover:bg-gray-950/60 focus:ring-4 focus:ring-gray-600 font-medium rounded-md text-sm h-12 w-12 focus:outline-none transition ease-in-out duration-75">
             <span class="material-symbols-outlined m-0 !text-xl">
                 home
             </span>
         </a>
 
         <section class="container max-w-6xl mx-auto h-full relative p-4 mt-2 mb-12 md:p-2">
+            <div class="absolute -top-28 p-64 -z-10 -right-10">
+                <div
+                    class="relative flex place-items-center before:absolute before:h-[240px] before:w-[300px] before:rounded-full before:bg-gradient-to-br before:from-white/25 before:to-transparent before:blur-3xl before:content-[''] before:-z-20 after:absolute after:-z-20 after:h-[340px] after:w-[600px] after:rounded-full after:-translate-x-1/3 after:blur-3xl after:bg-gradient-to-br after:from-cyan-400/45 after:via-cyan-200/35 after:content-[''] before:lg:h-[540px]">
+                </div>
+            </div>
+
             <div class="border border-gray-500 bg-gray-700/50 backdrop-blur-md rounded-lg p-4">
                 <div class="flex items-center p-4 rounded-lg border border-gray-500 bg-gray-800 w-fit gap-4">
                     <div class="rounded-full w-24 h-24 bg-gray-400 overflow-hidden">
@@ -26,9 +26,9 @@
                     </div>
                     <div>
                         <p class="font-semibold tracking-tighter text-lg">
-                            Akmal Wijaro
+                            {{ $user->name }}
                         </p>
-                        <p class="text-gray-400">The Seeker</p>
+                        <p class="text-gray-400">{{ $user->email }}</p>
                     </div>
                 </div>
 

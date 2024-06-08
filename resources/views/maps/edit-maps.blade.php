@@ -10,7 +10,7 @@
     <div class="bg-cyan-500 p-3 rounded-lg mb-5">
         <p class="text-white mb-3 font-semibold tracking-tight text-xl">Edit Map</p>
         <a class="btn bg-white px-3 py-2 w-fit flex justify-center items-center transition-colors duration-200 ease-in-out cursor-pointer pointer-events-auto text-sm h-fit min-h-fit hover:bg-cyan-600"
-            href="{{ url('/daftar-maps') }}">
+            href="{{ route('daftar-maps') }}">
             <span class="material-symbols-outlined !text-xl !leading-none">
                 arrow_back
             </span>
@@ -78,20 +78,14 @@
                     class="max-w-[350px] max-h-[250px] object-cover object-center" />
             </div>
 
-            <label class="form-control w-full">
-                <div class="label">
-                    <span class="label-text">Mini Map</span>
-                </div>
-                <select class="select select-bordered" name="building" id="building"
-                    onchange="getMiniMap(this.options[this.selectedIndex].getAttribute('data-building'))">
-                    <option disabled selected>Pilih salah satu</option>
-                    @foreach ($miniMaps as $miniMap)
-                        <option value="{{ $miniMap->id }}" data-building="{{ $miniMap->image }}"
-                            @if ($miniMap->id == $map->buildingId) selected @endif>{{ $miniMap->building }}
-                        </option>
-                    @endforeach
-                </select>
-            </label>
+            <select class="select select-bordered" name="building" id="building" onchange="getMiniMap(this)">
+                <option disabled selected>Pilih salah satu</option>
+                @foreach ($miniMaps as $miniMap)
+                    <option value="{{ $miniMap->id }}" data-building="{{ $miniMap->image }}"
+                        data-building-id="{{ $miniMap->buildingId }}" @if ($miniMap->id == $map->buildingId) selected @endif>
+                        {{ $miniMap->building }}</option>
+                @endforeach
+            </select>
             @error('building')
                 <div class="mb-1">
                     <p class="text-red-500 text-sm">{{ $message }}</p>
@@ -115,11 +109,12 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ 'js/sidebar.js' }}"></script>
     <script>
+        let mapSpot;
+
         document.addEventListener('DOMContentLoaded', function() {
             // Inisialisasi elemen map dan marker
-            const mapSpot = document.getElementById('map-spot');
+            mapSpot = document.getElementById('map-spot');
             const originalMapWidth = 350;
             const originalMapHeight = 250;
             let marker = null;
@@ -212,10 +207,18 @@
             }
         });
 
-        function getMiniMap(filename) {
-            if (filename) {
-                mapSpot.src = "{{ asset('images/maps') }}" + "/" + filename;
-                mapSpot.style.display = 'block';
+        function getMiniMap(selectElement) {
+            if (selectElement) {
+                var selectedOption = selectElement.options[selectElement
+                    .selectedIndex]; // Mengambil elemen option yang dipilih
+                var filename = selectedOption.getAttribute('data-building');
+
+                if (filename) {
+                    mapSpot.src = "{{ asset('images/maps') }}" + "/" + filename;
+                    mapSpot.style.display = 'block';
+                } else {
+                    mapSpot.style.display = 'none';
+                }
             } else {
                 mapSpot.style.display = 'none';
             }

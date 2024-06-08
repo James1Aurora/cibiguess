@@ -11,7 +11,9 @@ class UserController extends Controller
 {
     public function showProfile()
     {
-        return view('profile.index');
+        $user = User::find(2); // auth()->user()->id
+
+        return view('profile.index', compact('user'));
     }
 
     /**

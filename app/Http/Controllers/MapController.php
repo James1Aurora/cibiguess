@@ -94,7 +94,7 @@ class MapController extends Controller
             if ($request->hasFile('spotImage')) {
                 // Hapus file lama jika ada
                 if ($maps->spotImage && file_exists(public_path('images/maps/' . $maps->spotImage))) {
-                    unlink(public_path('images/maps' . $maps->spotImage));
+                    unlink(public_path('images/maps/' . $maps->spotImage));
                 }
                 // Pindahkan file baru ke lokasi yang sama dengan file lama
                 $maps->spotImage = $request->file('spotImage')->getClientOriginalName();
@@ -125,8 +125,6 @@ class MapController extends Controller
             return redirect()->route('daftar-maps')->with('fail', 'Error muncul ketika loading map: ' . $e->getMessage());
         }
     }
-
-
 
     public function destroy($id)
     {

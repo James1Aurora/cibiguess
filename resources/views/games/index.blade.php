@@ -77,7 +77,7 @@
                                     Your best score was
                                 </p>
                                 <p class="tracking-tight font-semibold text-2xl">
-                                    {{ $highScores ? $highScores->score : 0 }} points
+                                    {{ $highScores->score ?? 0 }} points
                                 </p>
                             </div>
 

@@ -12,6 +12,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashUsersController;
 use App\Http\Controllers\MapController;
+use App\Http\Controllers\MiniMapController;
 
 // MAIN ROUTE
 Route::get('/', [MainController::class, 'index'])->name('home');
@@ -36,46 +37,38 @@ Route::get('/reviews', [ReviewController::class, 'index'])->name('review');
 Route::get('/review/create', [ReviewController::class, 'create'])->name('review.create');
 Route::post('/review/create', [ReviewController::class, 'store'])->name('review.store');
 
-Route::middleware([AuthMiddleware::class])->prefix('/ds')->group(function () {
-    Route::get('/', [DashboardController::class, 'index']);
-
-    Route::get('/game', [GameController::class, 'index']);
+Route::middleware([AuthMiddleware::class])->prefix('/ad')->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/badge', [BadgeController::class, 'index'])->name('badge');
     Route::post('/badge', [BadgeController::class, 'store'])->name('badge.store');
     Route::post('/badge/{id}', [BadgeController::class, 'update'])->name('badge.update');
     Route::delete('/badge/{id}', [BadgeController::class, 'destroy'])->name('badge.delete');
+
+    // MINI MAP ROUTES
+    Route::get('/minimaps', [MiniMapController::class, 'index'])->name('minimaps');
+    Route::get('/minimaps/create', [MiniMapController::class, 'create'])->name('minimaps.create');
+    Route::post('/minimaps', [MiniMapController::class, 'store'])->name('minimaps.store');
+    Route::get('/minimaps/edit/{id}', [MiniMapController::class, 'edit'])->name('minimaps.edit');
+    Route::post('/minimaps/edit/{id}', [MiniMapController::class, 'update'])->name('minimaps.update');
+    Route::delete('/minimaps/{id}', [MiniMapController::class, 'destroy'])->name('minimaps.destroy');
+
+    //DASHBOARD MAPS
+    Route::get('/questions', [MapController::class, 'loadAllMaps'])->name('daftar-maps'); // Route untuk menampilkan semua peta
+    Route::get('/questions/add', [MapController::class, 'loadAddMaps'])->name('add-maps'); // Route untuk menampilkan formulir tambah peta
+    Route::post('/questions/add', [MapController::class, 'store'])->name('maps.store'); // Route untuk menyimpan data peta yang baru
+    Route::get('/questions/{id}/edit', [MapController::class, 'edit'])->name('edit-maps'); // Route untuk menampilkan formulir edit peta
+    Route::put('/questions/{id}', [MapController::class, 'update'])->name('maps.update'); // Route untuk menyimpan perubahan pada peta yang sudah diedit
+    Route::delete('/questions/{id}', [MapController::class, 'destroy'])->name('maps.destroy'); // Route untuk menghapus peta
+
+    // DASHBOARD USER
+    Route::get('/users',[DashUsersController::class,'loadAllUsers'])->name('users');
+    Route::get('/users/add',[DashUsersController::class,'loadAddUserForm'])->name('users.add');
+    Route::post('/users/add',[DashUsersController::class,'AddUser'])->name('AddUser');
+    Route::get('/users/edit/{id}',[DashUsersController::class,'loadEditForm'])->name('users.edit');
+    Route::post('/users/edit',[DashUsersController::class,'EditUser'])->name('EditUser');
+    Route::delete('/users/{id}',[DashUsersController::class,'deleteUser'])->name('users.delete');
 });
-
-// DASHBOARD USER
-Route::get('/users',[DashUsersController::class,'loadAllUsers']);
-Route::get('/add-user',[DashUsersController::class,'loadAddUserForm']);
-Route::post('/add-user',[DashUsersController::class,'AddUser'])->name('AddUser');
-Route::get('/edit-user{id}',[DashUsersController::class,'loadEditForm']);
-Route::post('/edit-user',[DashUsersController::class,'EditUser'])->name('EditUser');
-Route::get('/delete/{id}',[DashUsersController::class,'deleteUser']);
-
-
-//DASHBOARD MAPS
-// Route untuk menampilkan semua peta
-Route::get('/daftar-maps', [MapController::class, 'loadAllMaps'])->name('daftar-maps');
-
-// Route untuk menampilkan formulir tambah peta
-Route::get('/add-maps', [MapController::class, 'loadAddMaps'])->name('add-maps');
-
-// Route untuk menyimpan data peta yang baru
-Route::post('/add-maps', [MapController::class, 'store'])->name('maps.store');
-
-// Route untuk menampilkan formulir edit peta
-Route::get('/maps/{id}/edit', [MapController::class, 'edit'])->name('edit-maps');
-
-// Route untuk menyimpan perubahan pada peta yang sudah diedit
-Route::put('/maps/{id}', [MapController::class, 'update'])->name('maps.update');
-
-// Route untuk menghapus peta
-Route::delete('/maps/{id}', [MapController::class, 'destroy'])->name('maps.destroy');
-
-
 
 // RESTful API
 // Route::resource('users', 'UserController');
