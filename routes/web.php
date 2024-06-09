@@ -13,6 +13,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashUsersController;
 use App\Http\Controllers\MapController;
 use App\Http\Controllers\MiniMapController;
+use App\Http\Controllers\DashBadgeController;
+
 
 // MAIN ROUTE
 Route::get('/', [MainController::class, 'index'])->name('home');
@@ -68,6 +70,27 @@ Route::middleware([AuthMiddleware::class])->prefix('/ad')->group(function () {
     Route::get('/users/edit/{id}',[DashUsersController::class,'loadEditForm'])->name('users.edit');
     Route::post('/users/edit',[DashUsersController::class,'EditUser'])->name('EditUser');
     Route::delete('/users/{id}',[DashUsersController::class,'deleteUser'])->name('users.delete');
+
+
+    //DASHBOARD BADGES
+
+    // Route untuk menampilkan daftar badge
+    Route::get('/badges', [DashBadgeController::class, 'loadAllBadges'])->name('badges');
+
+    // Route untuk menampilkan form tambah badge
+    Route::get('/add-badge', [DashBadgeController::class, 'loadAddbadges'])->name('add-badge');
+
+    // Route untuk menyimpan data badge
+    Route::post('/add-badge', [DashBadgeController::class, 'store'])->name('badge.store');
+
+    // Route untuk menampilkan formulir edit badge
+    Route::get('/badge/{id}/edit', [DashBadgeController::class, 'edit'])->name('edit-badge');
+
+    // Route untuk menyimpan perubahan pada badge yang sudah diedit
+    Route::put('/badge/{id}', [DashBadgeController::class, 'update'])->name('badge.update');
+
+    // Route untuk menghapus badge
+    Route::delete('/badge/{id}', [DashBadgeController::class, 'destroy'])->name('badge.destroy');
 });
 
 // RESTful API

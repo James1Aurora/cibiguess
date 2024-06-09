@@ -49,11 +49,11 @@
             </button>
             <div class="gap-2 hidden w-full md:flex md:w-auto">
                 <a class="inline-flex items-center gap-2 text-white border border-white bg-transparent hover:bg-cyan-600 hover:border-cyan-200 focus:ring-4 focus:ring-cyan-600 font-medium rounded-md text-sm px-5 py-2.5 focus:outline-none transition ease-in-out duration-75"
-                    href="#">
+                    href="{{ route('register') }}">
                     Sign In
                 </a>
                 <a class="inline-flex items-center gap-2 text-white border border-cyan-200 bg-cyan-400 hover:bg-cyan-600 focus:ring-4 focus:ring-cyan-600 font-medium rounded-md text-sm px-5 py-2.5 focus:outline-none transition ease-in-out duration-75"
-                    href="#">
+                    href="{{ route('login') }}">
                     Log In
                 </a>
             </div>
@@ -254,7 +254,7 @@
                 </div>
             </div>
             <div class="bg-white rounded-lg relative overflow-hidden h-[300px] md:h-[600px] md:col-span-2">
-                <img src="{{ asset('images/user-default.jpg') }}" alt="Photo Profile"
+                <img src="{{ asset('images/team-nauval.jpg') }}" alt="Photo Profile"
                     class="w-full h-full object-cover object-center bg-center" />
                 <div
                     class="bg-gradient-to-b from-transparent to-cyan-700 w-full flex items-center p-2 absolute bottom-0 h-1/3">
