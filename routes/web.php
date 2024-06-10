@@ -69,7 +69,7 @@ Route::middleware([AuthMiddleware::class])->prefix('/ad')->group(function () {
     Route::post('/users/add',[DashUsersController::class,'AddUser'])->name('AddUser');
     Route::get('/users/edit/{id}',[DashUsersController::class,'loadEditForm'])->name('users.edit');
     Route::post('/users/edit',[DashUsersController::class,'EditUser'])->name('EditUser');
-    Route::delete('/users/{id}',[DashUsersController::class,'deleteUser'])->name('users.delete');
+    Route::get('/users/{id}',[DashUsersController::class,'deleteUser'])->name('users.delete');
 
 
     //DASHBOARD BADGES

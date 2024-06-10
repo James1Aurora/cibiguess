@@ -7,6 +7,7 @@
     <title>CibiGuess</title>
     @vite('resources/css/app.css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="icon" type="image/svg+xml" href="{{ asset('images/icon-cibiguess.svg') }}" />
 </head>
 
 <body class="bg-[#002230] text-white overflow-x-hidden">
@@ -14,6 +15,7 @@
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <div class="flex items-center gap-5">
                 <a href="{{ url('/') }}" class="flex items-center space-x-3 rtl:space-x-reverse">
+                <img style="width:30px;height:30px" src="{{ asset('images/icon-cibiguess.svg') }}" alt="Icon">
                     <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">CibiGuess</span>
                 </a>
                 <div class="hidden w-full md:block md:w-auto" id="navbar-default">
@@ -21,17 +23,17 @@
                         class="flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0">
                         <li>
                             <a href="{{ url('/') }}"
-                                class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-cyan-700 md:p-0 dark:text-white md:dark:hover:text-cyan-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                                class="block py-2 px-3 text-white-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-cyan-700 md:p-0 dark:text-white md:dark:hover:text-cyan-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                                 aria-current="page">Home</a>
                         </li>
                         <li>
-                            <a href="{{ url('/') }}"
-                                class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-cyan-700 md:p-0 dark:text-white md:dark:hover:text-cyan-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Play
+                            <a href="{{ url('games') }}"
+                                class="block py-2 px-3 text-white-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-cyan-700 md:p-0 dark:text-white md:dark:hover:text-cyan-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Play
                                 Now</a>
                         </li>
                         <li>
-                            <a href="{{ url('/') }}"
-                                class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-cyan-700 md:p-0 dark:text-white md:dark:hover:text-cyan-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Support
+                            <a href="{{ url('donate') }}"
+                                class="block py-2 px-3 text-white-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-cyan-700 md:p-0 dark:text-white md:dark:hover:text-cyan-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Support
                                 Us</a>
                         </li>
                     </ul>
@@ -104,11 +106,10 @@
                 Play and Explore with Joy
             </p>
             <p class="my-4 text-sm sm:text-base">
-                Lorem Ipsum is simply dummy text of the printing and
-                typesetting industry. Lorem Ipsum has been the industry's
-                standard dummy text ever since the 1500s, when an unknown
-                printer took a galley of type and scrambled it to make a
-                type specimen book.
+            Welcome to Cibiguess! 🌟
+            Join our community and sharpen your skills in recognizing every corner of UPI Cibiru. 
+            Are you ready to take on the challenge and prove that you are the best at Cibiguess? 
+            Start your adventure now!
             </p>
             <div class="flex justify-center gap-2">
                 <a class="inline-flex items-center gap-2 text-white border border-white bg-transparent hover:bg-cyan-600 hover:border-cyan-200 focus:ring-4 focus:ring-cyan-600 font-medium rounded-md text-sm px-5 py-2.5 focus:outline-none transition ease-in-out duration-75"
@@ -139,64 +140,46 @@
             <div class="swiper-wrapper">
                 <div
                     class="swiper-slide bg-gray-800/80 border border-gray-700 backdrop-blur-md mt-8 p-4 rounded-lg md:!flex items-center gap-4 md:max-w-[800px]">
-                    <img src="{{ asset('images/spot.jpg') }}" alt="Spot"
+                    <img src="{{ asset('images/Gambar-UPICIBIRU.jpg') }}" alt="Spot"
                         class="rounded-lg h-[400px] w-full md:h-[500px] md:w-[400px] object-cover" />
                     <div>
                         <p class="font-semibold tracking-tighter text-2xl">
                             Get to know about UPI in Cibiru
                         </p>
                         <p>
-                            Lorem ipsum dolor sit amet consectetur
-                            adipisicing elit. Ab magni natus consequatur
-                            vero explicabo, rerum debitis blanditiis,
-                            sapiente, rem provident sunt eos voluptate nihil
-                            quisquam eius esse aperiam. Alias sunt
-                            architecto quaerat quae laboriosam quasi
-                            deserunt, illo commodi magni iste fugiat. Rem
-                            dolore esse nesciunt exercitationem numquam
-                            ipsum assumenda blanditiis.
+
+                        UPI Cibiru Regional Campus, Universitas Pendidikan Indonesia (abbreviated as Kamda Cibiru UPI), is one of the regional campuses within UPI that holds a status equivalent to a faculty within the university. 
+                        Organizationally, the regional campuses at UPI function as educational units under the university, equivalent to faculties, and are led by a regional campus director. 
+                        Kamda Cibiru offers 5 study programs.
                         </p>
                     </div>
                 </div>
                 <div
                     class="swiper-slide bg-gray-800/80 border border-gray-700 backdrop-blur-md mt-8 p-4 rounded-lg md:!flex items-center gap-4 md:max-w-[800px]">
-                    <img src="{{ asset('images/spot.jpg') }}" alt="Spot"
+                    <img src="{{ asset('images/Geogusser.jpg') }}" alt="Spot"
                         class="rounded-lg h-[400px] w-full md:h-[500px] md:min-w-[400px] object-cover" />
                     <div>
                         <p class="font-semibold tracking-tighter text-2xl">
-                            Get to know about UPI in Cibiru
+                            Inspired By Popular Game Website
                         </p>
                         <p>
-                            Lorem ipsum dolor sit amet consectetur
-                            adipisicing elit. Ab magni natus consequatur
-                            vero explicabo, rerum debitis blanditiis,
-                            sapiente, rem provident sunt eos voluptate nihil
-                            quisquam eius esse aperiam. Alias sunt
-                            architecto quaerat quae laboriosam quasi
-                            deserunt, illo commodi magni iste fugiat. Rem
-                            dolore esse nesciunt exercitationem numquam
-                            ipsum assumenda blanditiis.
+                        Cibiguess is inspired by popular games like Geoguesser and Valoguesser, bringing the excitement of location guessing to the vibrant UPI Cibiru campus. 
+                        Dive into this unique challenge and explore every corner of our beautiful campus through engaging images. 
+                        Test your knowledge, compete with friends, and discover hidden gems around UPI Cibiru!
                         </p>
                     </div>
                 </div>
                 <div
                     class="swiper-slide bg-gray-800/80 border border-gray-700 backdrop-blur-md mt-8 p-4 rounded-lg md:!flex items-center gap-4 md:max-w-[800px]">
-                    <img src="{{ asset('images/spot.jpg') }}" alt="Spot"
+                    <img src="{{ asset('images/gambar-orang.svg') }}" alt="Spot"
                         class="rounded-lg h-[400px] w-full md:h-[500px] md:min-w-[400px] object-cover" />
                     <div>
                         <p class="font-semibold tracking-tighter text-2xl">
-                            Get to know about UPI in Cibiru
+                            Stimulate the Imagination and Creativity
                         </p>
                         <p>
-                            Lorem ipsum dolor sit amet consectetur
-                            adipisicing elit. Ab magni natus consequatur
-                            vero explicabo, rerum debitis blanditiis,
-                            sapiente, rem provident sunt eos voluptate nihil
-                            quisquam eius esse aperiam. Alias sunt
-                            architecto quaerat quae laboriosam quasi
-                            deserunt, illo commodi magni iste fugiat. Rem
-                            dolore esse nesciunt exercitationem numquam
-                            ipsum assumenda blanditiis.
+                        CibiGuess will increase your ability to think creatively and imagine vividly, 
+                        allowing you to explore a world of endless possibilities through captivating images and challenging puzzles.
                         </p>
                     </div>
                 </div>
