@@ -73,17 +73,17 @@
             <div class="flex items-center flex-nowrap">
                 <div>
                     <div class="text-sm whitespace-nowrap">
-                        Akwan Cakra
+                        {{ $user->name }}
                     </div>
                     <div class="text-xs whitespace-nowrap">
                         Administrator
                     </div>
                 </div>
             </div>
-            <a href="{{ route('login') }}">
+            <a href="{{ route('logout') }}">
                 <i class="material-symbols-outlined text-white bg-cyan-500 !text-xl h-[60px] min-w-[50px] text-center !leading-[60px] absolute -translate-y-2/4 w-full transition-all duration-500 ease-in-out right-0 top-2/4 group-[.open]:w-[50px] group-[.open]:bg-none "
                     id="log_out">logout</i>
             </a>
         </li>
     </ul>
-</div>
+</div> 

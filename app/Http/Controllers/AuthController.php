@@ -45,7 +45,12 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('main-menu');
+            $user = Auth::user();
+            if ($user->roleId == 1) {
+                return redirect()->intended('ad');
+            } elseif ($user->roleId == 2) {
+                return redirect()->intended('main-menu');
+            }
         }
 
         return redirect('login')->with('error', 'Invalid credentials');
@@ -71,6 +76,7 @@ class AuthController extends Controller
         }
 
         $user = User::create([
+            'roleId' => 2,
             'name' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -78,8 +84,17 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect('home');
+        return redirect('login')->with('success', 'Registration successful! You are now logged in.');
     }
+    
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/')->with('success', 'You have been logged out.');
+    }
+    
     public function showUser()
     {
         $user = Auth::user(); // Get the authenticated user

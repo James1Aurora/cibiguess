@@ -265,32 +265,110 @@ class GameController extends Controller
 
         return view('games.playGame', ['question' => $questions[$currentQuestionIndex]]);
     }
+    //YANG AKWAN BISA, YANG KITA GK BISA
+    // public function result()
+    // {
+    //     $answers = session('answers', null);
+    //     $questions = session('questions', null);
+    //     $gameDetails = session('gameDetails', null);
 
+    //     // Cek apakah sesi 'answers' dan 'questions' ada
+    //     if (is_null($answers) || is_null($questions) || is_null($gameDetails)) {
+    //         return redirect()->route('game.menu')->with('error', 'Session data is missing. Please start a new game.');
+    //     }
+
+    //     $lastQuestion = end($questions);
+
+    //     // Hitung total score
+    //     $totalScore = array_reduce($answers, function ($carry, $answer) {
+    //         return $carry + $answer['score'];
+    //     }, 0);
+
+    //     // Hitung total map
+    //     $totalMap = count($questions);
+    //     $maxScore = $totalMap * 1000;
+
+    //     // Tentukan pesan berdasarkan skor
+    //     $scorePercentage = ($totalScore / $maxScore) * 100;
+
+    //     if ($scorePercentage >= 90) {
+    //         $message = "Excellent! You've mastered the game.";
+    //     } elseif ($scorePercentage >= 70) {
+    //         $message = "Good job! You did well.";
+    //     } elseif ($scorePercentage >= 50) {
+    //         $message = "Average performance. Keep practicing!";
+    //     } else {
+    //         $message = "Try again! You'll get better with more practice.";
+    //     }
+
+    //     $finalResult = [
+    //         'maxScore' => $maxScore,
+    //         'totalScore' => $totalScore,
+    //         'totalMap' => $totalMap,
+    //         'message' => $message,
+    //     ];
+
+    //     try {
+    //         DB::beginTransaction();
+
+    //         $history = History::create([
+    //             'userId' => 2, // auth()->user()->id,
+    //             'buildingId' => $gameDetails['miniMap'] ? $gameDetails['miniMap']->id : null,
+    //             'difficulty' => $gameDetails['difficulty'],
+    //             'datePlayed' => now(),
+    //             'score' => $totalScore,
+    //         ]);
+
+    //         foreach ($answers as $answer) {
+    //             QuestionMapHistory::create([
+    //                 'questionId' => $answer['question_id'],
+    //                 'historyId' => $history->id,
+    //                 'answerX' => $answer['user_answer_x'],
+    //                 'answerY' => $answer['user_answer_y'],
+    //                 'score' => $answer['score'],
+    //             ]);
+    //         }
+
+    //         DB::commit();
+
+    //         // Hapus sesi setelah data diproses
+    //         session()->forget(['answers', 'questions', 'gameDetails']);
+
+    //         return view('games.result', [
+    //             'answers' => $answers,
+    //             'questions' => $questions,
+    //             'lastQuestion' => $lastQuestion,
+    //             'finalResult' => $finalResult,
+    //             'gameDetails' => $gameDetails,
+    //         ]);
+    //     } catch (\Throwable $th) {
+    //         DB::rollBack();
+    //         dd($th->getMessage());
+    //         throw $th;
+    //         // return redirect()->back()->with('error', 'Failed to save game result: ' . $th->getMessage());
+    //     }
+    // }
     public function result()
     {
         $answers = session('answers', null);
         $questions = session('questions', null);
         $gameDetails = session('gameDetails', null);
-
-        // Cek apakah sesi 'answers' dan 'questions' ada
+    
         if (is_null($answers) || is_null($questions) || is_null($gameDetails)) {
             return redirect()->route('game.menu')->with('error', 'Session data is missing. Please start a new game.');
         }
-
+    
         $lastQuestion = end($questions);
-
-        // Hitung total score
+    
         $totalScore = array_reduce($answers, function ($carry, $answer) {
             return $carry + $answer['score'];
         }, 0);
-
-        // Hitung total map
+    
         $totalMap = count($questions);
         $maxScore = $totalMap * 1000;
-
-        // Tentukan pesan berdasarkan skor
+    
         $scorePercentage = ($totalScore / $maxScore) * 100;
-
+    
         if ($scorePercentage >= 90) {
             $message = "Excellent! You've mastered the game.";
         } elseif ($scorePercentage >= 70) {
@@ -300,25 +378,32 @@ class GameController extends Controller
         } else {
             $message = "Try again! You'll get better with more practice.";
         }
-
+    
         $finalResult = [
             'maxScore' => $maxScore,
             'totalScore' => $totalScore,
             'totalMap' => $totalMap,
             'message' => $message,
         ];
-
+    
         try {
             DB::beginTransaction();
-
+    
+            $userId = auth()->id(); // Pastikan userId diambil dari pengguna yang sedang login
+            $buildingId = $gameDetails['miniMap'] ? $gameDetails['miniMap']->id : null;
+    
+            if (!$userId) {
+                return redirect()->route('game.menu')->with('error', 'Invalid user.');
+            }
+    
             $history = History::create([
-                'userId' => 2, // auth()->user()->id,
-                'buildingId' => $gameDetails['miniMap'] ? $gameDetails['miniMap']->id : null,
+                'userId' => $userId,
+                'buildingId' => $buildingId,
                 'difficulty' => $gameDetails['difficulty'],
                 'datePlayed' => now(),
                 'score' => $totalScore,
             ]);
-
+    
             foreach ($answers as $answer) {
                 QuestionMapHistory::create([
                     'questionId' => $answer['question_id'],
@@ -328,12 +413,11 @@ class GameController extends Controller
                     'score' => $answer['score'],
                 ]);
             }
-
+    
             DB::commit();
-
-            // Hapus sesi setelah data diproses
+    
             session()->forget(['answers', 'questions', 'gameDetails']);
-
+    
             return view('games.result', [
                 'answers' => $answers,
                 'questions' => $questions,
@@ -343,12 +427,10 @@ class GameController extends Controller
             ]);
         } catch (\Throwable $th) {
             DB::rollBack();
-            dd($th->getMessage());
-            throw $th;
-            // return redirect()->back()->with('error', 'Failed to save game result: ' . $th->getMessage());
+            return redirect()->back()->with('error', 'Failed to save game result: ' . $th->getMessage());
         }
     }
-
+    
     /**
      * Show the form for creating a new resource.
      */

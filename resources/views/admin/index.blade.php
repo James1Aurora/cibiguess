@@ -10,7 +10,7 @@
                     Hello, Good Morning
                 </p>
                 <p class="font-semibold tracking-tight text-xl text-white">
-                    Administrator, Ucok!
+                    Administrator, {{ $user->name }}!
                 </p>
             </div>
         </div>
