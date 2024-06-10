@@ -16,7 +16,7 @@
             <div class="max-w-7xl mx-auto h-full flex justify-between items-center p-4">
                 <div class="w-1/4 sm:w-2/5">
                     <div class="mb-5">
-                        <p
+                `        <p
                             class="tracking-tighter font-bold text-2xl bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-400 via-blue-300 to-blue-100/50 leading-snug bg-clip-text text-transparent sm:text-4xl">
                             CibiGuess
                         </p>
@@ -58,7 +58,7 @@
                             </span>
                         </a>
                         <a class="flex w-full justify-center items-center mb-5 gap-2 text-white border border-gray-500 bg-gray-600/50 hover:bg-gray-700/40 focus:ring-4 focus:ring-gray-800 font-medium rounded-md px-5 py-2.5 focus:outline-none transition ease-in-out duration-75"
-                            href="{{ route('login') }}">
+                            href="{{ route('logout') }}">
                             <span class="hidden sm:block">Logout</span>
                             <span class="material-symbols-outlined m-0 !leading-none !text-[18px]">
                                 logout

@@ -15,9 +15,11 @@
 </head>
 
 <body>
-    @include('layouts.partials.sidebar')
+    @auth
+        @include('layouts.partials.sidebar', ['user' => Auth::user()])
+    @endauth
     @include('layouts.partials.bottombar')
-
+   
     <!-- Main content -->
     <section class="group" id="sideContent">
         <div

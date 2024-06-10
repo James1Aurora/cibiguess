@@ -15,6 +15,9 @@
 </head>
 
 <body>
+    @auth
+        @include('sidebar', ['user' => Auth::user()])
+    @endauth
     <!-- Navbar -->
     {{-- @include('layouts.partials.navbar') --}}
 

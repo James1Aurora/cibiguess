@@ -14,6 +14,7 @@ use App\Http\Controllers\DashUsersController;
 use App\Http\Controllers\MapController;
 use App\Http\Controllers\MiniMapController;
 use App\Http\Controllers\DashBadgeController;
+use App\Http\Controllers\SidebarController;
 
 
 // MAIN ROUTE
@@ -25,6 +26,7 @@ Route::post('login', [AuthController::class, 'loginPost'])->name('login.post');
 Route::get('register', [AuthController::class, 'register'])->name('register');
 Route::post('register', [AuthController::class, 'registerPost'])->name('register.post');
 Route::get('main-menu', [GameController::class, 'index'])->middleware('auth')->name('main-menu');
+Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 // PLAY GAME
 Route::get('/main-menu', [GameController::class, 'index'])->name('game.menu');
 Route::get('/game/start', [GameController::class, 'gameStart'])->name('game.start');
@@ -38,6 +40,8 @@ Route::get('/donate', [MainController::class, 'donate'])->name('donate');
 Route::get('/reviews', [ReviewController::class, 'index'])->name('review');
 Route::get('/review/create', [ReviewController::class, 'create'])->name('review.create');
 Route::post('/review/create', [ReviewController::class, 'store'])->name('review.store');
+
+// sidebar
 
 Route::middleware([AuthMiddleware::class])->prefix('/ad')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
@@ -71,7 +75,7 @@ Route::middleware([AuthMiddleware::class])->prefix('/ad')->group(function () {
     Route::post('/users/edit',[DashUsersController::class,'EditUser'])->name('EditUser');
     Route::get('/users/{id}',[DashUsersController::class,'deleteUser'])->name('users.delete');
 
-
+    Route::get('/sidebar', [SidebarController::class, 'showSidebar'])->name('sidebar');
     //DASHBOARD BADGES
 
     // Route untuk menampilkan daftar badge
