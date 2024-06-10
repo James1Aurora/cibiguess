@@ -69,7 +69,7 @@
                         <div
                             class="bg-[#031821]/40 border border-gray-700 backdrop-blur-md rounded-lg max-w-xl w-full p-4 text-center">
                             <p class="tracking-tight font-semibold text-2xl">
-                                Hi, Akmal Wijaro
+                                Hi, {{ $user->name }}
                             </p>
 
                             <div class="my-8">
