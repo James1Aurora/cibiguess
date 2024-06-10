@@ -7,7 +7,7 @@
 @section('styles')
     <link href="{{ asset('css/regist.css') }}" rel="stylesheet" />
 @endsection
-
+ 
 @section('content')
     <div class="gradient-wrapper">
         <div class="gradient-wrapper-two"></div>

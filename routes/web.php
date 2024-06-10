@@ -20,11 +20,11 @@ use App\Http\Controllers\DashBadgeController;
 Route::get('/', [MainController::class, 'index'])->name('home');
 
 // AUTH
-Route::get('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/login', [AuthController::class, 'loginPost'])->name('login.post');
-Route::get('/register', [AuthController::class, 'register'])->name('register');
-Route::post('/register', [AuthController::class, 'registerPost'])->name('register.post');
-
+Route::get('login', [AuthController::class, 'login'])->name('login');
+Route::post('login', [AuthController::class, 'loginPost'])->name('login.post');
+Route::get('register', [AuthController::class, 'register'])->name('register');
+Route::post('register', [AuthController::class, 'registerPost'])->name('register.post');
+Route::get('main-menu', [GameController::class, 'index'])->middleware('auth')->name('main-menu');
 // PLAY GAME
 Route::get('/main-menu', [GameController::class, 'index'])->name('game.menu');
 Route::get('/game/start', [GameController::class, 'gameStart'])->name('game.start');

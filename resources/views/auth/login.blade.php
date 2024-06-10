@@ -18,19 +18,26 @@
             @csrf
             @method('POST')
             <h2>Login</h2>
+            @if (session('error'))
+                <div class="alert alert-danger" id="loginError" style="display: none;">{{ session('error') }}</div>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        alert("{{ session('error') }}");
+                    });
+                </script>
+            @endif
             <div class="input-box">
-                <input type="text" id="username" required="required" />
-                <span>Username</span>
+                <input type="email" id="email" name="email" required="required" />
+                <span>Email</span>
                 <i></i>
             </div>
             <div class="input-box">
-                <input type="password" id="password" required="required" />
+                <input type="password" id="password" name="password" required="required" />
                 <span>Password</span>
                 <i></i>
             </div>
             <div class="imp-links">
-                <label for="checkbox"><input type="checkbox" name="checkbox" id="" />Remember
-                    Me</label>
+                <label for="remember"><input type="checkbox" name="remember" id="remember" />Remember Me</label>
                 <a href="#">Forget Password</a>
             </div>
             <button class="btn" type="submit">Login</button>
@@ -42,21 +49,3 @@
         </form>
     </div>
 @endsection
-
-{{-- <script>
-    document
-        .getElementById("loginForm")
-        .addEventListener("submit", function(event) {
-            var username = document
-                .getElementById("username")
-                .value.trim();
-            var password = document
-                .getElementById("password")
-                .value.trim();
-
-            if (username === "" || password === "") {
-                alert("Please enter both username and password.");
-                event.preventDefault(); // Prevent form submission
-            }
-        });
-</script> --}}

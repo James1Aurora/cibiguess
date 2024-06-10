@@ -11,6 +11,7 @@ use App\Services\BadgeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class GameController extends Controller
 {
@@ -21,15 +22,16 @@ class GameController extends Controller
         $this->badgeService = $badgeService;
         // $this->badgeService->checkAndAwardBadges(auth()->user(), $totalScore, $totalMap);
     }
-
+ 
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $highScores = History::orderBy('score', 'desc')->first();
+        $user = Auth::user(); // Ambil pengguna yang terautentikasi
 
-        return view('games.index', compact('highScores'));
+        return view('games.index', compact('highScores', 'user'));
     }
 
 
