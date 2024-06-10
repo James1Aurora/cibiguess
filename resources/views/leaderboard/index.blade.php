@@ -1,5 +1,7 @@
 @extends('layouts.clearDark')
-
+<head>
+<link rel="icon" type="image/svg+xml" href="{{ asset('images/icon-cibiguess.svg') }}" />
+</head>
 @section('title', 'Leaderboard | CibiGuess')
 
 @section('styles')
