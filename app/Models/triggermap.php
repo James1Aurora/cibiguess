@@ -27,7 +27,3 @@ class triggermap extends Model
         });
     }
 }
-
-
-
-?>

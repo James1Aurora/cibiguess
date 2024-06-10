@@ -42,10 +42,10 @@ Route::post('/review/create', [ReviewController::class, 'store'])->name('review.
 Route::middleware([AuthMiddleware::class])->prefix('/ad')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::get('/badge', [BadgeController::class, 'index'])->name('badge');
-    Route::post('/badge', [BadgeController::class, 'store'])->name('badge.store');
-    Route::post('/badge/{id}', [BadgeController::class, 'update'])->name('badge.update');
-    Route::delete('/badge/{id}', [BadgeController::class, 'destroy'])->name('badge.delete');
+    // Route::get('/badge', [BadgeController::class, 'index'])->name('badge');
+    // Route::post('/badge', [BadgeController::class, 'store'])->name('badge.store');
+    // Route::post('/badge/{id}', [BadgeController::class, 'update'])->name('badge.update');
+    // Route::delete('/badge/{id}', [BadgeController::class, 'destroy'])->name('badge.delete');
 
     // MINI MAP ROUTES
     Route::get('/minimaps', [MiniMapController::class, 'index'])->name('minimaps');
@@ -71,26 +71,13 @@ Route::middleware([AuthMiddleware::class])->prefix('/ad')->group(function () {
     Route::post('/users/edit',[DashUsersController::class,'EditUser'])->name('EditUser');
     Route::get('/users/{id}',[DashUsersController::class,'deleteUser'])->name('users.delete');
 
-
     //DASHBOARD BADGES
-
-    // Route untuk menampilkan daftar badge
-    Route::get('/badges', [DashBadgeController::class, 'loadAllBadges'])->name('badges');
-
-    // Route untuk menampilkan form tambah badge
-    Route::get('/add-badge', [DashBadgeController::class, 'loadAddbadges'])->name('add-badge');
-
-    // Route untuk menyimpan data badge
-    Route::post('/add-badge', [DashBadgeController::class, 'store'])->name('badge.store');
-
-    // Route untuk menampilkan formulir edit badge
-    Route::get('/badge/{id}/edit', [DashBadgeController::class, 'edit'])->name('edit-badge');
-
-    // Route untuk menyimpan perubahan pada badge yang sudah diedit
-    Route::put('/badge/{id}', [DashBadgeController::class, 'update'])->name('badge.update');
-
-    // Route untuk menghapus badge
-    Route::delete('/badge/{id}', [DashBadgeController::class, 'destroy'])->name('badge.destroy');
+    Route::get('/badges', [DashBadgeController::class, 'loadAllBadges'])->name('badges'); // Route untuk menampilkan daftar badge
+    Route::get('/add-badge', [DashBadgeController::class, 'loadAddbadges'])->name('add-badge'); // Route untuk menampilkan form tambah badge
+    Route::post('/add-badge', [DashBadgeController::class, 'store'])->name('badge.store'); // Route untuk menyimpan data badge
+    Route::get('/badge/{id}/edit', [DashBadgeController::class, 'edit'])->name('edit-badge'); // Route untuk menampilkan formulir edit badge
+    Route::put('/badge/{id}', [DashBadgeController::class, 'update'])->name('badge.update'); // Route untuk menyimpan perubahan pada badge yang sudah diedit
+    Route::delete('/badge/{id}', [DashBadgeController::class, 'destroy'])->name('badge.destroy'); // Route untuk menghapus badge
 });
 
 // RESTful API
