@@ -102,13 +102,42 @@
                             </tbody>
                         </table>
                     </div>
+                <!-- Pagination -->
+                <div class="flex justify-center mt-4 mb-4">
                     <div class="join">
-                        <a href="#" class="join-item btn btn-active">1</a>
-                        <a href="#" class="join-item btn">2</a>
-                        <a href="#" class="join-item btn">3</a>
+                        <a href="javascript:void(0)" class="join-item btn btn-active" onclick="goToSlide(1)">1</a>
+                        <a href="javascript:void(0)" class="join-item btn" onclick="goToSlide(2)">2</a>
+                        <a href="javascript:void(0)" class="join-item btn" onclick="goToSlide(3)">3</a>
                     </div>
+                </div>
                 </div>
             </div>
         </section>
     </section>
+@endsection
+@section('scripts')
+    <script>
+        let originalTableContent = null;
+
+        function goToSlide(slideNumber) {
+            // Mengambil referensi ke tabel
+            var table = document.querySelector('.w-full.border.border-slate-600');
+
+            // Jika slideNumber adalah 2 atau 3, kosongkan konten tabel
+            if (slideNumber === 2 || slideNumber === 3) {
+                // Menyimpan konten tabel asli jika belum disimpan sebelumnya
+                if (!originalTableContent) {
+                    originalTableContent = table.innerHTML;
+                }
+                table.innerHTML = ''; // Mengosongkan konten tabel
+            } else {
+                // Mengembalikan konten tabel asli jika ada
+                if (originalTableContent) {
+                    table.innerHTML = originalTableContent;
+                }
+                // Implementasi navigasi ke slide 1
+                console.log('Navigating to slide:', slideNumber);
+            }
+        }
+    </script>
 @endsection
