@@ -10,8 +10,7 @@
     <section class="group" id="sideContent">
         <section class="mx-auto max-w-7xl mb-4">
             <div class="bg-cyan-600 rounded-lg p-3 h-28 flex justify-between mb-3">
-                <p class="text-white font-semibold tracking-tighter text-xl">Daftar User
-                </p>
+            <p class="text-black" style="margin-left: 10px; font-weight: bold;">USER LIST</p>
                 <a href="{{ route('users.add') }}" class="btn btn-primary btn-sm float-end">Add New</a>
             </div>
 

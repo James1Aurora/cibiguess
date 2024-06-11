@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="bg-cyan-600 rounded-lg p-3 w-full min-h-32 mb-3">
-        <p class="text-white tracking-tighter font-semibold text-xl">Mini Map List</p>
+    <p class="text-black" style="margin-left: 10px; font-weight: bold;">MINIMAP LIST</p>
     </div>
 
     <div class="border border-gray-300 p-4 rounded-lg">

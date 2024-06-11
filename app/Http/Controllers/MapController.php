@@ -9,9 +9,14 @@ use Illuminate\Http\Request;
 
 class MapController extends Controller
 {
-    public function loadAllMaps()
+    public function loadAllMaps(Request $request)
     {
         $maps = Question::all();
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where('title', 'LIKE', "%{$search}%")
+                  ->orWhere('description', 'LIKE', "%{$search}%");
+        }
         return view('maps.daftar-maps', compact('maps'));
     }
 
