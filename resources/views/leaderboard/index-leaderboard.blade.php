@@ -1,7 +1,5 @@
 @extends('layouts.clearDark')
-<head>
-<link rel="icon" type="image/svg+xml" href="{{ asset('images/icon-cibiguess.svg') }}" />
-</head>
+
 @section('title', 'Leaderboard | CibiGuess')
 
 @section('styles')
@@ -28,23 +26,14 @@
             <div class="leaderboard">
                 <h1>Monthly Leaderboards</h1>
                 <ol>
-                    @if ($histories->isEmpty())
+                    @forelse ($new_histories as $history)
+                        <li>
+                            <mark>{{ $history->userId }}</mark>
+                            <small>{{ $history->score }} pts</small>
+                        </li>
+                    @empty
                         <p>No scores found</p>
-                    @else
-                        @foreach ($histories as $history)
-                            <li>
-                                <mark>{{ $history->user->name }}</mark>
-                                <small>{{ $history->score }} pts</small>
-                            </li>
-                        @endforeach
-                        @for ($i = count($histories); $i < 10; $i++)
-                            <li>
-                                <mark>N/A</mark>
-                                <small>0 pts</small>
-                            </li>
-                        @endfor
-                    @endif
-                </ol>
+                    @endforelse
                 </ol>
             </div>
         </div>

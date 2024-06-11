@@ -15,6 +15,9 @@ use App\Http\Controllers\MapController;
 use App\Http\Controllers\MiniMapController;
 use App\Http\Controllers\DashBadgeController;
 use App\Http\Controllers\SidebarController;
+use App\Http\Controllers\LeaderboardController;
+
+Route::get('/leaderboard', [LeaderboardController::class, 'leaderboard'])->name('index-leaderboard');
 
 
 // MAIN ROUTE
@@ -35,7 +38,7 @@ Route::get('/game/next-question', [GameController::class, 'nextQuestion'])->name
 Route::get('/game/result', [GameController::class, 'result'])->name('game.result');
 
 Route::get('/profile', [UserController::class, 'showProfile'])->name('profile');
-Route::get('/leaderboard', [MainController::class, 'leaderboard'])->name('leaderboard');
+
 Route::get('/donate', [MainController::class, 'donate'])->name('donate');
 Route::get('/reviews', [ReviewController::class, 'index'])->name('review');
 Route::get('/review/create', [ReviewController::class, 'create'])->name('review.create');
