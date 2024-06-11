@@ -26,9 +26,9 @@
 
                 <div class="form-section">
 
-                    <form action="{{ route('EditUser') }}" method="post">
+                    <form action="{{ route('EditUser', $user->id) }}" method="post">
                         @csrf
-
+                        @method('put')
                         <label class="form-control w-full max-w-xs">
                             <div class="label">
                                 <span class="label-text">Username</span>
