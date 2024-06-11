@@ -51,7 +51,7 @@
                             </span>
                         </a>
                         <a class="flex w-full justify-center items-center mb-6 gap-2 text-white border border-gray-500 bg-gray-600/50 hover:bg-gray-700/40 focus:ring-4 focus:ring-gray-800 font-medium rounded-md px-5 py-2.5 focus:outline-none transition ease-in-out duration-75"
-                            href="{{ route('leaderboard') }}">
+                            href="{{ route('index-leaderboard') }}">
                             <span class="hidden sm:block">Leaderboard</span>
                             <span class="material-symbols-outlined m-0 !leading-none !text-[18px]">
                                 trophy
