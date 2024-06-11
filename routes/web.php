@@ -14,36 +14,40 @@ use App\Http\Controllers\DashUsersController;
 use App\Http\Controllers\MapController;
 use App\Http\Controllers\MiniMapController;
 use App\Http\Controllers\DashBadgeController;
-use App\Http\Controllers\SidebarController;
-
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\NoAuthMiddleware;
 
 // MAIN ROUTE
 Route::get('/', [MainController::class, 'index'])->name('home');
 
 // AUTH
-Route::get('login', [AuthController::class, 'login'])->name('login');
-Route::post('login', [AuthController::class, 'loginPost'])->name('login.post');
-Route::get('register', [AuthController::class, 'register'])->name('register');
-Route::post('register', [AuthController::class, 'registerPost'])->name('register.post');
-Route::get('main-menu', [GameController::class, 'index'])->middleware('auth')->name('main-menu');
-Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+Route::middleware([NoAuthMiddleware::class])->group(function () {
+    Route::get('login', [AuthController::class, 'login'])->name('login');
+    Route::post('login', [AuthController::class, 'loginPost'])->name('login.post');
+    Route::get('register', [AuthController::class, 'register'])->name('register');
+    Route::post('register', [AuthController::class, 'registerPost'])->name('register.post');
+    // Route::get('main-menu', [GameController::class, 'index'])->middleware('auth')->name('main-menu');
+});
+
 // PLAY GAME
-Route::get('/main-menu', [GameController::class, 'index'])->name('game.menu');
-Route::get('/game/start', [GameController::class, 'gameStart'])->name('game.start');
-Route::post('/game/save-answer', [GameController::class, 'saveAnswer'])->name('game.saveAnswer');
-Route::get('/game/next-question', [GameController::class, 'nextQuestion'])->name('game.nextQuestion');
-Route::get('/game/result', [GameController::class, 'result'])->name('game.result');
+Route::middleware([AuthMiddleware::class])->group(function () {
+    Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/profile', [UserController::class, 'showProfile'])->name('profile');
-Route::get('/leaderboard', [MainController::class, 'leaderboard'])->name('leaderboard');
-Route::get('/donate', [MainController::class, 'donate'])->name('donate');
-Route::get('/reviews', [ReviewController::class, 'index'])->name('review');
-Route::get('/review/create', [ReviewController::class, 'create'])->name('review.create');
-Route::post('/review/create', [ReviewController::class, 'store'])->name('review.store');
+    Route::get('/main-menu', [GameController::class, 'index'])->name('game.menu');
+    Route::get('/game/start', [GameController::class, 'gameStart'])->name('game.start');
+    Route::post('/game/save-answer', [GameController::class, 'saveAnswer'])->name('game.saveAnswer');
+    Route::get('/game/next-question', [GameController::class, 'nextQuestion'])->name('game.nextQuestion');
+    Route::get('/game/result', [GameController::class, 'result'])->name('game.result');
 
-// sidebar
+    Route::get('/profile', [UserController::class, 'showProfile'])->name('profile');
+    Route::get('/leaderboard', [MainController::class, 'leaderboard'])->name('leaderboard');
+    Route::get('/donate', [MainController::class, 'donate'])->name('donate');
+    Route::get('/reviews', [ReviewController::class, 'index'])->name('review');
+    Route::get('/review/create', [ReviewController::class, 'create'])->name('review.create');
+    Route::post('/review/create', [ReviewController::class, 'store'])->name('review.store');
+});
 
-Route::middleware([AuthMiddleware::class])->prefix('/ad')->group(function () {
+Route::middleware([AdminMiddleware::class])->prefix('/ad')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     // Route::get('/badge', [BadgeController::class, 'index'])->name('badge');
@@ -75,7 +79,6 @@ Route::middleware([AuthMiddleware::class])->prefix('/ad')->group(function () {
     Route::post('/users/edit',[DashUsersController::class,'EditUser'])->name('EditUser');
     Route::get('/users/{id}',[DashUsersController::class,'deleteUser'])->name('users.delete');
 
-    Route::get('/sidebar', [SidebarController::class, 'showSidebar'])->name('sidebar');
     //DASHBOARD BADGES
     Route::get('/badges', [DashBadgeController::class, 'loadAllBadges'])->name('badges'); // Route untuk menampilkan daftar badge
     Route::get('/add-badge', [DashBadgeController::class, 'loadAddbadges'])->name('add-badge'); // Route untuk menampilkan form tambah badge

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class AuthMiddleware
+class AdminMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,10 +16,9 @@ class AuthMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // CEK DISINI, TAPI NANTI AJA CEKNYA
-
-        if (!Auth::check()) {
-            return redirect()->route('login');
+        // check the role of the user
+        if (!Auth::check() && Auth::user()->roleId != 1) {
+            return redirect()->route('home');
         }
 
         return $next($request);

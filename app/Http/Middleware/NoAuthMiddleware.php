@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class AuthMiddleware
+class NoAuthMiddleware
 {
     /**
      * Handle an incoming request.
@@ -18,8 +18,8 @@ class AuthMiddleware
     {
         // CEK DISINI, TAPI NANTI AJA CEKNYA
 
-        if (!Auth::check()) {
-            return redirect()->route('login');
+        if (Auth::check()) {
+            return redirect()->route('home');
         }
 
         return $next($request);

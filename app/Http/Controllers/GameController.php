@@ -10,7 +10,6 @@ use App\Models\QuestionMapHistory;
 use App\Services\BadgeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 
 class GameController extends Controller
@@ -22,134 +21,22 @@ class GameController extends Controller
         $this->badgeService = $badgeService;
         // $this->badgeService->checkAndAwardBadges(auth()->user(), $totalScore, $totalMap);
     }
- 
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $highScores = History::orderBy('score', 'desc')->first();
+        $highScores = History::where('userId', Auth::user()->id)->orderBy('score', 'desc')->first();
         $user = Auth::user(); // Ambil pengguna yang terautentikasi
 
         return view('games.index', compact('highScores', 'user'));
     }
 
-
     public function gameStart(Request $request)
     {
         session()->forget('answers');
         session()->forget('current_question_index');
-
-        // $questions = collect([
-        //     [
-        //         'id' => 1,
-        //         'difficulty' => 'easy',
-        //         'building' => 'masjid',
-        //         'spotImage' => 'masjid/(1).jpg',
-        //         'mapImage' => 'masjid_map.png',
-        //         'answerX' => 100,
-        //         'answerY' => 200,
-        //     ],
-        //     [
-        //         'id' => 2,
-        //         'difficulty' => 'easy',
-        //         'building' => 'asrama',
-        //         'spotImage' => 'asrama/(1).jpg',
-        //         'mapImage' => 'asrama_map.png',
-        //         'answerX' => 265,
-        //         'answerY' => 109,
-        //     ],
-        //     [
-        //         'id' => 3,
-        //         'difficulty' => 'easy',
-        //         'building' => 'asrama',
-        //         'spotImage' => 'asrama/(6).jpg',
-        //         'mapImage' => 'asrama_map.png',
-        //         'answerX' => 120,
-        //         'answerY' => 220,
-        //     ],
-        //     [
-        //         'id' => 4,
-        //         'difficulty' => 'easy',
-        //         'building' => 'asrama',
-        //         'spotImage' => 'asrama/(5).jpg',
-        //         'mapImage' => 'asrama_map.png',
-        //         'answerX' => 120,
-        //         'answerY' => 220,
-        //     ],
-        //     [
-        //         'id' => 5,
-        //         'difficulty' => 'easy',
-        //         'building' => 'lapangan',
-        //         'spotImage' => 'lapangan/(1).jpg',
-        //         'mapImage' => 'lapangan_map.png',
-        //         'answerX' => 140,
-        //         'answerY' => 240,
-        //     ],
-        //     [
-        //         'id' => 6,
-        //         'difficulty' => 'medium',
-        //         'building' => 'masjid',
-        //         'spotImage' => 'masjid/(2).jpg',
-        //         'mapImage' => 'masjid_map.png',
-        //         'answerX' => 160,
-        //         'answerY' => 260,
-        //     ],
-        //     [
-        //         'id' => 7,
-        //         'difficulty' => 'medium',
-        //         'building' => 'asrama',
-        //         'spotImage' => 'asrama/(2).jpg',
-        //         'mapImage' => 'asrama_map.png',
-        //         'answerX' => 180,
-        //         'answerY' => 280,
-        //     ],
-        //     [
-        //         'id' => 8,
-        //         'difficulty' => 'medium',
-        //         'building' => 'lapangan',
-        //         'spotImage' => 'lapangan/(2).jpg',
-        //         'mapImage' => 'lapangan_map.png',
-        //         'answerX' => 200,
-        //         'answerY' => 300,
-        //     ],
-        //     [
-        //         'id' => 9,
-        //         'difficulty' => 'hard',
-        //         'building' => 'masjid',
-        //         'spotImage' => 'masjid/(3).jpg',
-        //         'mapImage' => 'masjid_map.png',
-        //         'answerX' => 220,
-        //         'answerY' => 320,
-        //     ],
-        //     [
-        //         'id' => 10,
-        //         'difficulty' => 'hard',
-        //         'building' => 'asrama',
-        //         'spotImage' => 'asrama/(3).jpg',
-        //         'mapImage' => 'asrama_map.png',
-        //         'answerX' => 240,
-        //         'answerY' => 340,
-        //     ],
-        //     [
-        //         'id' => 11,
-        //         'difficulty' => 'hard',
-        //         'building' => 'lapangan',
-        //         'spotImage' => 'lapangan/(3).jpg',
-        //         'mapImage' => 'lapangan_map.png',
-        //         'answerX' => 260,
-        //         'answerY' => 360,
-        //     ],
-        //     [
-        //         'id' => 12,
-        //         'difficulty' => 'hard',
-        //         'building' => 'masjid',
-        //         'spotImage' => 'masjid/(4).jpg',
-        //         'mapImage' => 'masjid_map.png',
-        //         'answerX' => 280,
-        //         'answerY' => 380,
-        //     ],
-        // ]);
 
         $buildingType = $request->building;
         $difficultyType = $request->difficulty;
@@ -353,22 +240,22 @@ class GameController extends Controller
         $answers = session('answers', null);
         $questions = session('questions', null);
         $gameDetails = session('gameDetails', null);
-    
+
         if (is_null($answers) || is_null($questions) || is_null($gameDetails)) {
             return redirect()->route('game.menu')->with('error', 'Session data is missing. Please start a new game.');
         }
-    
+
         $lastQuestion = end($questions);
-    
+
         $totalScore = array_reduce($answers, function ($carry, $answer) {
             return $carry + $answer['score'];
         }, 0);
-    
+
         $totalMap = count($questions);
         $maxScore = $totalMap * 1000;
-    
+
         $scorePercentage = ($totalScore / $maxScore) * 100;
-    
+
         if ($scorePercentage >= 90) {
             $message = "Excellent! You've mastered the game.";
         } elseif ($scorePercentage >= 70) {
@@ -378,24 +265,24 @@ class GameController extends Controller
         } else {
             $message = "Try again! You'll get better with more practice.";
         }
-    
+
         $finalResult = [
             'maxScore' => $maxScore,
             'totalScore' => $totalScore,
             'totalMap' => $totalMap,
             'message' => $message,
         ];
-    
+
         try {
             DB::beginTransaction();
-    
+
             $userId = auth()->id(); // Pastikan userId diambil dari pengguna yang sedang login
             $buildingId = $gameDetails['miniMap'] ? $gameDetails['miniMap']->id : null;
-    
+
             if (!$userId) {
                 return redirect()->route('game.menu')->with('error', 'Invalid user.');
             }
-    
+
             $history = History::create([
                 'userId' => $userId,
                 'buildingId' => $buildingId,
@@ -403,7 +290,7 @@ class GameController extends Controller
                 'datePlayed' => now(),
                 'score' => $totalScore,
             ]);
-    
+
             foreach ($answers as $answer) {
                 QuestionMapHistory::create([
                     'questionId' => $answer['question_id'],
@@ -413,11 +300,11 @@ class GameController extends Controller
                     'score' => $answer['score'],
                 ]);
             }
-    
+
             DB::commit();
-    
+
             session()->forget(['answers', 'questions', 'gameDetails']);
-    
+
             return view('games.result', [
                 'answers' => $answers,
                 'questions' => $questions,
@@ -430,52 +317,115 @@ class GameController extends Controller
             return redirect()->back()->with('error', 'Failed to save game result: ' . $th->getMessage());
         }
     }
-    
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }
+
+// $questions = collect([
+//     [
+//         'id' => 1,
+//         'difficulty' => 'easy',
+//         'building' => 'masjid',
+//         'spotImage' => 'masjid/(1).jpg',
+//         'mapImage' => 'masjid_map.png',
+//         'answerX' => 100,
+//         'answerY' => 200,
+//     ],
+//     [
+//         'id' => 2,
+//         'difficulty' => 'easy',
+//         'building' => 'asrama',
+//         'spotImage' => 'asrama/(1).jpg',
+//         'mapImage' => 'asrama_map.png',
+//         'answerX' => 265,
+//         'answerY' => 109,
+//     ],
+//     [
+//         'id' => 3,
+//         'difficulty' => 'easy',
+//         'building' => 'asrama',
+//         'spotImage' => 'asrama/(6).jpg',
+//         'mapImage' => 'asrama_map.png',
+//         'answerX' => 120,
+//         'answerY' => 220,
+//     ],
+//     [
+//         'id' => 4,
+//         'difficulty' => 'easy',
+//         'building' => 'asrama',
+//         'spotImage' => 'asrama/(5).jpg',
+//         'mapImage' => 'asrama_map.png',
+//         'answerX' => 120,
+//         'answerY' => 220,
+//     ],
+//     [
+//         'id' => 5,
+//         'difficulty' => 'easy',
+//         'building' => 'lapangan',
+//         'spotImage' => 'lapangan/(1).jpg',
+//         'mapImage' => 'lapangan_map.png',
+//         'answerX' => 140,
+//         'answerY' => 240,
+//     ],
+//     [
+//         'id' => 6,
+//         'difficulty' => 'medium',
+//         'building' => 'masjid',
+//         'spotImage' => 'masjid/(2).jpg',
+//         'mapImage' => 'masjid_map.png',
+//         'answerX' => 160,
+//         'answerY' => 260,
+//     ],
+//     [
+//         'id' => 7,
+//         'difficulty' => 'medium',
+//         'building' => 'asrama',
+//         'spotImage' => 'asrama/(2).jpg',
+//         'mapImage' => 'asrama_map.png',
+//         'answerX' => 180,
+//         'answerY' => 280,
+//     ],
+//     [
+//         'id' => 8,
+//         'difficulty' => 'medium',
+//         'building' => 'lapangan',
+//         'spotImage' => 'lapangan/(2).jpg',
+//         'mapImage' => 'lapangan_map.png',
+//         'answerX' => 200,
+//         'answerY' => 300,
+//     ],
+//     [
+//         'id' => 9,
+//         'difficulty' => 'hard',
+//         'building' => 'masjid',
+//         'spotImage' => 'masjid/(3).jpg',
+//         'mapImage' => 'masjid_map.png',
+//         'answerX' => 220,
+//         'answerY' => 320,
+//     ],
+//     [
+//         'id' => 10,
+//         'difficulty' => 'hard',
+//         'building' => 'asrama',
+//         'spotImage' => 'asrama/(3).jpg',
+//         'mapImage' => 'asrama_map.png',
+//         'answerX' => 240,
+//         'answerY' => 340,
+//     ],
+//     [
+//         'id' => 11,
+//         'difficulty' => 'hard',
+//         'building' => 'lapangan',
+//         'spotImage' => 'lapangan/(3).jpg',
+//         'mapImage' => 'lapangan_map.png',
+//         'answerX' => 260,
+//         'answerY' => 360,
+//     ],
+//     [
+//         'id' => 12,
+//         'difficulty' => 'hard',
+//         'building' => 'masjid',
+//         'spotImage' => 'masjid/(4).jpg',
+//         'mapImage' => 'masjid_map.png',
+//         'answerX' => 280,
+//         'answerY' => 380,
+//     ],
+// ]);
