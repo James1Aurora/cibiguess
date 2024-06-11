@@ -16,13 +16,11 @@ use App\Http\Controllers\MiniMapController;
 use App\Http\Controllers\DashBadgeController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\NoAuthMiddleware;
-use App\Http\Controllers\SidebarController;
 use App\Http\Controllers\LeaderboardController;
-
-Route::get('/leaderboard', [LeaderboardController::class, 'leaderboard'])->name('index-leaderboard');
 
 // MAIN ROUTE
 Route::get('/', [MainController::class, 'index'])->name('home');
+Route::get('/leaderboard', [LeaderboardController::class, 'leaderboard'])->name('index-leaderboard');
 
 // AUTH
 Route::middleware([NoAuthMiddleware::class])->group(function () {
