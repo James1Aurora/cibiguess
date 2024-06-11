@@ -23,17 +23,6 @@
                 class="bg-white absolute z-10 shadow-lg rounded text-sm opacity-0 whitespace-nowrap pointer-events-none transition-all duration-500 ease-in-out px-3 py-1.5 left-[calc(100%_+_15px)] -top-5 group-[.open]:hidden group-hover/nav-link:opacity-100 group-hover/nav-link:pointer-events-auto group-hover/nav-link:-translate-y-2/4 group-hover/nav-link:top-2/4">Dashboard</span>
         </li>
         <li class="group/nav-link relative mx-0 my-2">
-            <a href="{{ route('daftar-maps') }}"
-                class="flex h-full w-full items-center no-underline transition-all duration-500 ease-in-out rounded-lg group-hover/nav-link:bg-cyan-500 group-hover/nav-link:text-white @if (request()->is('ad/questions*')) bg-cyan-500 text-white @endif">
-                <i
-                    class="material-symbols-outlined h-[50px] min-w-[47px] !text-xl text-center !leading-[50px] @if (request()->is('ad/questions*')) filled @endif">location_on</i>
-                <span
-                    class="whitespace-nowrap opacity-0 pointer-events-none text-sm group-[.open]:opacity-100 group-[.open]:pointer-events-auto">Question</span>
-            </a>
-            <span
-                class="bg-white absolute z-10 shadow-lg rounded text-sm opacity-0 whitespace-nowrap pointer-events-none transition-all duration-500 ease-in-out px-3 py-1.5 left-[calc(100%_+_15px)] -top-5 group-[.open]:hidden group-hover/nav-link:opacity-100 group-hover/nav-link:pointer-events-auto group-hover/nav-link:-translate-y-2/4 group-hover/nav-link:top-2/4">Question</span>
-        </li>
-        <li class="group/nav-link relative mx-0 my-2">
             <a href="{{ route('minimaps') }}"
                 class="flex h-full w-full items-center no-underline transition-all duration-500 ease-in-out rounded-lg group-hover/nav-link:bg-cyan-500 group-hover/nav-link:text-white @if (request()->is('ad/minimaps*')) bg-cyan-500 text-white @endif">
                 <i
@@ -45,6 +34,17 @@
             <span
                 class="bg-white absolute z-10 shadow-lg rounded text-sm opacity-0 whitespace-nowrap pointer-events-none transition-all duration-500 ease-in-out px-3 py-1.5 left-[calc(100%_+_15px)] -top-5 group-[.open]:hidden group-hover/nav-link:opacity-100 group-hover/nav-link:pointer-events-auto group-hover/nav-link:-translate-y-2/4 group-hover/nav-link:top-2/4">Mini
                 Map</span>
+        </li>
+        <li class="group/nav-link relative mx-0 my-2">
+            <a href="{{ route('daftar-maps') }}"
+                class="flex h-full w-full items-center no-underline transition-all duration-500 ease-in-out rounded-lg group-hover/nav-link:bg-cyan-500 group-hover/nav-link:text-white @if (request()->is('ad/questions*')) bg-cyan-500 text-white @endif">
+                <i
+                    class="material-symbols-outlined h-[50px] min-w-[47px] !text-xl text-center !leading-[50px] @if (request()->is('ad/questions*')) filled @endif">location_on</i>
+                <span
+                    class="whitespace-nowrap opacity-0 pointer-events-none text-sm group-[.open]:opacity-100 group-[.open]:pointer-events-auto">Question</span>
+            </a>
+            <span
+                class="bg-white absolute z-10 shadow-lg rounded text-sm opacity-0 whitespace-nowrap pointer-events-none transition-all duration-500 ease-in-out px-3 py-1.5 left-[calc(100%_+_15px)] -top-5 group-[.open]:hidden group-hover/nav-link:opacity-100 group-hover/nav-link:pointer-events-auto group-hover/nav-link:-translate-y-2/4 group-hover/nav-link:top-2/4">Question</span>
         </li>
         <li class="group/nav-link relative mx-0 my-2">
             <a href="{{ route('users') }}"

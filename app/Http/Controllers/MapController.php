@@ -11,13 +11,17 @@ class MapController extends Controller
 {
     public function loadAllMaps(Request $request)
     {
-        $maps = Question::all();
+        $query = Question::query();
+        $miniMapCount = MiniMap::count(); // Menghitung jumlah MiniMap
+
         if ($request->has('search')) {
             $search = $request->input('search');
             $query->where('title', 'LIKE', "%{$search}%")
                   ->orWhere('description', 'LIKE', "%{$search}%");
         }
-        return view('maps.daftar-maps', compact('maps'));
+
+        $maps = $query->get();
+        return view('maps.daftar-maps', compact('maps', 'miniMapCount'));
     }
 
     public function loadAddMaps()
