@@ -74,9 +74,8 @@ button{
 
 .button-btn a{
     position: relative;
-    padding: 0 10px;
+    padding: 0 17px;
     float: right;
-    display: block;
     margin: 5px;
 }
 

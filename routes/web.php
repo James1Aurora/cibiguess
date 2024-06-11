@@ -16,6 +16,10 @@ use App\Http\Controllers\MiniMapController;
 use App\Http\Controllers\DashBadgeController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\NoAuthMiddleware;
+use App\Http\Controllers\SidebarController;
+use App\Http\Controllers\LeaderboardController;
+
+Route::get('/leaderboard', [LeaderboardController::class, 'leaderboard'])->name('index-leaderboard');
 
 // MAIN ROUTE
 Route::get('/', [MainController::class, 'index'])->name('home');
@@ -38,6 +42,12 @@ Route::middleware([AuthMiddleware::class])->group(function () {
     Route::post('/game/save-answer', [GameController::class, 'saveAnswer'])->name('game.saveAnswer');
     Route::get('/game/next-question', [GameController::class, 'nextQuestion'])->name('game.nextQuestion');
     Route::get('/game/result', [GameController::class, 'result'])->name('game.result');
+    Route::get('/profile', [UserController::class, 'showProfile'])->name('profile');
+
+    Route::get('/donate', [MainController::class, 'donate'])->name('donate');
+    Route::get('/reviews', [ReviewController::class, 'index'])->name('review');
+    Route::get('/review/create', [ReviewController::class, 'create'])->name('review.create');
+    Route::post('/review/create', [ReviewController::class, 'store'])->name('review.store');
 
     Route::get('/profile', [UserController::class, 'showProfile'])->name('profile');
     Route::get('/leaderboard', [MainController::class, 'leaderboard'])->name('leaderboard');
@@ -76,7 +86,7 @@ Route::middleware([AdminMiddleware::class])->prefix('/ad')->group(function () {
     Route::get('/users/add',[DashUsersController::class,'loadAddUserForm'])->name('users.add');
     Route::post('/users/add',[DashUsersController::class,'AddUser'])->name('AddUser');
     Route::get('/users/edit/{id}',[DashUsersController::class,'loadEditForm'])->name('users.edit');
-    Route::post('/users/edit',[DashUsersController::class,'EditUser'])->name('EditUser');
+    Route::put('/edit/{id}',[DashUsersController::class,'EditUser'])->name('EditUser');
     Route::get('/users/{id}',[DashUsersController::class,'deleteUser'])->name('users.delete');
 
     //DASHBOARD BADGES

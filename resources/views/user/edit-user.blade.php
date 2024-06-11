@@ -26,9 +26,9 @@
 
                 <div class="form-section">
 
-                    <form action="{{ route('EditUser') }}" method="post">
+                    <form action="{{ route('EditUser', $user->id) }}" method="post">
                         @csrf
-
+                        @method('put')
                         <label class="form-control w-full max-w-xs">
                             <div class="label">
                                 <span class="label-text">Username</span>
@@ -54,7 +54,7 @@
                         <div class="button-btn">
                             <button class="btn btn-outline">Submit</button>
                             {{-- <button class="btn btn-outline">Cancel</button> --}}
-                            <a href="/users" class="btn btn-outline">Cancel</a>
+                            <a href="{{ route('users') }}" class="btn btn-outline">Cancel</a>
                         </div>
 
                     </form>

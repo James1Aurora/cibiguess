@@ -9,10 +9,19 @@ use Illuminate\Http\Request;
 
 class MapController extends Controller
 {
-    public function loadAllMaps()
+    public function loadAllMaps(Request $request)
     {
-        $maps = Question::all();
-        return view('maps.daftar-maps', compact('maps'));
+        $query = Question::query();
+        $miniMapCount = MiniMap::count(); // Menghitung jumlah MiniMap
+
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where('title', 'LIKE', "%{$search}%")
+                  ->orWhere('description', 'LIKE', "%{$search}%");
+        }
+
+        $maps = $query->get();
+        return view('maps.daftar-maps', compact('maps', 'miniMapCount'));
     }
 
     public function loadAddMaps()
