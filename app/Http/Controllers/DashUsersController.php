@@ -51,7 +51,7 @@ class DashUsersController extends Controller
         ]);
         try {
              // update user here
-            $update_user = User::where($request->id)->update([
+            $update_user = User::where('id',$request->id)->update([
                 'name' => $request->name,
                 'email' => $request->email,
             ]);

@@ -72,7 +72,7 @@ Route::middleware([AuthMiddleware::class])->prefix('/ad')->group(function () {
     Route::get('/users/add',[DashUsersController::class,'loadAddUserForm'])->name('users.add');
     Route::post('/users/add',[DashUsersController::class,'AddUser'])->name('AddUser');
     Route::get('/users/edit/{id}',[DashUsersController::class,'loadEditForm'])->name('users.edit');
-    Route::post('/users/edit',[DashUsersController::class,'EditUser'])->name('EditUser');
+    Route::put('/edit/{id}',[DashUsersController::class,'EditUser'])->name('EditUser');
     Route::get('/users/{id}',[DashUsersController::class,'deleteUser'])->name('users.delete');
 
     Route::get('/sidebar', [SidebarController::class, 'showSidebar'])->name('sidebar');
