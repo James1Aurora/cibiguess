@@ -27,6 +27,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\AuthLogin; 
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -62,30 +63,42 @@ class AuthController extends Controller
     }
 
     public function registerPost(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'username' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-        ]);
+{
+    // Validasi input
+    $validator = Validator::make($request->all(), [
+        'username' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:users',
+        'password' => 'required|string|min:8|confirmed',
+    ]);
 
-        if ($validator->fails()) {
-            return redirect('register')
-                ->withErrors($validator)
-                ->withInput();
-        }
-
-        $user = User::create([
-            'roleId' => 2,
-            'name' => $request->username,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-
-        Auth::login($user);
-
-        return redirect('login')->with('success', 'Registration successful! You are now logged in.');
+    // Jika validasi gagal, kembalikan ke halaman registrasi dengan pesan kesalahan
+    if ($validator->fails()) {
+        return redirect('register')
+            ->withErrors($validator)
+            ->withInput();
     }
+
+    // Periksa apakah role dengan ID 2 ada di database
+    $role = Role::find(2);
+    if (!$role) {
+        abort(404, 'Role not found');
+    }
+
+    // Buat user baru dengan role ID 2
+    $user = User::create([
+        'roleId' => 2,
+        'name' => $request->username,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+    ]);
+
+    // Login user yang baru dibuat
+    Auth::login($user);
+
+    // Arahkan ke halaman login dengan pesan sukses
+    return redirect('login')->with('success', 'Registration successful! You are now logged in.');
+}
+
     
     public function logout(Request $request)
     {
