@@ -54,7 +54,7 @@
                         <div class="button-btn">
                             <button class="btn btn-outline">Submit</button>
                             {{-- <button class="btn btn-outline">Cancel</button> --}}
-                            <a href="/users" class="btn btn-outline">Cancel</a>
+                            <a href="{{ route('users') }}" class="btn btn-outline">Cancel</a>
                         </div>
 
                     </form>

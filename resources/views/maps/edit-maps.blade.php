@@ -98,8 +98,11 @@
             </div>
 
             <div class="flex justify-end" style="margin-bottom:30px;">
-                <button type="button" onclick="resetForm()" class="btn btn-ghost">Cancel</button>
-                <button type="submit" class="btn btn-primary">Submit</button>
+            <a href="{{ route('maps') }}" class="btn btn-outline px-3 py-2 h-fit min-h-fit text-sm me-1">Cancel</a> 
+            <button type="submit" class="btn btn-primary px-3 py-2 h-fit min-h-fit text-sm">
+                Submit <span class="material-symbols-outlined filled !text-xl !leading-none">
+                    save
+                </span>
                 @error('submit')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
