@@ -67,7 +67,8 @@
                 <a href="{{ route('minimaps') }}" class="btn btn-outline px-3 py-2 h-fit min-h-fit text-sm me-1">Cancel</a> 
 
                 <button type="submit" class="btn btn-primary px-3 py-2 h-fit min-h-fit text-sm">
-                    Submit
+                    Submit <span class="material-symbols-outlined filled !text-xl !leading-none">
+                        save
                     </span>
                 </button>
             </div>

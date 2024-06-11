@@ -10,20 +10,31 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Create the update_log table
+
         DB::unprepared('
             CREATE TABLE update_log (
-                status VARCHAR(100)
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                status VARCHAR(100),
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             );
         ');
 
-        // Create the trigger for mini_maps
+
+        DB::unprepared('
+            CREATE PROCEDURE log_update_status(IN log_status VARCHAR(100))
+            BEGIN
+                INSERT INTO update_log (status, created_at, updated_at) VALUES (log_status, NOW(), NOW());
+            END;
+        ');
+
+
         DB::unprepared('
             CREATE TRIGGER trigger_tambah_map
             BEFORE INSERT ON mini_maps
             FOR EACH ROW
             BEGIN
-                INSERT INTO update_log (status) VALUES (\'berhasil\');
+                CALL log_update_status(\'berhasil\');
             END;
         ');
     }
@@ -33,13 +44,15 @@ return new class extends Migration
      */
     public function down(): void
     {
-        // Drop the trigger and table
+
         DB::unprepared('
             DROP TRIGGER IF EXISTS trigger_tambah_map;
+            DROP PROCEDURE IF EXISTS log_update_status;
             DROP TABLE IF EXISTS update_log;
         ');
     }
 };
+
 
 
 

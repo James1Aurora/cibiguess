@@ -12,7 +12,7 @@
         <div
             class="relative min-h-screen left-0 w-full transition-all duration-500 ease-in-out z-0 top-0 p-4 sm:group-[.open]:w-[calc(100%_-_250px)] sm:group-[.open]:left-[250px] sm:left-[78px] sm:w-[calc(100%_-_78px)]">
             <div class="container mx-auto px-4 py-4 rounded-lg bg-cyan-600">
-                <p class="text-white mb-3">Questions List</p>
+            <p class="text-black" style="margin-left: 10px; font-weight: bold;">QUESTION LIST</p>
                 <button class="bg-blue-500 text-white rounded-r-lg border !m-0" style="background-color: rgb(6 182 212);">
                     <a href="{{ route('add-maps') }}">Add Question</a>
                 </button>
