@@ -64,14 +64,10 @@
             @enderror
 
             <div class="flex justify-end items-center mt-3">
-                <button type="button" class="btn btn-neutral px-3 py-2 h-fit min-h-fit text-sm me-1">
-                    Cancel <span class="material-symbols-outlined filled !text-xl !leading-none">
-                        close
-                    </span>
-                </button>
+                <a href="{{ route('minimaps') }}" class="btn btn-outline px-3 py-2 h-fit min-h-fit text-sm me-1">Cancel</a> 
+
                 <button type="submit" class="btn btn-primary px-3 py-2 h-fit min-h-fit text-sm">
-                    Submit <span class="material-symbols-outlined filled !text-xl !leading-none">
-                        save
+                    Submit
                     </span>
                 </button>
             </div>

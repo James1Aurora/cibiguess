@@ -72,7 +72,7 @@
                                     <td class="p-4 align-top">{{ $map->miniMap->building }}</td>
                                     <td class="p-4 align-top">{{ $map->answerX }}</td>
                                     <td class="p-4 align-top">{{ $map->answerY }}</td>
-                                    <td class="p-4 align-top flex">
+                                    <td class="p-4 align-top">
                                         @csrf
                                         @method('PUT')
                                         <button class="p-2 bg-blue-500 text-white rounded-r-lg border"

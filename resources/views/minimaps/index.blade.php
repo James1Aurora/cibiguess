@@ -34,7 +34,7 @@
                         <tr>
                             <th>{{ $loop->iteration + ($minimaps->currentPage() - 1) * $minimaps->perPage() }}</th>
                             <td>
-                                <div class="bg-gray-700 w-fit"><img src="{{ asset('images/maps/' . $map->image) }}"
+                                <div class="bg-gray-700 w-fit"><img style="width: 100px; height:100px" src="{{ asset('images/maps/' . $map->image) }}"
                                         class="max-h-28" /></div>
                             </td>
                             <td>{{ $map->name }}</td>
