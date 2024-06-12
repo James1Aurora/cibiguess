@@ -1,6 +1,6 @@
 @extends('layouts.clearDark')
 
-@section('title', 'Profile | Cibiguess')
+@section('title', 'Profile | CibiGuess')
 
 @section('content')
     <section class="min-h-svh overflow-x-hidden">
@@ -37,152 +37,29 @@
                         Achievements
                     </p>
 
-                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2">
-                        <div
-                            class="flex flex-col items-center p-4 rounded-lg border border-gray-500 bg-gray-800 gap-4 transition-all ease-in-out hover:border-gray-400">
-                            <div class="mb-3 rounded-full w-24 h-24 bg-gray-400 overflow-hidden">
-                                <img src="images/masjid.png" alt="Image of Profile" class="object-cover object-center" />
-                            </div>
-                            <div class="text-center">
-                                <p class="font-semibold tracking-tighter">
-                                    As Sakinah
-                                </p>
-                                <p class="text-gray-400">Religious</p>
-                            </div>
+                    @if ($user->userBadges->count() > 0)
+                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2">
+                            @foreach ($user->userBadges as $bdg)
+                                <div
+                                    class="flex flex-col items-center p-4 rounded-lg border border-gray-500 bg-gray-800 gap-4 transition-all ease-in-out hover:border-gray-400">
+                                    <div class="mb-3 rounded-full w-24 h-24 bg-gray-400 overflow-hidden">
+                                        <img src="{{ asset('storage/badges/' . $bdg->badge->image) }}"
+                                            alt="{{ $bdg->badge->title }}" class="object-cover object-center" />
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="font-semibold tracking-tighter">
+                                            {{ $bdg->badge->title }}
+                                        </p>
+                                        <p class="text-gray-400 text-xs">{{ $bdg->badge->description }}</p>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
-                        <div
-                            class="flex flex-col items-center p-4 rounded-lg border border-gray-500 bg-gray-800 gap-4 transition-all ease-in-out hover:border-gray-400">
-                            <div class="mb-3 rounded-full w-24 h-24 bg-gray-400 overflow-hidden">
-                                <img src="images/unkown.png" alt="Image of Profile" class="object-cover object-center" />
-                            </div>
-                            <div class="text-center">
-                                <p class="font-semibold tracking-tighter">
-                                    ???
-                                </p>
-                                <p class="text-gray-400">Unkown</p>
-                            </div>
-                        </div>
-                        <div
-                            class="flex flex-col items-center p-4 rounded-lg border border-gray-500 bg-gray-800 gap-4 transition-all ease-in-out hover:border-gray-400">
-                            <div class="mb-3 rounded-full w-24 h-24 bg-gray-400 overflow-hidden">
-                                <img src="images/unkown.png" alt="Image of Profile" class="object-cover object-center" />
-                            </div>
-                            <div class="text-center">
-                                <p class="font-semibold tracking-tighter">
-                                    ???
-                                </p>
-                                <p class="text-gray-400">Unkown</p>
-                            </div>
-                        </div>
-                        <div
-                            class="flex flex-col items-center p-4 rounded-lg border border-gray-500 bg-gray-800 gap-4 transition-all ease-in-out hover:border-gray-400">
-                            <div class="mb-3 rounded-full w-24 h-24 bg-gray-400 overflow-hidden">
-                                <img src="images/unkown.png" alt="Image of Profile" class="object-cover object-center" />
-                            </div>
-                            <div class="text-center">
-                                <p class="font-semibold tracking-tighter">
-                                    ???
-                                </p>
-                                <p class="text-gray-400">Unkown</p>
-                            </div>
-                        </div>
-                        <div
-                            class="flex flex-col items-center p-4 rounded-lg border border-gray-500 bg-gray-800 gap-4 transition-all ease-in-out hover:border-gray-400">
-                            <div class="mb-3 rounded-full w-24 h-24 bg-gray-400 overflow-hidden">
-                                <img src="images/unkown.png" alt="Image of Profile" class="object-cover object-center" />
-                            </div>
-                            <div class="text-center">
-                                <p class="font-semibold tracking-tighter">
-                                    ???
-                                </p>
-                                <p class="text-gray-400">Unkown</p>
-                            </div>
-                        </div>
-                        <div
-                            class="flex flex-col items-center p-4 rounded-lg border border-gray-500 bg-gray-800 gap-4 transition-all ease-in-out hover:border-gray-400">
-                            <div class="mb-3 rounded-full w-24 h-24 bg-gray-400 overflow-hidden">
-                                <img src="images/unkown.png" alt="Image of Profile" class="object-cover object-center" />
-                            </div>
-                            <div class="text-center">
-                                <p class="font-semibold tracking-tighter">
-                                    ???
-                                </p>
-                                <p class="text-gray-400">Unkown</p>
-                            </div>
-                        </div>
-                        <div
-                            class="flex flex-col items-center p-4 rounded-lg border border-gray-500 bg-gray-800 gap-4 transition-all ease-in-out hover:border-gray-400">
-                            <div class="mb-3 rounded-full w-24 h-24 bg-gray-400 overflow-hidden">
-                                <img src="images/unkown.png" alt="Image of Profile" class="object-cover object-center" />
-                            </div>
-                            <div class="text-center">
-                                <p class="font-semibold tracking-tighter">
-                                    ???
-                                </p>
-                                <p class="text-gray-400">Unkown</p>
-                            </div>
-                        </div>
-                        <div
-                            class="flex flex-col items-center p-4 rounded-lg border border-gray-500 bg-gray-800 gap-4 transition-all ease-in-out hover:border-gray-400">
-                            <div class="mb-3 rounded-full w-24 h-24 bg-gray-400 overflow-hidden">
-                                <img src="images/unkown.png" alt="Image of Profile" class="object-cover object-center" />
-                            </div>
-                            <div class="text-center">
-                                <p class="font-semibold tracking-tighter">
-                                    ???
-                                </p>
-                                <p class="text-gray-400">Unkown</p>
-                            </div>
-                        </div>
-                        <div
-                            class="flex flex-col items-center p-4 rounded-lg border border-gray-500 bg-gray-800 gap-4 transition-all ease-in-out hover:border-gray-400">
-                            <div class="mb-3 rounded-full w-24 h-24 bg-gray-400 overflow-hidden">
-                                <img src="images/unkown.png" alt="Image of Profile" class="object-cover object-center" />
-                            </div>
-                            <div class="text-center">
-                                <p class="font-semibold tracking-tighter">
-                                    ???
-                                </p>
-                                <p class="text-gray-400">Unkown</p>
-                            </div>
-                        </div>
-                        <div
-                            class="flex flex-col items-center p-4 rounded-lg border border-gray-500 bg-gray-800 gap-4 transition-all ease-in-out hover:border-gray-400">
-                            <div class="mb-3 rounded-full w-24 h-24 bg-gray-400 overflow-hidden">
-                                <img src="images/unkown.png" alt="Image of Profile" class="object-cover object-center" />
-                            </div>
-                            <div class="text-center">
-                                <p class="font-semibold tracking-tighter">
-                                    ???
-                                </p>
-                                <p class="text-gray-400">Unkown</p>
-                            </div>
-                        </div>
-                        <div
-                            class="flex flex-col items-center p-4 rounded-lg border border-gray-500 bg-gray-800 gap-4 transition-all ease-in-out hover:border-gray-400">
-                            <div class="mb-3 rounded-full w-24 h-24 bg-gray-400 overflow-hidden">
-                                <img src="images/unkown.png" alt="Image of Profile" class="object-cover object-center" />
-                            </div>
-                            <div class="text-center">
-                                <p class="font-semibold tracking-tighter">
-                                    ???
-                                </p>
-                                <p class="text-gray-400">Unkown</p>
-                            </div>
-                        </div>
-                        <div
-                            class="flex flex-col items-center p-4 rounded-lg border border-gray-500 bg-gray-800 gap-4 transition-all ease-in-out hover:border-gray-400">
-                            <div class="mb-3 rounded-full w-24 h-24 bg-gray-400 overflow-hidden">
-                                <img src="images/unkown.png" alt="Image of Profile" class="object-cover object-center" />
-                            </div>
-                            <div class="text-center">
-                                <p class="font-semibold tracking-tighter">
-                                    ???
-                                </p>
-                                <p class="text-gray-400">Unkown</p>
-                            </div>
-                        </div>
-                    </div>
+                    @else
+                        <p class="text-gray-400 text-center py-5">
+                            No achievements yet
+                        </p>
+                    @endif
                 </div>
             </div>
         </section>

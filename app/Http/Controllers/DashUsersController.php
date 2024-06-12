@@ -11,7 +11,7 @@ class DashUsersController extends Controller
 {
     //here create all crud logic
     public function loadAllUsers(){
-        $all_users = User::all();
+        $all_users = User::paginate(25);
         return view('user.users',compact('all_users'));
     }
 

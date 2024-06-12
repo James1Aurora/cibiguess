@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class MiniMapController extends Controller
 {
@@ -42,7 +43,9 @@ class MiniMapController extends Controller
         try {
             $image = $request->file('image');
             $imageName = $image->hashName();
-            $image->move(public_path('images/maps/'), $imageName);
+            $image->storeAs('public/minimaps', $imageName);
+            // $image = $request->file('image');
+            // $image->move(public_path('images/maps/'), $imageName);
 
             MiniMap::create([
                 'name' => $request->name,
@@ -91,14 +94,11 @@ class MiniMapController extends Controller
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $imageName = $image->hashName();
-                $image->move(public_path('images/maps/'), $imageName);
+                $image->storeAs('public/minimaps', $imageName);
 
                 // Remove the old image if it exists
-                if ($miniMap->image) {
-                    $imagePath = public_path('images/maps/' . $miniMap->image);
-                    if (file_exists($imagePath)) {
-                        unlink($imagePath);
-                    }
+                if ($miniMap->image && Storage::exists('public/minimaps/' . $miniMap->image)) {
+                    Storage::delete('public/minimaps/' . $miniMap->image);
                 }
 
                 $miniMap->image = $imageName;
@@ -134,9 +134,9 @@ class MiniMapController extends Controller
 
             $miniMap = MiniMap::find($id);
             // Storage::delete('public/images/maps/' . $miniMap->image);
-            $imagePath = public_path('images/maps/' . $miniMap->image);
-            if (file_exists($imagePath)) {
-                unlink($imagePath);
+            // $imagePath = public_path('images/maps/' . $miniMap->image);
+            if ($miniMap->image && Storage::exists('public/minimaps/' . $miniMap->image)) {
+                Storage::delete('public/minimaps/' . $miniMap->image);
             }
             $miniMap->delete();
 

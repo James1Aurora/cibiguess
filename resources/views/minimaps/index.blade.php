@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="bg-cyan-600 rounded-lg p-3 w-full min-h-32 mb-3">
-    <p class="text-black" style="margin-left: 10px; font-weight: bold;">MINIMAP LIST</p>
+        <p class="text-black" style="margin-left: 10px; font-weight: bold;">MINIMAP LIST</p>
     </div>
 
     <div class="border border-gray-300 p-4 rounded-lg">
@@ -34,8 +34,8 @@
                         <tr>
                             <th>{{ $loop->iteration + ($minimaps->currentPage() - 1) * $minimaps->perPage() }}</th>
                             <td>
-                                <div class="bg-gray-700 w-fit"><img style="width: 100px; height:100px" src="{{ asset('images/maps/' . $map->image) }}"
-                                        class="max-h-28" /></div>
+                                <div class="bg-gray-700 w-fit"><img style="width: 100px; height:100px"
+                                        src="{{ asset('storage/minimaps/' . $map->image) }}" class="max-h-28" /></div>
                             </td>
                             <td>{{ $map->name }}</td>
                             <td>{{ $map->building }}</td>

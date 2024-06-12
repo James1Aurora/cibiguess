@@ -1,6 +1,7 @@
 @extends('layouts.clearDark')
+
 <head>
-<link rel="icon" type="image/svg+xml" href="{{ asset('images/icon-cibiguess.svg') }}" />
+    <link rel="icon" type="image/svg+xml" href="{{ asset('images/icon-cibiguess.svg') }}" />
 </head>
 @section('title', 'Game Result | CibiGuess')
 
@@ -24,7 +25,7 @@
                         </p>
                         <p>
                             of {{ $finalResult['totalMap'] }} maps on
-                            <span class="text-cyan-300">{{ $gameDetails['miniMap']->building ?? 'Random' }}</span>
+                            <span class="text-cyan-300">{{ ucwords($gameDetails['miniMap']->name) ?? 'Random' }}</span>
                         </p>
 
                         <p>
@@ -33,24 +34,31 @@
                                 class="@if ($gameDetails['difficulty'] == 'easy') text-cyan-300 @elseif ($gameDetails['difficulty'] == 'normal') text-yellow-500 @elseif ($gameDetails['difficulty'] == 'hard') text-red-500 @endif">{{ ucwords($gameDetails['difficulty']) }}</span>
                         </p>
 
-                        {{-- <div class="mt-3 flex flex-col items-center gap-3">
-                            <p class="font-semibold tracking-tighter text-lg">
-                                You got new achievements
-                            </p>
-                            <div
-                                class="flex flex-col items-center p-4 rounded-lg border border-cyan-500 bg-gray-800 gap-4 transition-all ease-in-out w-full sm:max-w-48 hover:border-cyan-400">
-                                <div class="mb-3 rounded-full w-24 h-24 bg-gray-400 overflow-hidden">
-                                    <img src="{{ asset('images/masjid.png') }}" alt="Image of Profile"
-                                        class="object-cover object-center" />
-                                </div>
-                                <div class="text-center">
-                                    <p class="font-semibold tracking-tighter">
-                                        As Sakinah
-                                    </p>
-                                    <p class="text-gray-400">Religious</p>
+                        @if (count($awardedBadges) > 0)
+                            <div class="mt-3 flex flex-col items-center gap-3">
+                                <p class="font-semibold tracking-tighter text-lg">
+                                    You got new achievements
+                                </p>
+                                <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                                    @foreach ($awardedBadges as $badge)
+                                        <div
+                                            class="flex flex-col items-center p-4 rounded-lg border border-cyan-500 bg-gray-800 gap-4 transition-all ease-in-out w-full sm:max-w-48 hover:border-cyan-400">
+                                            <div
+                                                class="mb-3 rounded-full bg-gray-400 overflow-hidden w-16 h-16 sm:w-24 sm:h-24">
+                                                <img src="{{ asset('storage/badges/' . $badge->image) }}"
+                                                    alt="Image of Profile" class="object-cover object-center" />
+                                            </div>
+                                            <div class="text-center">
+                                                <p class="font-semibold tracking-tighter">
+                                                    {{ $badge->title }}
+                                                </p>
+                                                <p class="text-gray-400 text-xs">{{ $badge->description }}</p>
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
-                        </div> --}}
+                        @endif
                     </div>
 
                     <div class="flex flex-col justify-center gap-2 sm:flex-row">

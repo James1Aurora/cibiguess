@@ -10,7 +10,7 @@
     <section class="group" id="sideContent">
         <section class="mx-auto max-w-7xl mb-4">
             <div class="bg-cyan-600 rounded-lg p-3 h-28 flex justify-between mb-3">
-            <p class="text-black" style="margin-left: 10px; font-weight: bold;">USER LIST</p>
+                <p class="text-black" style="margin-left: 10px; font-weight: bold;">USER LIST</p>
                 <a href="{{ route('users.add') }}" class="btn btn-primary btn-sm float-end">Add New</a>
             </div>
 
@@ -101,16 +101,18 @@
                             </tbody>
                         </table>
                     </div>
-                <!-- Pagination -->
-                <div class="flex justify-center mt-4 mb-4">
+                    <!-- Pagination -->
+                    <div class="mt-4 flex justify-center">
+                        {{ $all_users->links('vendor.pagination.custom') }}
+                    </div>
+                    {{-- <div class="flex justify-center mt-4 mb-4">
                     <div class="join">
                         <a href="javascript:void(0)" class="join-item btn btn-active" onclick="goToSlide(1)">1</a>
                         <a href="javascript:void(0)" class="join-item btn" onclick="goToSlide(2)">2</a>
                         <a href="javascript:void(0)" class="join-item btn" onclick="goToSlide(3)">3</a>
                     </div>
+                </div> --}}
                 </div>
-                </div>
-            </div>
         </section>
     </section>
 @endsection

@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Badge;
 use App\Models\History;
 use App\Models\MiniMap;
 use App\Models\Question;
 use App\Models\QuestionMapHistory;
+use App\Models\User;
 use App\Services\BadgeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 
 class GameController extends Controller
 {
@@ -27,11 +28,29 @@ class GameController extends Controller
      */
     public function index()
     {
-        $highScores = History::where('userId', Auth::user()->id)->orderBy('score', 'desc')->first();
-        $user = Auth::user(); // Ambil pengguna yang terautentikasi
+        try {
+            $highScores = History::where('userId', auth()->user()->id)->orderBy('score', 'desc')->first();
+            $user = User::findOrFail(auth()->user()->id); // Ambil pengguna yang terautentikasi
 
-        return view('games.index', compact('highScores', 'user'));
+            return view('games.index', compact('highScores', 'user'));
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'User not found');
+        }
     }
+
+    // public function completeMap(Request $request)
+    // {
+    //     $user = $request->user();
+    //     $totalScore = $user->total_score; // Misalnya total_score disimpan di model User
+    //     $totalMap = $user->maps()->count(); // Misalnya ada relasi maps di model User
+    //     $lastMap = $request->input('last_map'); // Ambil lokasi terakhir dari request
+    //     $difficulty = $request->input('difficulty'); // Ambil tingkat kesulitan dari request
+
+    //     // Panggil service untuk memeriksa dan memberikan badges
+    //     $this->badgeService->checkAndAwardBadges($user, $totalScore, $totalMap, $lastMap, $difficulty);
+
+    //     return response()->json(['message' => 'Map completed and badges checked!']);
+    // }
 
     public function gameStart(Request $request)
     {
@@ -57,6 +76,12 @@ class GameController extends Controller
             ->take(3)
             ->get();
 
+        // CHECK IF THE DATA IS EXIST
+        if ($data->isEmpty()) {
+            return redirect()->route('game.menu')->with('error', 'No questions found for the selected building and difficulty.');
+        } else if($data->count() < 3) {
+            return redirect()->route('game.menu')->with('error', 'Not enough questions found for the selected building and difficulty.');
+        }
         // dd($data);
 
         session(['questions' => $data->values()->all()]);
@@ -235,6 +260,7 @@ class GameController extends Controller
     //         // return redirect()->back()->with('error', 'Failed to save game result: ' . $th->getMessage());
     //     }
     // }
+
     public function result()
     {
         $answers = session('answers', null);
@@ -276,15 +302,17 @@ class GameController extends Controller
         try {
             DB::beginTransaction();
 
-            $userId = auth()->id(); // Pastikan userId diambil dari pengguna yang sedang login
+            $user = User::findOrFail(auth()->user()->id);
             $buildingId = $gameDetails['miniMap'] ? $gameDetails['miniMap']->id : null;
 
-            if (!$userId) {
+            if (!$user->id) {
                 return redirect()->route('game.menu')->with('error', 'Invalid user.');
             }
 
+            // dd($answers, $questions, $gameDetails, $finalResult, $user, $buildingId);
+
             $history = History::create([
-                'userId' => $userId,
+                'userId' => $user->id,
                 'buildingId' => $buildingId,
                 'difficulty' => $gameDetails['difficulty'],
                 'datePlayed' => now(),
@@ -301,9 +329,15 @@ class GameController extends Controller
                 ]);
             }
 
+            $building = $gameDetails['miniMap']->name ?? 'random';
+            $difficulty = $gameDetails['difficulty'];
+
+            // dd($user, $totalScore, $totalMap, $building, $difficulty);
+            $awardedBadges = $this->badgeService->checkAndAwardBadges($user, $totalScore, $totalMap, $building, $difficulty);
+
             DB::commit();
 
-            session()->forget(['answers', 'questions', 'gameDetails']);
+            // session()->forget(['answers', 'questions', 'gameDetails']);
 
             return view('games.result', [
                 'answers' => $answers,
@@ -311,6 +345,7 @@ class GameController extends Controller
                 'lastQuestion' => $lastQuestion,
                 'finalResult' => $finalResult,
                 'gameDetails' => $gameDetails,
+                'awardedBadges' => $awardedBadges,
             ]);
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -318,6 +353,68 @@ class GameController extends Controller
         }
     }
 }
+
+// public function result()
+    // {
+    //     // Dummy data for testing
+    //     $answers = [
+    //         ['question_id' => 1, 'user_answer_x' => 10, 'user_answer_y' => 20, 'score' => 800],
+    //         ['question_id' => 2, 'user_answer_x' => 15, 'user_answer_y' => 25, 'score' => 700],
+    //         // Add more dummy answers if needed
+    //     ];
+
+    //     $questions = [
+    //         ['id' => 1, 'text' => 'Question 1'],
+    //         ['id' => 2, 'text' => 'Question 2', 'spotImage' => '(1).jpg'],
+    //         // Add more dummy questions if needed
+    //     ];
+
+    //     $gameDetails = [
+    //         'miniMap' => (object)['id' => 1, 'name' => 'masjid'],
+    //         'difficulty' => 'easy'
+    //     ];
+
+    //     $lastQuestion = end($questions);
+
+    //     $totalScore = array_reduce($answers, function ($carry, $answer) {
+    //         return $carry + $answer['score'];
+    //     }, 0);
+
+    //     $totalMap = count($questions);
+    //     $maxScore = $totalMap * 1000;
+
+    //     $scorePercentage = ($totalScore / $maxScore) * 100;
+
+    //     if ($scorePercentage >= 90) {
+    //         $message = "Excellent! You've mastered the game.";
+    //     } elseif ($scorePercentage >= 70) {
+    //         $message = "Good job! You did well.";
+    //     } elseif ($scorePercentage >= 50) {
+    //         $message = "Average performance. Keep practicing!";
+    //     } else {
+    //         $message = "Try again! You'll get better with more practice.";
+    //     }
+
+    //     $finalResult = [
+    //         'maxScore' => $maxScore,
+    //         'totalScore' => $totalScore,
+    //         'totalMap' => $totalMap,
+    //         'message' => $message,
+    //     ];
+
+    //     // Dummy awarded badges for testing
+    //     $awardedBadges = Badge::take(3)->get();
+
+    //     return view('games.result', [
+    //         'answers' => $answers,
+    //         'questions' => $questions,
+    //         'lastQuestion' => $lastQuestion,
+    //         'finalResult' => $finalResult,
+    //         'gameDetails' => $gameDetails,
+    //         'awardedBadges' => $awardedBadges,
+    //     ]);
+    // }
+
 
 // $questions = collect([
 //     [

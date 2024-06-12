@@ -20,7 +20,7 @@ class MapController extends Controller
                   ->orWhere('description', 'LIKE', "%{$search}%");
         }
 
-        $maps = $query->get();
+        $maps = $query->paginate(25);
         return view('maps.daftar-maps', compact('maps', 'miniMapCount'));
     }
 

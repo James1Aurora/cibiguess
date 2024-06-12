@@ -26,14 +26,27 @@
             <div class="leaderboard">
                 <h1>Monthly Leaderboards</h1>
                 <ol>
-                    @forelse ($new_histories as $history)
-                        <li>
-                            <mark>{{ $history->userId }}</mark>
-                            <small>{{ $history->score }} pts</small>
-                        </li>
-                    @empty
-                        <p>No scores found</p>
-                    @endforelse
+                    @if ($histories->isEmpty())
+                        @for ($i = 0; $i < 10; $i++)
+                            <li>
+                                <mark>N/A</mark>
+                                <small>0 pts</small>
+                            </li>
+                        @endfor
+                    @else
+                        @foreach ($histories as $history)
+                            <li>
+                                <mark>{{ $history->user->name }}</mark>
+                                <small>{{ $history->score }} pts</small>
+                            </li>
+                        @endforeach
+                        @for ($i = count($histories); $i < 10; $i++)
+                            <li>
+                                <mark>N/A</mark>
+                                <small>0 pts</small>
+                            </li>
+                        @endfor
+                    @endif
                 </ol>
             </div>
         </div>

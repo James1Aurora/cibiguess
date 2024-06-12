@@ -31,7 +31,7 @@
             @enderror
 
             <div class="rounded-lg w-fit border border-gray-300 relative my-3">
-                <img id="preview" src="{{ asset('images/maps/') . '/' . $miniMap->image }}" alt="spot map"
+                <img id="preview" src="{{ asset('storage/minimaps/') . '/' . $miniMap->image }}" alt="spot map"
                     draggable="false" class="max-h-[250px]" />
             </div>
 
@@ -64,7 +64,7 @@
             @enderror
 
             <div class="flex justify-end items-center mt-3">
-                <a href="{{ route('minimaps') }}" class="btn btn-outline px-3 py-2 h-fit min-h-fit text-sm me-1">Cancel</a> 
+                <a href="{{ route('minimaps') }}" class="btn btn-outline px-3 py-2 h-fit min-h-fit text-sm me-1">Cancel</a>
 
                 <button type="submit" class="btn btn-primary px-3 py-2 h-fit min-h-fit text-sm">
                     Submit <span class="material-symbols-outlined filled !text-xl !leading-none">

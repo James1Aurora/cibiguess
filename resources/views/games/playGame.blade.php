@@ -1,6 +1,7 @@
 @extends('layouts.clear')
+
 <head>
-<link rel="icon" type="image/svg+xml" href="{{ asset('images/icon-cibiguess.svg') }}" />
+    <link rel="icon" type="image/svg+xml" href="{{ asset('images/icon-cibiguess.svg') }}" />
 </head>
 @section('title', 'Play Game | CibiGuess')
 
@@ -97,7 +98,7 @@
         <!-- Modal panel -->
         <div class="relative bg-transparent rounded-lg max-w-md w-fit p-4 sm:p-6">
             <div class="rounded-lg max-w-[350px] max-h-[250px] relative" id="map-wrapper">
-                <img id="map-spot" src="{{ asset('images/maps/' . $question->miniMap->image) }}" alt="spot map"
+                <img id="map-spot" src="{{ asset('storage/minimaps/' . $question->miniMap->image) }}" alt="spot map"
                     draggable="false" />
             </div>
 

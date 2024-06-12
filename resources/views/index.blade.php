@@ -15,7 +15,7 @@
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <div class="flex items-center gap-5">
                 <a href="{{ url('/') }}" class="flex items-center space-x-3 rtl:space-x-reverse">
-                <img style="width:30px;height:30px" src="{{ asset('images/icon-cibiguess.svg') }}" alt="Icon">
+                    <img style="width:30px;height:30px" src="{{ asset('images/icon-cibiguess.svg') }}" alt="Icon">
                     <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">CibiGuess</span>
                 </a>
                 <div class="hidden w-full md:block md:w-auto" id="navbar-default">
@@ -36,6 +36,12 @@
                                 class="block py-2 px-3 text-white-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-cyan-700 md:p-0 dark:text-white md:dark:hover:text-cyan-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Support
                                 Us</a>
                         </li>
+                        @if (auth()->user()->roleId && auth()->user()->roleId == 1)
+                            <li>
+                                <a href="{{ url('/ad') }}"
+                                    class="block py-2 px-3 text-white-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-cyan-700 md:p-0 dark:text-white md:dark:hover:text-cyan-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Admin</a>
+                            </li>
+                        @endif
                     </ul>
                 </div>
             </div>
@@ -49,16 +55,25 @@
                         d="M1 1h15M1 7h15M1 13h15" />
                 </svg>
             </button>
-            <div class="gap-2 hidden w-full md:flex md:w-auto">
-                <a class="inline-flex items-center gap-2 text-white border border-white bg-transparent hover:bg-cyan-600 hover:border-cyan-200 focus:ring-4 focus:ring-cyan-600 font-medium rounded-md text-sm px-5 py-2.5 focus:outline-none transition ease-in-out duration-75"
-                    href="{{ route('register') }}">
-                    Sign In
-                </a>
-                <a class="inline-flex items-center gap-2 text-white border border-cyan-200 bg-cyan-400 hover:bg-cyan-600 focus:ring-4 focus:ring-cyan-600 font-medium rounded-md text-sm px-5 py-2.5 focus:outline-none transition ease-in-out duration-75"
-                    href="{{ route('login') }}">
-                    Log In
-                </a>
-            </div>
+            @guest
+                <div class="gap-2 hidden w-full md:flex md:w-auto">
+                    <a class="inline-flex items-center gap-2 text-white border border-white bg-transparent hover:bg-cyan-600 hover:border-cyan-200 focus:ring-4 focus:ring-cyan-600 font-medium rounded-md text-sm px-5 py-2.5 focus:outline-none transition ease-in-out duration-75"
+                        href="{{ route('register') }}">
+                        Sign In
+                    </a>
+                    <a class="inline-flex items-center gap-2 text-white border border-cyan-200 bg-cyan-400 hover:bg-cyan-600 focus:ring-4 focus:ring-cyan-600 font-medium rounded-md text-sm px-5 py-2.5 focus:outline-none transition ease-in-out duration-75"
+                        href="{{ route('login') }}">
+                        Log In
+                    </a>
+                </div>
+            @else
+                <div class="gap-2 hidden w-full md:flex md:w-auto">
+                    <a class="inline-flex items-center gap-2 text-white border border-white bg-transparent hover:bg-cyan-600 hover:border-cyan-200 focus:ring-4 focus:ring-cyan-600 font-medium rounded-md text-sm px-5 py-2.5 focus:outline-none transition ease-in-out duration-75"
+                        href="{{ url('/logout') }}">
+                        Log Out
+                    </a>
+                </div>
+            @endguest
             <!-- MOBILE MENU -->
             <div class="hidden transition-all ease-in-out w-0 h-0 [&.block]:w-full [&.block]:h-auto"
                 id="navbar-hamburger">
@@ -78,17 +93,32 @@
                             class="block py-2 px-3 rounded hover:bg-cyan-500 transition-colors ease-in-out duration-100">Support
                             Us</a>
                     </li>
+                    @if (auth()->user()->roleId && auth()->user()->roleId == 1)
+                        <li>
+                            <a href="{{ url('/ad') }}"
+                                class="block py-2 px-3 rounded hover:bg-cyan-500 transition-colors ease-in-out duration-100">Admin</a>
+                        </li>
+                    @endif
                 </ul>
-                <div class="grid grid-cols-2 gap-2 w-full mt-4">
-                    <a class="inline-flex justify-center items-center gap-2 text-white border border-white bg-transparent hover:bg-cyan-600 hover:border-cyan-200 focus:ring-4 focus:ring-cyan-600 font-medium rounded-md text-sm px-5 py-2.5 focus:outline-none transition ease-in-out duration-75"
-                        href="{{ url('/') }}">
-                        Sign In
-                    </a>
-                    <a class="inline-flex justify-center items-center gap-2 text-white border border-cyan-200 bg-cyan-400 hover:bg-cyan-600 focus:ring-4 focus:ring-cyan-600 font-medium rounded-md text-sm px-5 py-2.5 focus:outline-none transition ease-in-out duration-75"
-                        href="{{ url('/') }}">
-                        Sign Up
-                    </a>
-                </div>
+                @guest
+                    <div class="grid grid-cols-2 gap-2 w-full mt-4">
+                        <a class="inline-flex justify-center items-center gap-2 text-white border border-white bg-transparent hover:bg-cyan-600 hover:border-cyan-200 focus:ring-4 focus:ring-cyan-600 font-medium rounded-md text-sm px-5 py-2.5 focus:outline-none transition ease-in-out duration-75"
+                            href="{{ url('/') }}">
+                            Sign In
+                        </a>
+                        <a class="inline-flex justify-center items-center gap-2 text-white border border-cyan-200 bg-cyan-400 hover:bg-cyan-600 focus:ring-4 focus:ring-cyan-600 font-medium rounded-md text-sm px-5 py-2.5 focus:outline-none transition ease-in-out duration-75"
+                            href="{{ url('/') }}">
+                            Sign Up
+                        </a>
+                    </div>
+                @else
+                    <div class="w-full mt-4">
+                        <a class="inline-flex justify-center items-center gap-2 text-white border border-cyan-200 bg-cyan-400 hover:bg-cyan-600 focus:ring-4 focus:ring-cyan-600 font-medium rounded-md text-sm px-5 py-2.5 focus:outline-none transition ease-in-out duration-75"
+                            href="{{ url('/logout') }}">
+                            Log Out
+                        </a>
+                    </div>
+                @endguest
             </div>
         </div>
     </nav>
@@ -106,10 +136,10 @@
                 Play and Explore with Joy
             </p>
             <p class="my-4 text-sm sm:text-base">
-            Welcome to Cibiguess! 🌟
-            Join our community and sharpen your skills in recognizing every corner of UPI Cibiru. 
-            Are you ready to take on the challenge and prove that you are the best at Cibiguess? 
-            Start your adventure now!
+                Welcome to Cibiguess! 🌟
+                Join our community and sharpen your skills in recognizing every corner of UPI Cibiru.
+                Are you ready to take on the challenge and prove that you are the best at Cibiguess?
+                Start your adventure now!
             </p>
             <div class="flex justify-center gap-2">
                 <a class="inline-flex items-center gap-2 text-white border border-white bg-transparent hover:bg-cyan-600 hover:border-cyan-200 focus:ring-4 focus:ring-cyan-600 font-medium rounded-md text-sm px-5 py-2.5 focus:outline-none transition ease-in-out duration-75"
@@ -148,9 +178,12 @@
                         </p>
                         <p>
 
-                        UPI Cibiru Regional Campus, Universitas Pendidikan Indonesia (abbreviated as Kamda Cibiru UPI), is one of the regional campuses within UPI that holds a status equivalent to a faculty within the university. 
-                        Organizationally, the regional campuses at UPI function as educational units under the university, equivalent to faculties, and are led by a regional campus director. 
-                        Kamda Cibiru offers 5 study programs.
+                            UPI Cibiru Regional Campus, Universitas Pendidikan Indonesia (abbreviated as Kamda Cibiru
+                            UPI), is one of the regional campuses within UPI that holds a status equivalent to a faculty
+                            within the university.
+                            Organizationally, the regional campuses at UPI function as educational units under the
+                            university, equivalent to faculties, and are led by a regional campus director.
+                            Kamda Cibiru offers 5 study programs.
                         </p>
                     </div>
                 </div>
@@ -163,9 +196,11 @@
                             Inspired By Popular Game Website
                         </p>
                         <p>
-                        Cibiguess is inspired by popular games like Geoguesser and Valoguesser, bringing the excitement of location guessing to the vibrant UPI Cibiru campus. 
-                        Dive into this unique challenge and explore every corner of our beautiful campus through engaging images. 
-                        Test your knowledge, compete with friends, and discover hidden gems around UPI Cibiru!
+                            Cibiguess is inspired by popular games like Geoguesser and Valoguesser, bringing the
+                            excitement of location guessing to the vibrant UPI Cibiru campus.
+                            Dive into this unique challenge and explore every corner of our beautiful campus through
+                            engaging images.
+                            Test your knowledge, compete with friends, and discover hidden gems around UPI Cibiru!
                         </p>
                     </div>
                 </div>
@@ -178,8 +213,9 @@
                             Stimulate the Imagination and Creativity
                         </p>
                         <p>
-                        CibiGuess will increase your ability to think creatively and imagine vividly, 
-                        allowing you to explore a world of endless possibilities through captivating images and challenging puzzles.
+                            CibiGuess will increase your ability to think creatively and imagine vividly,
+                            allowing you to explore a world of endless possibilities through captivating images and
+                            challenging puzzles.
                         </p>
                     </div>
                 </div>
