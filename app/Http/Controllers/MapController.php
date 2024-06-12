@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\MiniMap;
 use App\Models\Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class MapController extends Controller
 {
@@ -43,8 +44,12 @@ class MapController extends Controller
         ]);
 
         try {
-            $spotimageName = time() . '.' . $request->file('spotImage')->getClientOriginalExtension();
-            $request->file('spotImage')->move(public_path('images/maps/'), $spotimageName);
+            // $spotimageName = time() . '.' . $request->file('spotImage')->getClientOriginalExtension();
+            // $request->file('spotImage')->move(public_path('images/maps/'), $spotimageName);
+
+            $image = $request->file('spotImage');
+            $spotimageName = $image->hashName();
+            $image->storeAs('public/maps', $spotimageName);
 
             // $imageName = time() . '.' . $request->file('mapImage')->getClientOriginalExtension();
             // $request->file('mapImage')->move(public_path('images/maps'), $imageName);
@@ -102,12 +107,15 @@ class MapController extends Controller
             // Handle spotImage upload
             if ($request->hasFile('spotImage')) {
                 // Hapus file lama jika ada
-                if ($maps->spotImage && file_exists(public_path('images/maps/' . $maps->spotImage))) {
-                    unlink(public_path('images/maps/' . $maps->spotImage));
+                if ($maps->image && Storage::exists('public/maps/' . $maps->image)) {
+                    Storage::delete('public/maps/' . $maps->image);
                 }
                 // Pindahkan file baru ke lokasi yang sama dengan file lama
-                $maps->spotImage = $request->file('spotImage')->getClientOriginalName();
-                $request->file('spotImage')->move(public_path('images/maps/'), $maps->spotImage);
+                // $request->file('spotImage')->move(public_path('images/maps/'), $maps->spotImage);
+                $image = $request->file('spotImage');
+                $spotimageName = $image->hashName();
+                $maps->spotImage = $spotimageName;
+                $image->storeAs('public/maps', $spotimageName);
             }
 
             $maps->difficulty = $request->difficulty;
@@ -142,9 +150,8 @@ class MapController extends Controller
 
             // Hapus file gambar mapImage jika ada
             if ($maps->spotImage) {
-                $spotImagePath = public_path('images/maps/' . $maps->spotImage);
-                if (file_exists($spotImagePath)) {
-                    unlink($spotImagePath);
+                if ($maps->image && Storage::exists('public/maps/' . $maps->image)) {
+                    Storage::delete('public/maps/' . $maps->image);
                 }
             }
 

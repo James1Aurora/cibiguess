@@ -65,9 +65,10 @@
                         <tbody>
                             @foreach ($maps as $map)
                                 <tr>
-                                    <td class="p-4 align-top"><img src="{{ asset('images/maps/' . $map->miniMap->image) }}"
+                                    <td class="p-4 align-top"><img
+                                            src="{{ asset('storage/minimaps/' . $map->miniMap->image) }}"
                                             alt="{{ $map->mapImage }}" style="max-width: 100px;"></td>
-                                    <td class="p-4 align-top"><img src="{{ asset('images/maps/' . $map->spotImage) }}"
+                                    <td class="p-4 align-top"><img src="{{ asset('storage/maps/' . $map->spotImage) }}"
                                             alt="{{ $map->spotImage }}" style="max-width: 100px;"></td>
                                     <td class="p-4 align-top">{{ $map->difficulty }}</td>
                                     <td class="p-4 align-top">{{ $map->miniMap->building }}</td>

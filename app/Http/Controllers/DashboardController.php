@@ -36,9 +36,9 @@ class DashboardController extends Controller
 
         // GET AVERAGE SCORE BY MODES, EASY, MEDIUM AND HARD
         $avgScore = [
-            'easy' => $histories->where('difficulty', 'easy')->avg('score'),
-            'medium' => $histories->where('difficulty', 'medium')->avg('score'),
-            'hard' => $histories->where('difficulty', 'hard')->avg('score'),
+            'easy' => $histories->where('difficulty', 'easy')->avg('score') ?? 0,
+            'medium' => $histories->where('difficulty', 'medium')->avg('score') ?? 0,
+            'hard' => $histories->where('difficulty', 'hard')->avg('score') ?? 0,
         ];
 
         return view('admin.index', compact('user', 'activeUsers', 'monthLabels', 'avgScore'));

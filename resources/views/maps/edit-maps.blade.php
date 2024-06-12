@@ -74,7 +74,7 @@
             @enderror
 
             <div class="rounded-lg w-fit border border-gray-300 relative mb-3">
-                <img id="preview" src="{{ asset('images/maps/' . $map->spotImage) }}" alt="spot map" draggable="false"
+                <img id="preview" src="{{ asset('storage/maps/' . $map->spotImage) }}" alt="spot map" draggable="false"
                     class="max-w-[350px] max-h-[250px] object-cover object-center" />
             </div>
 
@@ -93,7 +93,7 @@
             @enderror
 
             <div class="rounded-lg bg-gray-700 max-w-[350px] max-h-[250px] relative" id="map-wrapper">
-                <img id="map-spot" src="{{ asset('images/maps/' . $map->miniMap->image) }}" alt="spot map"
+                <img id="map-spot" src="{{ asset('storage/minimaps/' . $map->miniMap->image) }}" alt="spot map"
                     draggable="false" />
             </div>
 
@@ -218,7 +218,7 @@
                 var filename = selectedOption.getAttribute('data-building');
 
                 if (filename) {
-                    mapSpot.src = "{{ asset('images/maps') }}" + "/" + filename;
+                    mapSpot.src = "{{ asset('storage/minimaps') }}" + "/" + filename;
                     mapSpot.style.display = 'block';
                 } else {
                     mapSpot.style.display = 'none';

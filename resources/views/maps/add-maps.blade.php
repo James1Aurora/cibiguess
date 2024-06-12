@@ -173,7 +173,7 @@
 
         function getMiniMap(filename) {
             if (filename) {
-                mapSpot.src = "{{ asset('images/maps') }}" + "/" + filename;
+                mapSpot.src = "{{ asset('storage/images/maps') }}" + "/" + filename;
                 mapSpot.style.display = 'block';
             } else {
                 mapSpot.style.display = 'none';
